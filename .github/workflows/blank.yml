@@ -5,6 +5,8 @@ name: CMakeSingle
 on:
   pull_request:
     branches: [ "main" ]
+  push:
+    branches: [ "les5" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
