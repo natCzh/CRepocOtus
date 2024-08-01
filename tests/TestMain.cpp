@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "SolutionEq.h"
+#include "src/SolutionEq.h"
 
 using namespace testing;
 

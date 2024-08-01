@@ -4,9 +4,9 @@ project(solutionEq)
 
 include_directories(/)
 
-set(SOURCES SolutionEq.cpp)
+set(SOURCES src/SolutionEq.cpp)
 
-set(HEADERS SolutionEq.h)
+set(HEADERS src/SolutionEq.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
