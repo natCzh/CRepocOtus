@@ -39,4 +39,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: ls && gtest_main -C ${{env.BUILD_TYPE}}
+      run: cd test && ls && gtest_main -C ${{env.BUILD_TYPE}}
