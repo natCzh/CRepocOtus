@@ -35,8 +35,8 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --target all --config ${{env.BUILD_TYPE}} && cd build && ls && make && ls
+      run: cmake --build ${{github.workspace}}/build --target all --config ${{env.BUILD_TYPE}}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: ls && gtest_main -C ${{env.BUILD_TYPE}}
+      run: ls && ./solutionEq 
