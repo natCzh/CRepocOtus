@@ -35,7 +35,7 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --target all --config ${{env.BUILD_TYPE}} && ls && make
+      run: cmake --build ${{github.workspace}}/build --target all --config ${{env.BUILD_TYPE}} && cd build && make && ls
 
     - name: Test
       working-directory: ${{github.workspace}}/build
