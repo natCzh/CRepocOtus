@@ -1,7 +1,7 @@
 # include "gtest/gtest.h"
 # include "gmock/gmock.h"
 
-#include "src/main.h"
+#include "../src/main.h"
 
 using namespace testing;
 
