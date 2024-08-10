@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(solutionEq)
+project(natSpaceBattle)
 
 include_directories(/)
 
