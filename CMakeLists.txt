@@ -3,10 +3,13 @@ cmake_minimum_required(VERSION 3.0)
 project(natSpaceBattle)
 
 include_directories(/)
+include_directories(src/)
 
 set(SOURCES src/main.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+set(HEADERS src/QueueCommand.h src/ICommand.h src/ExceptionHendler.h
+			src/Command.h src/StoreDict.h src/HandlerFactory.h src/BootStrapHendler.h
+			src/main.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
