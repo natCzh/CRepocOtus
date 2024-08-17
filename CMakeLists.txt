@@ -6,7 +6,9 @@ include_directories(/)
 
 set(SOURCES src/main.cpp)
 
-set(HEADERS src/QueueCommand.h src/ICommand.h)
+set(HEADERS src/QueueCommand.h src/ICommand.h src/ExceptionHendler.h
+			src/Command.h src/StoreDict.h src/HandlerFactory.h src/BootStrapHendler.h
+			src/main.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
