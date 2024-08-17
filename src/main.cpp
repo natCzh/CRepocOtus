@@ -1,9 +1,9 @@
-#include "src/QueueCommand.h"
-#include "src/ExceptionHendler.h"
+#include "QueueCommand.h"
+#include "ExceptionHendler.h"
 
 #include "BootStrapHendler.h"
 
-#include "src/main.h"
+#include "main.h"
 
 int mainCommand()
 {
