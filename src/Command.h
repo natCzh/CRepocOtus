@@ -1,8 +1,8 @@
 ﻿#ifndef _COMMAND_H_
 #define _COMMAND_H_
 
-#include "src/ICommand.h"
-#include "src/QueueCommand.h"
+#include "ICommand.h"
+#include "QueueCommand.h"
 
 class CommandLogger: public ICommand
 {

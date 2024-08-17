@@ -1,7 +1,7 @@
 #ifndef _EXCEPTION_HENDLER_H_
 #define _EXCEPTION_HENDLER_H_
 
-#include "src/StoreDict.h"
+#include "StoreDict.h"
 
 class ExceptionHendler
 {

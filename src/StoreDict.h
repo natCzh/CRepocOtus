@@ -6,8 +6,8 @@
 #include <string>
 #include <memory>
 
-#include "src/ICommand.h"
-#include "src/HandlerFactory.h"
+#include "ICommand.h"
+#include "HandlerFactory.h"
 
 using FunctHendler = std::function<ICommand_Ptr(ICommand_Ptr, const std::exception &)>;
 

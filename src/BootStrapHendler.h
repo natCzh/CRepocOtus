@@ -1,9 +1,9 @@
 #ifndef _BOOT_STRAP_HANDLER_H_
 #define _BOOT_STRAP_HANDLER_H_
 
-#include "src/HandlerFactory.h"
-#include "src/ExceptionHendler.h"
-#include "src/ICommand.h"
+#include "HandlerFactory.h"
+#include "ExceptionHendler.h"
+#include "ICommand.h"
 
 class BootStrapHandler
 {

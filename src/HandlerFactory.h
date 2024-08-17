@@ -1,8 +1,8 @@
 #ifndef _HANDLER_INSTANCE_H_
 #define _HANDLER_INSTANCE_H_
 
-#include "src/StoreDict.h"
-#include "src/Command.h"
+#include "StoreDict.h"
+#include "Command.h"
 
 class HandlerErrorDefault
 {

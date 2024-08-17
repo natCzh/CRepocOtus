@@ -4,7 +4,7 @@
 #include <queue>
 #include <memory>
 
-#include "src/ICommand.h"
+#include "ICommand.h"
 
 class QueueCommand
 {
