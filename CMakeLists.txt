@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(natSpaceBattle)
 
 include_directories(/)
+include_directories(/src)
 
 set(SOURCES src/main.cpp)
 
