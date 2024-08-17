@@ -2,9 +2,9 @@
 # include "gmock/gmock.h"
 
 #include "../src/main.h"
-#include "src/Command.h"
-#include "src/HandlerFactory.h"
-#include "src/BootStrapHendler.h"
+#include "../src/Command.h"
+#include "../src/HandlerFactory.h"
+#include "../src/BootStrapHendler.h"
 
 using namespace testing;
 
