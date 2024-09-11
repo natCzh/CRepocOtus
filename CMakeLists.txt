@@ -6,9 +6,9 @@ include_directories(/)
 
 set(SOURCES src/main.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+set(HEADERS src/Command.h src/main.h src/ICommand.h src/Fuel.h src/CommandException.h src/PropertyUnit.h)
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp
+set(TESTS_PROJECT_FILES tests/TestMain.cpp tests/TestFuelCommand.cpp
                             tests/utest.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
