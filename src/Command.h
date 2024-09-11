@@ -167,7 +167,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<UObject> o;
+	std::shared_ptr<UObject> o; 
 };
 
 
