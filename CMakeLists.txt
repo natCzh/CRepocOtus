@@ -6,7 +6,7 @@ include_directories(/)
 
 set(SOURCES src/main.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+set(HEADERS src/IoC.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
