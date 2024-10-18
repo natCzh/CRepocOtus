@@ -34,24 +34,47 @@ class SimpleStatesQueueProcessing: public ICommandStatesQueueProcessing
 {
 public:
 
-	SimpleStatesQueueProcessing()
-		: queueCommandNew()
-	{}
-
 	virtual ~SimpleStatesQueueProcessing() {}
 
 	bool handle(queueProcessing *m) override;
 
+	std::string GetType() override
+	{
+		return "SimpleStatesQueueProcessing";
+	}
+
+	void pushCommand(ICommand_Ptr commandCur)
+	{
+		queueCommand.Push(commandCur);
+	}
+
 protected:
-	QueueCommand					queueCommandNew;		// очередь команд дополнительная
+	QueueCommand					queueCommand;			// очередь команд
 };
 
 // состояние MoveTo
 class MoveToStatesQueueProcessing: public ICommandStatesQueueProcessing
 {
 public:
+	MoveToStatesQueueProcessing()
+		: queueCommandNew()
+	{}
 
 	bool handle(queueProcessing *m) override;
+
+	std::string GetType() override
+	{
+		return "MoveToStatesQueueProcessing";
+	}
+
+	void pushCommand(ICommand_Ptr commandCur)
+	{
+		queueCommand.Push(commandCur);
+	}
+
+protected:
+	QueueCommand					queueCommandNew;		// очередь команд дополнительная
+	QueueCommand					queueCommand;			// очередь команд
 };
 
 #endif /* _STATES_QUEUE_PROCESSING_H_ */

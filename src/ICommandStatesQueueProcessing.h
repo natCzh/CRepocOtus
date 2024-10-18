@@ -2,6 +2,7 @@
 #define _I_COMMAND_STATES_QUEUE_PROCESSING_H_
 
 #include <memory>
+#include <string>
 
 #include "ICommand.h"
 #include "QueueCommand.h"
@@ -16,14 +17,10 @@ public:
 	/// Процесс
 	/// @param[out]  true - очередь не пуста, false  - очередь пуста
 	virtual bool handle(queueProcessing *) = 0;
-	
-	void pushCommand(ICommand_Ptr commandCur)
-	{
-		queueCommand.Push(commandCur);
-	}
 
-protected:
-	QueueCommand					queueCommand;			// очередь команд
+	virtual std::string GetType() = 0;
+
+	virtual void pushCommand(ICommand_Ptr commandCur) = 0;
 };
 
 using ICommandStatesQueueProcessing_Ptr = std::unique_ptr<ICommandStatesQueueProcessing>;

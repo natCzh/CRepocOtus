@@ -16,6 +16,10 @@ public:
 		: m_handler(ICommandStatesQueueProcessing_Ptr(new SimpleStatesQueueProcessing()))
 	{}
 
+	queueProcessing(ICommandStatesQueueProcessing *ICommandPtr)
+		: m_handler(ICommandStatesQueueProcessing_Ptr(ICommandPtr))
+	{}
+
 	// Устанавливает новое состояние
 	void set_currentState(std::unique_ptr<ICommandStatesQueueProcessing> hPtr)
 	{
@@ -40,6 +44,11 @@ public:
 	void pushCommand(ICommand_Ptr commandCur)
 	{
 		m_handler->pushCommand(commandCur);
+	}
+
+	std::string GetTypeStates()
+	{
+		return m_handler->GetType();
 	}
 
 protected:

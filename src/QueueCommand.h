@@ -50,7 +50,7 @@ private:
 	int												flagDel;
 	unsigned int									maxSize;
 
-	std::queue<ICommand_Ptr>			queueCommand;
+	std::queue<ICommand_Ptr>						queueCommand;
 };
 
 #endif /* _QUEUE_COMMAND_H_ */
