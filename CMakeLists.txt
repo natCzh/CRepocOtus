@@ -4,9 +4,10 @@ project(natSpaceBattle)
 
 include_directories(/)
 
-set(SOURCES src/main.cpp)
+set(SOURCES src/StatesQueueProcessing.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+set(HEADERS src/StatesQueueProcessing.h src/ICommand.h src/QueueCommand.h src/Command.h src/queueProcessing.h src/ICommandStatesQueueProcessing.h
+			src/CommandException.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
