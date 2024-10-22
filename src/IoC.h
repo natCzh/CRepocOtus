@@ -1,7 +1,7 @@
 ﻿#ifndef _I_O_C_H_
 #define _I_O_C_H_
 
-#include <string>
+#include <cstring>
 #include <iostream>
 #include <memory>
 #include <mutex>
