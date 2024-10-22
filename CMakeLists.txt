@@ -4,9 +4,11 @@ project(natSpaceBattle)
 
 include_directories(/)
 
-set(SOURCES src/main.cpp)
+set(SOURCES src/main.cpp src/IoC.cpp)
 
-set(HEADERS src/IoC.h)
+set(HEADERS src/IoC.h src/scopes/IDependencyResolve.h src/scopes/DependencyResolve.h src/scopes/InitCommand.h
+            src/Command/ICommand.h src/UObject.h src/scopes/CommandsScope/SetCurrentScopeCommand.h
+            src/Exception/IoCException.h src/scopes/IdScope.h src/scopes/ScopesProcessing.h)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
