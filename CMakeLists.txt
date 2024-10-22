@@ -58,6 +58,7 @@ endif()
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${TESTS_PROJECT_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
 								 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
