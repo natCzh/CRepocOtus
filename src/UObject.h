@@ -80,4 +80,4 @@ private:
 	std::unordered_map<std::string, int> mapKey;
 };
 
-#endif _U_OBJECT_H_
+#endif /* _U_OBJECT_H_ */

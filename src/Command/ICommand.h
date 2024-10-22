@@ -30,4 +30,4 @@ public:
 	}
 };
 
-#endif _I_COMMAND_H_
+#endif /* _I_COMMAND_H_ */
