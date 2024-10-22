@@ -4,7 +4,7 @@ project(natSpaceBattle)
 
 include_directories(/)
 
-set(SOURCES src/main.cpp src/IoC.cpp)
+set(SOURCES src/IoC.cpp)
 
 set(HEADERS src/IoC.h src/scopes/IDependencyResolve.h src/scopes/DependencyResolve.h src/scopes/InitCommand.h
             src/Command/ICommand.h src/UObject.h src/scopes/CommandsScope/SetCurrentScopeCommand.h
