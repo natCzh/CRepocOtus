@@ -8,9 +8,9 @@ set(SOURCES src/IoC.cpp)
 
 set(HEADERS src/IoC.h src/scopes/IDependencyResolve.h src/scopes/DependencyResolve.h src/scopes/InitCommand.h
             src/Command/ICommand.h src/UObject.h src/scopes/CommandsScope/SetCurrentScopeCommand.h
-            src/Exception/IoCException.h src/scopes/IdScope.h src/scopes/ScopesProcessing.h)
+            src/Exception/IoCException.h src/scopes/IdScope.h src/Command/MoveCommand.h)
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp
+set(TESTS_PROJECT_FILES tests/TestMain.cpp tests/TestIoCCommand.cpp
                             tests/utest.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})

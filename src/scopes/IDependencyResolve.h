@@ -4,14 +4,17 @@
 #include <string>
 
 #include "src/UObject.h"
+#include "src/Command/ICommand.h"
 
 namespace Scopes
 {
 	class IDependencyResolve
 	{
 	public:
-		template<typename T>
-		T* Resolve(const std::string &key, UObject *obj);
+		
+		virtual ICommand_Ptr Resolve(const std::string &key, UObject *obj) = 0;
+
+		virtual void AddCommand(const std::string &key, ICommand_Ptr command) = 0;
 	};
 }
 

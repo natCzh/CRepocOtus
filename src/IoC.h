@@ -2,19 +2,24 @@
 #define _I_O_C_H_
 
 #include <cstring>
-#include <iostream>
 #include <memory>
 #include <mutex>
+#include <unordered_map>
 
-#include "src/scopes/DependencyResolve.h"
-#include "src/Exception/IoCException.h"
-#include "src/scopes/ScopesProcessing.h"
+#include "src/Command/ICommand.h"
 
 struct inputParamsIocRegister
 {
 	std::string							strCommand;
 	ICommand_Ptr						command;
 };
+
+namespace Scopes
+{ class IDependencyResolve; }
+
+
+// уже разрешенные команды в IoC
+// IoC.Register, Scopes.New, Scopes.Current, Scopes.Delete
 
 class IoC
 {
@@ -26,14 +31,15 @@ public:
 		if (strcmp(key.c_str(), "IoC.Register") == 0)
 		{
 			Register(args);
-			return nullptr;
+			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
 		}
-		/*else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0)
-			ScopesProcessing::*/
+		else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0)
+		{
+			ScopesProcessing(key, args);
+			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
+		}
 		else
 			return ResolveCommand(key, args);
-
-		// else if ()
 	}
 
 protected:
@@ -42,10 +48,14 @@ protected:
 
 	void Register(void *args);
 
-	void CreateScope();
+	void CreateScope(size_t idScope);
+	void SetCurrentScope(size_t idScope);
+	void DeleteScope(size_t idScope);
 
-	std::unordered_map<int, Scopes::DependencyResolve>							scopes;
-	std::shared_ptr<Scopes::DependencyResolve>									currentScope;
+	void ScopesProcessing(std::string key, void *args);
+
+	std::unordered_map<int, std::shared_ptr<Scopes::IDependencyResolve> >		scopes;
+	std::shared_ptr<Scopes::IDependencyResolve>									currentScope;
 
 	std::mutex																	mutex;
 };

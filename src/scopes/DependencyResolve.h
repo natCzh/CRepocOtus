@@ -34,8 +34,8 @@ namespace Scopes
 			else
 				return nullptr;
 		}
-
-		void AddCommand(const std::string &key, ICommand_Ptr command)
+		
+		void AddCommand(const std::string &key, ICommand_Ptr command) override
 		{
 			scope[key] = command;
 		}

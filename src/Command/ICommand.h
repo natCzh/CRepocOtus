@@ -7,26 +7,26 @@
 class ICommand
 {
 public:
-	virtual int Execute() = 0;
+	virtual ~ICommand() {}
+
+	virtual void Execute() = 0;
 
 	virtual std::string GetType() = 0;
 };
 
 using ICommand_Ptr = std::shared_ptr<ICommand>;
 
-class CommandErrorDefault: public ICommand
+class CommandEmpty: public ICommand
 {
 public:
-	int Execute() override
+	void Execute()
 	{
-		std::cout << "Error in dictionary" << std::endl;
-
-		return 0;
+		std::cout << "execute CommandEmpty" << std::endl;
 	}
 
-	std::string GetType() override
+	std::string GetType()
 	{
-		return "CommandErrorDefault";
+		return "CommandEmpty";
 	}
 };
 
