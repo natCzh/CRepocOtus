@@ -4,11 +4,13 @@ project(natSpaceBattle)
 
 include_directories(/)
 
-set(SOURCES src/main.cpp)
+set(SOURCES src/IoC.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+set(HEADERS src/IoC.h src/scopes/IDependencyResolve.h src/scopes/DependencyResolve.h src/scopes/InitCommand.h
+            src/Command/ICommand.h src/UObject.h src/scopes/CommandsScope/SetCurrentScopeCommand.h
+            src/Exception/IoCException.h src/scopes/IdScope.h src/Command/MoveCommand.h)
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp
+set(TESTS_PROJECT_FILES tests/TestMain.cpp tests/TestIoCCommand.cpp
                             tests/utest.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
@@ -56,6 +58,7 @@ endif()
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${TESTS_PROJECT_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
 								 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
