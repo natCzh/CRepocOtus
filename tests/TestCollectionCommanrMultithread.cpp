@@ -3,8 +3,8 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "src/CollectionCommand.h"
-#include "src/Command/CommandCollection.h"
+#include "CollectionCommand.h"
+#include "Command/CommandCollection.h"
 
 class MoveCommandMock : public ICommand
 {
