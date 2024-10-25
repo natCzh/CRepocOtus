@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(natSpaceBattle)
 
 include_directories(/)
+include_directories(src/)
 
 #TODO переделать это!!!
 FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
