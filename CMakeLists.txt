@@ -8,12 +8,13 @@ include_directories(src/)
 #TODO переделать это!!!
 FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
 
-FILE(GLOB_RECURSE SOURCES ${PROJECT_ROOT}/src/*.cpp)
+FILE(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-set(GLOB_RECURSE TESTS_PROJECT_FILES ${PROJECT_ROOT}/tests/*.cpp)
+FILE(GLOB_RECURSE TESTS_PROJECT_FILES ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
+source_group ("Test Files" FILES ${TESTS_PROJECT_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/test/googletest)
 enable_testing()

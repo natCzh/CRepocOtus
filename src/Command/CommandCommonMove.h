@@ -1,5 +1,5 @@
-﻿#ifndef _COMMAND_H_
-#define _COMMAND_H_
+#ifndef _COMMAND_COMMON_MOVE_H_
+#define _COMMAND_COMMON_MOVE_H_
 
 #include "ICommand.h"
 #include "QueueCommand.h"
@@ -12,11 +12,9 @@ public:
 		: dataExecute(strExecute)
 	{}
 
-	int Execute() override
+	void Execute() override
 	{
 		std::cout << "dataExecute - " << dataExecute << std::endl;
-
-		return 0;
 	}
 
 	std::string GetType() override
@@ -46,10 +44,9 @@ public:
 		: qCommand(std::make_shared<QueueCommand>(qCommand))
 	{}
 
-	int Execute() override
+	void Execute() override
 	{
 		qCommand->Push(command);
-		return 0;
 	}
 
 	std::string GetType() override
@@ -76,9 +73,9 @@ public:
 		: qCommand(std::make_shared<QueueCommand>(qCommand))
 	{}
 
-	int Execute() override
+	void Execute() override
 	{
-		return command->Execute();
+		command->Execute();
 	}
 
 	std::string GetType() override
@@ -105,9 +102,9 @@ public:
 		: qCommand(std::make_shared<QueueCommand>(qCommand))
 	{}
 
-	int Execute() override
+	void Execute() override
 	{
-		return command->Execute();
+		command->Execute();
 	}
 
 	std::string GetType() override
@@ -121,4 +118,4 @@ private:
 	std::shared_ptr<QueueCommand>								qCommand;
 };
 
-#endif _COMMAND_H_
+#endif _COMMAND_COMMON_MOVE_H_

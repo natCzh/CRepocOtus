@@ -3,7 +3,7 @@
 
 #include "HandlerFactory.h"
 #include "ExceptionHendler.h"
-#include "ICommand.h"
+#include "Command/ICommand.h"
 
 class BootStrapHandler
 {

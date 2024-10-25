@@ -2,7 +2,8 @@
 #define _HANDLER_INSTANCE_H_
 
 #include "StoreDict.h"
-#include "Command.h"
+#include "src/Command/CommandCommonMove.h"
+#include "src/Command/CommandErrorDefault.h"
 
 class HandlerErrorDefault
 {
