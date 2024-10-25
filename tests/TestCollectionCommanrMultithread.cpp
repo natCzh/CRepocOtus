@@ -27,7 +27,7 @@ TEST(TestCollectionCommonMultithread, testStart)
 	CommandCollection commandColection;
 	commandColection.add(cmd_ptr_);
 	commandColection.startLoop();
-	std::this_thread::sleep_for(std::chrono::microseconds());
+	std::this_thread::sleep_for(std::chrono::microseconds(5));
 	commandColection.stop();
 }
 
