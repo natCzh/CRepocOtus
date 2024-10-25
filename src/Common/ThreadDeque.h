@@ -22,7 +22,7 @@ public:
 	{
         {
             std::unique_lock<std::mutex> lock(this->d_mutex);
-            d_queue.push_front(value);
+            IThreadDeque<T>::d_queue.push_front(value);
         }
         this->d_condition.notify_one();
     }
@@ -30,7 +30,7 @@ public:
 	bool istryPop(int dur)
 	{
 		std::unique_lock<std::mutex> lock(this->d_mutex);
-		if (!this->d_condition.wait_for(lock,  std::chrono::milliseconds(dur), [=]{ return !this->d_queue.empty(); })) {
+		if (!this->d_condition.wait_for(lock,  std::chrono::milliseconds(dur), [=]{ return !this->IThreadDeque<T>::d_queue.empty(); })) {
 			return false;
 		}
 		return true;
@@ -39,9 +39,9 @@ public:
 	T pop(int dur)
 	{
         std::unique_lock<std::mutex> lock(this->d_mutex);
-        this->d_condition.wait(lock, [=]{ return !this->d_queue.empty(); });
-        T rc(std::move(this->d_queue.back()));
-        this->d_queue.pop_back();
+        this->d_condition.wait(lock, [=]{ return !this->IThreadDeque<T>::d_queue.empty(); });
+        T rc(std::move(this->IThreadDeque<T>::d_queue.back()));
+        this->IThreadDeque<T>::d_queue.pop_back();
         return rc;
 	} 
 };

@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "src/CollectionCommand.h"
+#include "CollectionCommand.h"
 #include "src/Command/CommandCollection.h"
 
 class MoveCommandMock : public ICommand
