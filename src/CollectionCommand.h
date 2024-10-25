@@ -1,5 +1,5 @@
-﻿#ifndef _COMMAND_COLLECTION_H_
-#define _COMMAND_COLLECTION_H_
+﻿#ifndef _COLLECTION_COMMAND_H_
+#define _COLLECTION_COMMAND_H_
 
 #include <thread>
 #include <functional>
@@ -13,14 +13,12 @@ class CommandCollection
 {
 public:
 
-	//using Behavior = void(*)();
-
 	CommandCollection()
 		: flagStop(false)
 		, waitMilliSec(1)
+		, threadCur(nullptr)
 	{
-		this->threadCur = std::thread{ &CommandCollection::loop, this };
-		behavior = std::bind(&CommandCollection::behaviorSS, this);
+		behavior = std::bind(&CommandCollection::behaviorCommon, this);
 	}
 
 	CommandCollection(ExceptionHendler &excHendler_, int waitMilliSec_ = 10)
@@ -28,10 +26,13 @@ public:
 		, waitMilliSec(waitMilliSec_)
 		, excHendler(excHendler_)
 	{
-		this->threadCur = std::thread{ &CommandCollection::loop, this };
+		//this->threadCur = std::thread{ &CommandCollection::loop, this };
 	}
 
-	~CommandCollection() {}
+	~CommandCollection()
+	{
+		stop();
+	}
 
 	void setExceptionHandler(ExceptionHendler &excHendler_)
 	{
@@ -40,7 +41,13 @@ public:
 
 	void stop()
 	{
-		flagStop = true;
+		if(this->threadCur != nullptr)
+        {
+            flagStop = true;
+            // this->threadCur->join();
+            delete this->threadCur;
+            this->threadCur = nullptr;
+        }
 	}
 
 	void add(ICommand_Ptr cmd)
@@ -51,7 +58,8 @@ public:
 	void startLoop()
 	{
 		// before start hook
-		threadCur.detach();
+		threadCur = new std::thread{ &CommandCollection::loop, this };
+		threadCur->detach();
 		// after stop hook
 	}
 
@@ -72,6 +80,11 @@ public:
 		{
 			excHendler.Handle(cmd, e)->Execute(); // TODO !! Это надо получать из IOC
 		}
+	}
+
+	void softStop()
+	{
+		behavior = std::bind(&CommandCollection::behaviorSS, this);
 	}
 
 	void behaviorSS()
@@ -97,8 +110,8 @@ protected:
 	bool									flagStop;				// флаг остановки, false - работаем
 	int										waitMilliSec;			// кол-во миллисекунд, которые ждем команду
 	ExceptionHendler						excHendler;
-	std::thread								threadCur;
+	std::thread								*threadCur;
 	std::function<void()>					behavior;
 };
 
-#endif /* _COMMAND_COLLECTION_H_ */
+#endif /* _COLLECTION_COMMAND_H_ */
