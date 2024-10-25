@@ -27,7 +27,7 @@ TEST(TestCollectionCommonMultithread, testStart)
 	CommandCollection commandColection;
 	commandColection.add(cmd_ptr_);
 	commandColection.startLoop();
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::this_thread::sleep_for(std::chrono::microseconds());
 	commandColection.stop();
 }
 
@@ -45,7 +45,7 @@ TEST(TestCollectionCommonMultithread, testHardStop)
 	commandColection->add(cmd_ptr_hs);
 	commandColection->add(cmd_ptr_);
 	commandColection->startLoop();
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::this_thread::sleep_for(std::chrono::microseconds(5));
 	commandColection->stop();
 }
 
@@ -63,6 +63,6 @@ TEST(TestCollectionCommonMultithread, testSoftStop)
 	commandColection->add(cmd_ptr_hs);
 	commandColection->add(cmd_ptr_);
 	commandColection->startLoop();
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::this_thread::sleep_for(std::chrono::microseconds(5));
 	commandColection->stop();
 }
