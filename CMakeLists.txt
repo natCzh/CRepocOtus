@@ -10,8 +10,7 @@ FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
 
 FILE(GLOB_RECURSE SOURCES ${PROJECT_ROOT}/src/*.cpp)
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp
-                            tests/utest.cpp)
+set(TESTS_PROJECT_FILES ${PROJECT_ROOT}/tests/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
