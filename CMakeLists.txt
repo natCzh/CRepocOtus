@@ -4,9 +4,10 @@ project(natSpaceBattle)
 
 include_directories(/)
 
-set(SOURCES src/main.cpp)
+#TODO переделать это!!!
+FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
 
-#set(HEADERS src/SolutionEq.h)
+FILE(GLOB_RECURSE SOURCES ${PROJECT_ROOT}/src/*.cpp)
 
 set(TESTS_PROJECT_FILES tests/TestMain.cpp
                             tests/utest.cpp)
