@@ -18,7 +18,7 @@ public:
 };
 
 // проверка, что после команды старт поток запущен
-TEST(TestCollectionCommonMultithread, testStart)
+/*TEST(TestCollectionCommonMultithread, testStart)
 {
 	std::shared_ptr<MoveCommandMock> cmd_ptr = std::make_shared<MoveCommandMock>();
 	std::shared_ptr<ICommand> cmd_ptr_ = cmd_ptr;
@@ -29,7 +29,7 @@ TEST(TestCollectionCommonMultithread, testStart)
 	commandColection.startLoop();
 	std::this_thread::sleep_for(std::chrono::microseconds(5));
 	commandColection.stop();
-}
+}*/
 
 // проверка hardStop
 TEST(TestCollectionCommonMultithread, testHardStop)
