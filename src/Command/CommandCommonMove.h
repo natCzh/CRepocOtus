@@ -2,7 +2,7 @@
 #define _COMMAND_COMMON_MOVE_H_
 
 #include "ICommand.h"
-#include "QueueCommand.h"
+#include "Common/QueueCommand.h"
 
 class CommandLogger: public ICommand
 {

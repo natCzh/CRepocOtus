@@ -4,9 +4,10 @@
 #include <queue>
 #include <memory>
 
-#include "ICommand.h"
+#include "Command/ICommand.h"
 
-class QueueCommand
+// TODO сделать класс IQueue и от него наследоваться !!!!!!!!!!
+class QueueCommand 
 {
 public:
 	QueueCommand(int maxSize)

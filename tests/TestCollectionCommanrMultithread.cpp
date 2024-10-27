@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "CollectionCommand.h"
+#include "EventLoop.h"
 #include "Command/CommandCollection.h"
 
 class MoveCommandMock : public ICommand
@@ -38,7 +38,7 @@ TEST(TestCollectionCommonMultithread, testHardStop)
 	std::shared_ptr<ICommand> cmd_ptr_ = cmd_ptr;
 	EXPECT_CALL(*cmd_ptr, Execute()).Times(2);
 
-	std::shared_ptr<CommandCollection> commandColection(new CommandCollection());
+	std::shared_ptr<EventLoop> commandColection(new EventLoop());
 	std::shared_ptr<ICommand> cmd_ptr_hs = std::make_shared<CommandCollectionHardStop>(commandColection);
 	commandColection->add(cmd_ptr_);
 	commandColection->add(cmd_ptr_);
@@ -56,7 +56,7 @@ TEST(TestCollectionCommonMultithread, testSoftStop)
 	std::shared_ptr<ICommand> cmd_ptr_ = cmd_ptr;
 	EXPECT_CALL(*cmd_ptr, Execute()).Times(3);
 
-	std::shared_ptr<CommandCollection> commandColection(new CommandCollection());
+	std::shared_ptr<EventLoop> commandColection(new EventLoop());
 	std::shared_ptr<ICommand> cmd_ptr_hs = std::make_shared<CommandCollectionSoftStop>(commandColection);
 	commandColection->add(cmd_ptr_);
 	commandColection->add(cmd_ptr_);

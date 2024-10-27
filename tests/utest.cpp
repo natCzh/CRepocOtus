@@ -1,4 +1,6 @@
 #include "gtest/gtest.h"
+#include "IoC/IoC.h"
+
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest (&argc, argv);

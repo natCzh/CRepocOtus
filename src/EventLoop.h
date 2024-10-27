@@ -1,5 +1,5 @@
-﻿#ifndef _COLLECTION_COMMAND_H_
-#define _COLLECTION_COMMAND_H_
+﻿#ifndef _EVENT_LOOP_H_
+#define _EVENT_LOOP_H_
 
 #include <thread>
 #include <functional>
@@ -9,19 +9,19 @@
 #include "src/Common/CommandException.h"
 #include "src/service/ExceptionHendler.h"
 
-class CommandCollection
+class EventLoop
 {
 public:
 
-	CommandCollection()
+	EventLoop()
 		: flagStop(false)
 		, waitMilliSec(1)
 		, threadCur(nullptr)
 	{
-		behavior = std::bind(&CommandCollection::behaviorCommon, this);
+		behavior = std::bind(&EventLoop::behaviorCommon, this);
 	}
 
-	CommandCollection(ExceptionHendler &excHendler_, int waitMilliSec_ = 10)
+	EventLoop(ExceptionHendler &excHendler_, int waitMilliSec_ = 10)
 		: flagStop(false)
 		, waitMilliSec(waitMilliSec_)
 		, excHendler(excHendler_)
@@ -29,7 +29,7 @@ public:
 		//this->threadCur = std::thread{ &CommandCollection::loop, this };
 	}
 
-	~CommandCollection()
+	~EventLoop()
 	{
 		stop();
 	}
@@ -58,7 +58,7 @@ public:
 	void startLoop()
 	{
 		// before start hook
-		threadCur = new std::thread{ &CommandCollection::loop, this };
+		threadCur = new std::thread{ &EventLoop::loop, this };
 		threadCur->detach();
 		// after stop hook
 	}
@@ -84,7 +84,7 @@ public:
 
 	void softStop()
 	{
-		behavior = std::bind(&CommandCollection::behaviorSS, this);
+		behavior = std::bind(&EventLoop::behaviorSS, this);
 	}
 
 	void behaviorSS()
@@ -114,4 +114,4 @@ protected:
 	std::function<void()>					behavior;
 };
 
-#endif /* _COLLECTION_COMMAND_H_ */
+#endif /* _EVENT_LOOP_H_ */

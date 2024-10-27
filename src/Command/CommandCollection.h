@@ -2,13 +2,13 @@
 #define _COMMAND_COLLECTION_H_
 
 #include "ICommand.h"
-#include "CommandCollection.h"
+#include "EventLoop.h"
 
 class CommandCollectionHardStop : public ICommand
 {
 public:
 
-	CommandCollectionHardStop(std::shared_ptr<CommandCollection> collection_)
+	CommandCollectionHardStop(std::shared_ptr<EventLoop> collection_)
 		: collection(collection_)
 	{}
 
@@ -26,14 +26,14 @@ public:
 	}
 
 protected:
-	std::shared_ptr<CommandCollection>						collection;
+	std::shared_ptr<EventLoop>						collection;
 };
 
 class CommandCollectionSoftStop : public ICommand
 {
 public:
 
-	CommandCollectionSoftStop(std::shared_ptr<CommandCollection> collection_)
+	CommandCollectionSoftStop(std::shared_ptr<EventLoop> collection_)
 		: collection(collection_)
 	{}
 	
@@ -48,7 +48,7 @@ public:
 	}
 
 protected:
-	std::shared_ptr<CommandCollection>						collection;
+	std::shared_ptr<EventLoop>						collection;
 };
 
 #endif /* _COMMAND_COLLECTION_H_ */
