@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "EventLoop.h"
+#include "service/TourneyService/EventLoop.h"
 #include "Command/CommandCollection.h"
 
 class MoveCommandMock : public ICommand

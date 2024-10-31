@@ -2,7 +2,7 @@
 #define _COMMAND_COLLECTION_H_
 
 #include "ICommand.h"
-#include "EventLoop.h"
+#include "service/TourneyService/EventLoop.h"
 
 class CommandCollectionHardStop : public ICommand
 {
