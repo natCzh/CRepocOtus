@@ -9,10 +9,10 @@
 #include "Common/QueueCommand.h"
 #include "IoC/IoCGlobal.h"
 
-class GameCommnd: public ICommand
+class GameCommand: public ICommand
 {
 public:
-	GameCommnd(std::shared_ptr<QueueCommand> queue_, const unsigned long long &quant_, size_t scopeIdCur_, ICommand_Ptr init)
+	GameCommand(std::shared_ptr<QueueCommand> queue_, const unsigned long long &quant_, size_t scopeIdCur_, ICommand_Ptr init)
 		: queue(queue_)
 		, quant(quant_)
 		, scopeIdCur(scopeIdCur_)
@@ -33,12 +33,21 @@ public:
 			ICommand_Ptr cmd = queue->GetCurrentCommand();
 			cmd->Execute();
 		}
+	}
 
+	void addCommand(ICommand_Ptr commandAdd)
+	{
+		queue->Push(commandAdd);
 	}
 
 	std::string GetType()
 	{
-		return "GameCommnd";
+		return "GameCommand";
+	}
+
+	std::shared_ptr<QueueCommand> getQueuue()
+	{
+		return queue;
 	}
 	
 private:
