@@ -5,19 +5,21 @@
 
 #include "Common/UObject.h"
 
-// Описание содержания сообщения
-// Обязательные поля:
-// id игры - тип - unsigned int
-// id игрового объекта - тип - unsigned int
-// id операции - тип - std::string
-// Необязательные поля
-// args - вложенный json объект с параметрами операции - тип std::any
+// РћРїРёСЃР°РЅРёРµ СЃРѕРґРµСЂР¶Р°РЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ
+// РћР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїРѕР»СЏ:
+// id РѕС‚РїСЂР°РІРёС‚РµР»СЏ - ["id.Sender"] - С‚РёРї - unsigned int
+// id РёРіСЂС‹ ["id.Game"] - С‚РёРї - unsigned int
+// id РёРіСЂРѕРІРѕРіРѕ РѕР±СЉРµРєС‚Р° ["id.Object"] - С‚РёРї - unsigned int
+// id РѕРїРµСЂР°С†РёРё ["TypeCommand"] - С‚РёРї - std::string
+// РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїРѕР»СЏ
+// args ["args"] - РІР»РѕР¶РµРЅРЅС‹Р№ json РѕР±СЉРµРєС‚ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё РѕРїРµСЂР°С†РёРё - С‚РёРї std::any
 
 class Message: public UObject
 {
 public:
 	Message()
 	{
+		mapKey["id.Sender"] = 0;
 		mapKey["id.Game"] = 0;
 		mapKey["id.Object"] = 0;
 		mapKey["TypeCommand"] = 0;
