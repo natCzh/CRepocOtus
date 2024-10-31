@@ -12,7 +12,7 @@ class InterpretCommand : public ICommand
 {
 public:
 
-	InterpretCommand(std::shared_ptr<Message> message_) 
+	InterpretCommand(std::shared_ptr<IMessagable> message_) 
 		: massagable(message_)
 	{}	
 
@@ -20,7 +20,12 @@ public:
 
 	void Execute()
 	{
-		ioc.Resolve<ICommand>(massagable.getTypeCommand(), massagable);
+
+
+		// тут надо из IOC и massagable получить ид объекта, те указатель на нее
+		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
+		// эту команду нужно положить в очередь, исп ioc и команду добавить в очередь, те в IOC должна хранится очередь
+
 	}
 
 	std::string GetType()
@@ -29,7 +34,7 @@ public:
 	}
 
 private:
-	MessageAdapter				massagable;
+	std::shared_ptr<IMessagable>				massagable;
 
 };
 
