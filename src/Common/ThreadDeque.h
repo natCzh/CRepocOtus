@@ -14,7 +14,13 @@ private:
     std::condition_variable d_condition;
 public:
 
-	ThreadDeque() = default;
+	ThreadDeque()
+	{}
+
+	ThreadDeque(const ThreadDeque &orig)
+		: d_mutex(orig.d_mutex)
+		, d_condition(orig.d_condition)
+	{}
 
 	virtual ~ThreadDeque() {}
 
@@ -44,6 +50,12 @@ public:
         this->IThreadDeque<T>::d_queue.pop_back();
         return rc;
 	} 
+
+	T getDataForIndex(size_t index)
+	{
+		std::unique_lock<std::mutex> lock(this->d_mutex);
+		return d_queue[index];
+	}
 };
 
 #endif /* _THREAD_DEQUE_H_ */
