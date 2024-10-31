@@ -10,7 +10,7 @@
 #include "src/Scopes/Scope.h"
 
 
-//////////////////удалить
+//////////////////СѓРґР°Р»РёС‚СЊ
 #include "EndPoint/MessageAdapter.h"
 
 struct inputParamsIocRegister
@@ -33,15 +33,15 @@ public:
 	std::string GetType() { return "CommandEmpty"; }
 };
 
-// уже разрешенные команды в IoC
+// СѓР¶Рµ СЂР°Р·СЂРµС€РµРЅРЅС‹Рµ РєРѕРјР°РЅРґС‹ РІ IoC
 // IoC.Register, Scopes.New, Scopes.Current, Scopes.Delete
-// TODO пока класс реализован так ПЕРЕДЕЛАЬ !!!!!!!!!
+// TODO РїРѕРєР° РєР»Р°СЃСЃ СЂРµР°Р»РёР·РѕРІР°РЅ С‚Р°Рє С•в‰€вЂ“в‰€Ж’в‰€Р‹Св„– !!!!!!!!!
 class IoC
 {
 public:
 
 	template<typename T, typename Z>
-	std::shared_ptr<T> Resolve(std::string key, Z args)
+	T Resolve(std::string key, Z args)
 	{
 				if (strcmp(key.c_str(), "IoC.Register") == 0)
 		{
@@ -80,7 +80,7 @@ public:
 	template<>
 	ICommand_Ptr Resolve (std::string key, std::shared_ptr<MessageAdapter> value)
 	{
-		// тут ято-то произойдет
+		// С‚СѓС‚ В¤С‚Рѕ-С‚Рѕ РїСЂРѕРёР·РѕР№РґРµС‚
 		return std::shared_ptr<CommandEmpty>(new CommandEmpty);
 	}
 	
@@ -100,7 +100,7 @@ protected:
 
 	void ScopesProcessing(std::string key, void *args);
 
-	std::unordered_map<int, std::shared_ptr<Scopes::Scope> >					scopes; // поменяться на boost !!!!!!!!!
+	std::unordered_map<int, std::shared_ptr<Scopes::Scope> >					scopes; // РїРѕРјРµРЅВ¤С‚СЊСЃВ¤ РЅР° boost !!!!!!!!!
 	std::shared_ptr<Scopes::Scope>												currentScope;
 
 	std::mutex																	mutex;
