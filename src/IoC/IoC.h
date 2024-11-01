@@ -60,7 +60,7 @@ public:
 		//template<typename T>
 	//std::shared_ptr<T> Resolve(std::string key, void *args)
 	template<>
-	ICommand_Ptr Resolve(std::string key, boost::any args)
+	ICommand_Ptr Resolve<ICommand_Ptr, boost::any>(std::string key, boost::any args)
 	{
 		/*if (strcmp(key.c_str(), "IoC.Register") == 0)
 		{
@@ -79,7 +79,7 @@ public:
 	}
 
 	template<>
-	ICommand_Ptr Resolve (std::string key, std::shared_ptr<MessageAdapter> value)
+	ICommand_Ptr Resolve<ICommand_Ptr, std::shared_ptr<MessageAdapter>>(std::string key, std::shared_ptr<MessageAdapter> value)
 	{
 		// тут ¤то-то произойдет
 		return std::shared_ptr<CommandEmpty>(new CommandEmpty);
