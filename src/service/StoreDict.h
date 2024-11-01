@@ -27,7 +27,7 @@ public:
 
 	void AddItems(std::string typeC, std::string typeE, const FunctHendler &command)
 	{
-		// TODO ÚÛÚ Â˘Â ÌÂÔÎÓıÓ ÔÓ‚ÂˇÚ¸ ÂÒÚ¸ ÎË Ú‡ÍÓÈ ÍÎ˛˜
+		// TODO —Ç—É—Ç –µ—â–µ –Ω–µ–ø–ª–æ—Ö–æ –ø—Ä–æ–≤–µ—Ä—è—Ç—å –µ—Å—Ç—å –ª–∏ —Ç–∞–∫–æ–π –∫–ª—é—á
 		store[typeC][typeE] = command;
 	}
 
@@ -44,7 +44,7 @@ private:
 		if (iterC != curStore.end())
 			return iterC->second;
 		//else
-		//	return defaultCommand.process(ICommand_Ptr, const std::exception &);
+		//	return defaultCommand.process(ICommand_Ptr, const std::exception &); // TODO –¥–æ–ø–∏—Å–∞—Ç—å !!!!!!!
 	}
 };
 

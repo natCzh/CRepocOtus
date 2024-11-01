@@ -79,7 +79,7 @@ void EventLoop::behaviorSS()
 void EventLoop::setICommandToGameObject(size_t index, ICommand_Ptr cmd)
 {
 	auto cmd_GameObj = collection.getDataForIndex(index);
-	if (!std::strcmp(cmd_GameObj->GetType().c_str(), "GameCommand"));
+	if (!std::strcmp(cmd_GameObj->GetType().c_str(), "GameCommand"))
 		throw MessageTourneySException("Message failed - id of game's object isn't correct");
 
 	auto cmdGame = dynamic_cast<GameCommand* >(cmd.get());
