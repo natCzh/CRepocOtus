@@ -6,7 +6,7 @@
 #include <functional>
 #include <memory>
 
-#include "src/scopes/IDependencyResolve.h"
+#include "src/Scopes/IDependencyResolve.h"
 #include "src/Command/ICommand.h"
 #include "Common/UObject.h"
 
