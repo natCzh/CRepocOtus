@@ -54,7 +54,7 @@ public:
 	T getDataForIndex(size_t index)
 	{
 		std::unique_lock<std::mutex> lock(this->d_mutex);
-		return d_queue[index];
+		return IThreadDeque::d_queue[index];
 	}
 };
 
