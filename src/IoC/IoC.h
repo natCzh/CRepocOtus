@@ -44,7 +44,32 @@ public:
 	template<typename T, typename Z>
 	T Resolve(std::string key, Z args)
 	{
-				if (strcmp(key.c_str(), "IoC.Register") == 0)
+		if constexpr (std::is_same_v<ICommand_Ptr,  boost::any>)
+		{		
+			/*if (strcmp(key.c_str(), "IoC.Register") == 0)
+			{
+				Register(args);
+				return std::shared_ptr<CommandEmpty>(new CommandEmpty);
+			}
+			else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0)
+			{
+				ScopesProcessing(key, args);
+				return std::shared_ptr<CommandEmpty>(new CommandEmpty);
+			}
+			else
+				return ResolveCommand(key, args);*/
+
+			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
+		}
+		else if constexpr (std::is_same_v<ICommand_Ptr, std::shared_ptr<MessageAdapter> >)
+		{
+			// тут ¤то-то произойдет
+			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
+		}
+
+
+
+		if (strcmp(key.c_str(), "IoC.Register") == 0)
 		{
 			Register(args);
 			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
@@ -57,36 +82,6 @@ public:
 		else
 			return ResolveCommand(key, args);
 	}
-		//template<typename T>
-	//std::shared_ptr<T> Resolve(std::string key, void *args)
-	template<>
-	ICommand_Ptr Resolve<>(std::string key, boost::any args)
-	{
-		/*if (strcmp(key.c_str(), "IoC.Register") == 0)
-		{
-			Register(args);
-			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
-		}
-		else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0)
-		{
-			ScopesProcessing(key, args);
-			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
-		}
-		else
-			return ResolveCommand(key, args);*/
-
-		return std::shared_ptr<CommandEmpty>(new CommandEmpty);
-	}
-
-	template<>
-	ICommand_Ptr Resolve<>(std::string key, std::shared_ptr<MessageAdapter> value)
-	{
-		// тут ¤то-то произойдет
-		return std::shared_ptr<CommandEmpty>(new CommandEmpty);
-	}
-	
-
-
 
 
 protected:
