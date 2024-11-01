@@ -9,7 +9,6 @@
 #include "src/Command/ICommand.h"
 #include "src/Scopes/Scope.h"
 
-
 //////////////////удалить
 #include "EndPoint/MessageAdapter.h"
 
@@ -36,6 +35,8 @@ public:
 // уже разрешенные команды в IoC
 // IoC.Register, Scopes.New, Scopes.Current, Scopes.Delete
 // TODO пока класс реализован так ѕ≈–≈ƒ≈Ћј№ !!!!!!!!!
+// список IoC команд
+// "Scopes.GetListIds" - получим вектор пар <ид игрового объектаб ID существующих Scopes>
 class IoC
 {
 public:
@@ -48,7 +49,7 @@ public:
 			Register(args);
 			return std::shared_ptr<CommandEmpty>(new CommandEmpty);
 		}
-		else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0)
+		else if (strcmp(key.c_str(), "Scopes.New") == 0 || strcmp(key.c_str(), "Scopes.Current") == 0 || strcmp(key.c_str(), "Scopes.Delete") == 0) // "Scopes.GetListIds" - 
 		{
 			ScopesProcessing(key, args);
 			return std::shared_ptr<CommandEmpty>(new CommandEmpty);

@@ -7,25 +7,23 @@
 #include "IoC/IoCGlobal.h"
 #include "EndPoint/MessageAdapter.h"
 
-// Задача в нужную очередь(объекта) положить нужную команду
+// Р—Р°РґР°С‡Р° РІ РЅСѓР¶РЅСѓСЋ РѕС‡РµСЂРµРґСЊ(РѕР±СЉРµРєС‚Р°) РїРѕР»РѕР¶РёС‚СЊ РЅСѓР¶РЅСѓСЋ РєРѕРјР°РЅРґСѓ
 class InterpretCommand : public ICommand
 {
 public:
 
-	InterpretCommand(std::shared_ptr<IMessagable> message_) 
+	InterpretCommand(std::shared_ptr<IMessagable> message_,  size_t scopeIdCur_) 
 		: massagable(message_)
+		, scopeIdCur(scopeIdCur_)
 	{}	
 
 	virtual ~InterpretCommand() {}
 
 	void Execute()
 	{
+		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO С‚СѓС‚ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РєРѕРјР°РЅРґР° РїРµСЂРµРґРµР»Р°С‚СЊ !!!!!!!!!!!!
 
-
-		// тут надо из IOC и massagable получить ид объекта, те указатель на нее
 		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
-		// эту команду нужно положить в очередь, исп ioc и команду добавить в очередь, те в IOC должна хранится очередь
-
 	}
 
 	std::string GetType()
@@ -35,7 +33,7 @@ public:
 
 private:
 	std::shared_ptr<IMessagable>				massagable;
-
+	size_t									    scopeIdCur;
 };
 
 #endif /* _INTERPRET_COMMAND_H_ */

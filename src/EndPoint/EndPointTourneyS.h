@@ -38,12 +38,20 @@ public:
 		auto curGame = std::find(collectionGame->begin(), collectionGame->end(), messagable->getIdGame()); // TODO !!!! потом тут сделать проверку и доставить игру не по ид, а по хэшу, сделать паттерн корелейшен ид
 		if (curGame == collectionGame->end())
 			throw MessageTourneySException("Message failed - id of game isn't correct");
-
-		std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(std::make_shared<IMessagable>(messagable)); // это мы потом запихиваем в очередь eventloop
 		auto indexGame = curGame->second.findIndexCollectionGameId(messagable->getIdObject());
+		size_t scopeIdCur_ = getScopeIdCur();
+
+		std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(std::make_shared<IMessagable>(messagable), scopeIdCur_); // это мы потом запихиваем в очередь eventloop
+
 
 
 		// те interpret Cоmmand мы положим в очередь игры уже для нужного объекта
+	}
+
+	size_t getScopeIdCur()
+	{
+		size_t scopeIdCur_ = 0; // TODO - это надо как-то вычислять !!!!!!
+		return scopeIdCur_;
 	}
 
 private:
