@@ -66,6 +66,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
 								 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
+                                      CXX_STANDARD_REQUIRED ON)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 
