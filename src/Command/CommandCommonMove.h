@@ -64,8 +64,8 @@ class CommandRepeat: public ICommand
 {
 public:
 
-	CommandRepeat(const QueueCommand &qCommand, std::shared_ptr<ICommand> commandCur)
-		: qCommand(std::make_shared<QueueCommand>(qCommand))
+	CommandRepeat(std::shared_ptr<QueueCommand> qCommand_, std::shared_ptr<ICommand> commandCur)
+		: qCommand(qCommand_)
 		, command(commandCur)
 	{}
 
@@ -116,6 +116,33 @@ public:
 
 private:
 	std::shared_ptr<QueueCommand>								qCommand;
+};
+
+class BridgeCommand : public ICommand
+{
+public:
+	BridgeCommand(ICommand_Ptr cmd_)
+		: cmd(cmd_)
+	{}
+
+	void Inject(ICommand_Ptr injectableCommand)
+	{
+		cmd = injectableCommand;
+	}
+
+	void Execute()
+	{
+		cmd->Execute();
+	}
+
+	std::string GetType()
+	{
+		cmd->GetType();
+	}
+
+protected:
+	
+	ICommand_Ptr cmd;
 };
 
 #endif _COMMAND_COMMON_MOVE_H_
