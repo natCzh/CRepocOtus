@@ -12,9 +12,10 @@ class InterpretCommand : public ICommand
 {
 public:
 
-	InterpretCommand(std::shared_ptr<IMessagable> message_,  size_t scopeIdCur_) 
+	InterpretCommand(std::shared_ptr<IMessagable> message_,  size_t scopeIdCur_, std::shared_ptr<QueueCommand> queue_) 
 		: massagable(message_)
 		, scopeIdCur(scopeIdCur_)
+		, queue(queue_)
 	{}	
 
 	virtual ~InterpretCommand() {}
@@ -23,7 +24,7 @@ public:
 	{
 		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
 
-		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
+		ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable, queue)->Execute();
 	}
 
 	std::string GetType()
@@ -34,6 +35,7 @@ public:
 private:
 	std::shared_ptr<IMessagable>				massagable;
 	size_t									    scopeIdCur;
+	std::shared_ptr<QueueCommand>				queue;
 };
 
 #endif /* _INTERPRET_COMMAND_H_ */
