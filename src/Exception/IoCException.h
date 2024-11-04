@@ -1,8 +1,10 @@
-п»ї#ifndef _I_O_C_EXCEPTION_H_
+#ifndef _I_O_C_EXCEPTION_H_
 #define _I_O_C_EXCEPTION_H_
 
 #include <exception>
 #include <string>
+
+// "IoC parameter of key isn't exist"  - по данному ключу нету прааметров
 
 class IoCException: public std::exception
 {
@@ -17,7 +19,7 @@ public:
 	}
 
 private:
-	std::string									message;			// СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
+	std::string									message;			// сообщение об ошибке
 };
 
 #endif /* _I_O_C_EXCEPTION_H_ */

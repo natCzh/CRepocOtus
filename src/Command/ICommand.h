@@ -7,6 +7,7 @@
 class ICommand
 {
 public:
+
 	virtual ~ICommand() {}
 
 	virtual void Execute() = 0;
@@ -15,19 +16,5 @@ public:
 };
 
 using ICommand_Ptr = std::shared_ptr<ICommand>;
-
-class CommandEmpty: public ICommand
-{
-public:
-	void Execute()
-	{
-		std::cout << "execute CommandEmpty" << std::endl;
-	}
-
-	std::string GetType()
-	{
-		return "CommandEmpty";
-	}
-};
 
 #endif /* _I_COMMAND_H_ */

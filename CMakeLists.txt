@@ -2,19 +2,19 @@ cmake_minimum_required(VERSION 3.0)
 
 project(natSpaceBattle)
 
-include_directories(/)
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories(src/)
 
-set(SOURCES src/IoC.cpp)
+#TODO переделать это!!!
+FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
 
-set(HEADERS src/IoC.h src/scopes/IDependencyResolve.h src/scopes/DependencyResolve.h src/scopes/InitCommand.h
-            src/Command/ICommand.h src/UObject.h src/scopes/CommandsScope/SetCurrentScopeCommand.h
-            src/Exception/IoCException.h src/scopes/IdScope.h src/Command/MoveCommand.h)
+FILE(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp tests/TestIoCCommand.cpp
-                            tests/utest.cpp)
+FILE(GLOB_RECURSE TESTS_PROJECT_FILES ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
+source_group ("Test Files" FILES ${TESTS_PROJECT_FILES})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/test/googletest)
 enable_testing()
@@ -56,11 +56,19 @@ if(MSVC)
     endif()
 endif()
 
+# //////////////// Boost
+find_package(Boost)
+SET(Boost_USE_STATIC_LIBS OFF)
+SET(Boost_USE_MULTITHREAD ON)
+
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${TESTS_PROJECT_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
 								 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
+                                      CXX_STANDARD_REQUIRED ON)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 
  
