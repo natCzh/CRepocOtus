@@ -18,8 +18,9 @@ class EndPoint: public IEndPoint
 {
 public:
 	// TODO очередь нужно передавать тоже через IOC пока сделаем так через конструктор
-	EndPoint(ICommand_Ptr initCommand, std::shared_ptr<std::map<size_t, EventLoop> > collectionGame_)
+	EndPoint(ICommand_Ptr initCommand, std::shared_ptr<std::map<size_t, EventLoop> > collectionGame_, std::shared_ptr<QueueCommand> actQueue_)
 		: collectionGame(collectionGame_)
+		, actQueue(actQueue_)
 	{
 		initCommand->Execute();
 	}
@@ -39,8 +40,8 @@ public:
 		if (curGame == collectionGame->end())
 			throw MessageTourneySException("Message failed - id of game isn't correct");
 		auto indexGame = curGame->second.findIndexCollectionGameId(messagable->getIdObject());
+		// тут надо получить игру и объект !!!!
 		size_t scopeIdCur_ = getScopeIdCur();
-
 		std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(std::make_shared<IMessagable>(messagable), scopeIdCur_); // это мы потом запихиваем в очередь eventloop
 
 
@@ -56,8 +57,8 @@ public:
 
 private:
 
-	std::shared_ptr<std::map<size_t, EventLoop> > collectionGame; // ссылка на очередь игр
-
+	std::shared_ptr<std::map<size_t, EventLoop> >						collectionGame; // ссылка на очередь игр
+	std::shared_ptr<QueueCommand>										actQueue;
 };
 
 #endif /* _END_POINT_H_ */

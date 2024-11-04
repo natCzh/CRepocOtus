@@ -4,6 +4,8 @@
 #include <exception>
 #include <string>
 
+// "IoC parameter of key isn't exist"  - по данному ключу нету прааметров
+
 class IoCException: public std::exception
 {
 public:
