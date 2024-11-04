@@ -31,6 +31,8 @@ public:
 		mapKey["velocity_y"] = 0;
 		mapKey["direction"] = 0;
 		mapKey["angleRotate"] = 0;
+		mapKey["shotRange"] = 0;
+		mapKey["health"] = 0;
 	}
 
 	virtual ~StateShip() {};
