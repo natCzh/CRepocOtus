@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "IoC.h"
-#include "src/Exception/IoCException.h"
 #include "Common/UObject.h"
 
 ICommand_Ptr IoC::ResolveCommand(const std::string &key, void *args)
