@@ -3,23 +3,24 @@
 
 #include <memory>
 
-#include "src/ICommand.h"
-#include "src/scopes/DependencyResolve.h"
+#include "Command/ICommand.h"
+#include "scopes/DependencyResolve.h"
 
 class SetCurrentScopeCommand: public ICommand
 {
-	SetCurrentScopeCommand(std::shared_ptr<DependencyResolve> scope)
-		: _scope(scope)
+	SetCurrentScopeCommand(std::shared_ptr<Scopes::DependencyResolve<ICommand_Ptr, Scopes::Scope> > depency_, std::shared_ptr<Scopes::Scope> scopeCur_)
+		: depency(depency_)
+		, scopeCur(scopeCur_)
 	{}
 
-	int Execute()
+	void Execute()
 	{
-
+		depency->SetCurrentScope(scopeCur);
 	}
 
-
 protected:
-	std::shared_ptr<DependencyResolve>					_scope;
+	std::shared_ptr<Scopes::DependencyResolve<ICommand_Ptr, Scopes::Scope> >					depency;
+	std::shared_ptr<Scopes::Scope>																scopeCur;
 };
 
 #endif /* _SET_CURRENT_SCOPE_COMMAND_H_ */
