@@ -1,12 +1,12 @@
 ﻿#ifndef _DEPENDENCY_RESOLVE_H_
 #define _DEPENDENCY_RESOLVE_H_
 
-#include <string>
 #include <unordered_map>
-#include <functional>
+#include <memory>
+#include <mutex>
 
-#include "src/scopes/IDependencyResolve.h"
-#include "src/Command/ICommand.h"
+#include "scopes/IDependencyResolve.h"
+#include "scopes/Scope.h"
 
 namespace Scopes
 {
@@ -14,7 +14,19 @@ namespace Scopes
 	{
 	public:
 
-		ICommand_Ptr Resolve(const std::string &key, UObject *obj)
+		DependencyResolve();
+
+		template<typename T, typename... Args>
+		T Resolve(std::string key, Args... args);
+
+		void Init();
+
+		// работа со скоупами
+		void SetCurrentScope(std::shared_ptr<Scopes::Scope> scopeCur_);
+		void ClearCurrentScopeCommand();
+		std::shared_ptr<Scopes::Scope> GetCurrentScope();
+	
+		/*ICommand_Ptr Resolve(const std::string &key, UObject *obj)
 		{
 			// ICommand_Ptr
 			return scope.begin()->second;
@@ -38,11 +50,17 @@ namespace Scopes
 		void AddCommand(const std::string &key, ICommand_Ptr command) override
 		{
 			scope[key] = command;
-		}
+		}*/
+
+
+
+
 
 	private:
 
-		std::unordered_map<std::string, ICommand_Ptr>					scope;
+		static std::shared_ptr<Scopes::Scope>											currentScope;
+		static std::unordered_map<int, std::shared_ptr<Scopes::Scope> >					scopes;
+		std::mutex																		mutex;
 	};
 }
 

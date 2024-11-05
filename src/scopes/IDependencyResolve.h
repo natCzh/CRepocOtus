@@ -1,20 +1,17 @@
-﻿#ifndef _I_DEPENDENCY_RESOLVE_H_
+#ifndef _I_DEPENDENCY_RESOLVE_H_
 #define _I_DEPENDENCY_RESOLVE_H_
 
 #include <string>
 
-#include "src/UObject.h"
-#include "src/Command/ICommand.h"
-
 namespace Scopes
 {
+
 	class IDependencyResolve
 	{
 	public:
 		
-		virtual ICommand_Ptr Resolve(const std::string &key, UObject *obj) = 0;
-
-		virtual void AddCommand(const std::string &key, ICommand_Ptr command) = 0;
+		template<typename T, typename... Args>
+		T Resolve(std::string key, Args... args) {};
 	};
 }
 
