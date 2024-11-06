@@ -35,10 +35,8 @@ namespace Scopes
 
 				auto&& t = std::forward_as_tuple(args...);
 				auto t1 = std::get<1>(items);
-
-				//std::function<T()> funct = std::bind(func);
-				RegisterDependencyCommand<T> cmd(this, key1, t1);
-				// return cmd;
+				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<ICommand_Ptr> >(RegisterDependencyCommand<ICommand_Ptr>(this, key1, t1));
+				return cmdI;
 
 				int swedf = 0;
 

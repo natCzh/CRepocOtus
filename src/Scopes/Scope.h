@@ -22,7 +22,7 @@ namespace Scopes
 				throw IoCException("IoC parameter of key isn't exist");
 		}
 		
-		void Add(const std::string &key, boost::any dependence)
+		void Add(const std::string &key, boost::any &dependence)
 		{
 			scopeMap[key] = dependence;
 		}

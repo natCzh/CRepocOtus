@@ -108,15 +108,27 @@ TEST(TestIoCCommand, registerCommand1)
 
 #include "Command/CommandEmpty.h"
 
+
+ICommand_Ptr reg1()
+{
+	std::shared_ptr<ICommand> emptyCmd = std::shared_ptr<CommandEmpty>(new CommandEmpty());
+	return emptyCmd;
+}
+
 TEST(TestIoCCommand, commonIoC)
 {
 	IoC ioc;
 
 	CommandEmpty emptyCmd;
 	int x = 1;
+
+
+	std::function<ICommand_Ptr()> func = &reg1;
+
 	// [&]() {return x;  }
 	//ioc.Resolve<ICommand_Ptr, std::string, std::function<void()> >("IoC.Register", "A", [&]() {return x; } );
-	auto del = ioc.Resolve<ICommand_Ptr>("IoC.Register", "A", [&]() {return emptyCmd; });
+
+	auto del = ioc.Resolve<ICommand_Ptr>("IoC.Register", "A", func);
 	del->Execute();
 	int sdfsd = 0;
 

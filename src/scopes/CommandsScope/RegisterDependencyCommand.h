@@ -16,19 +16,27 @@ class RegisterDependencyCommand: public ICommand
 public:
 	~RegisterDependencyCommand() {}
 
-	// RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_) {}
 	template<typename T>
-	//RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T()> fun_)
-	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, T(*fun_)())
+	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T()> fun_)
 		: depency(depency_)
 		, key(key_)
-		//, fun(fun_)
+		, fun(fun_)
 	{}
 
 	void Execute() override
 	{
 		auto currentScope = depency->GetCurrentScope();
-		//currentScope->Add(key, boost::any_cast(fun()));
+		boost::any v = fun;
+		currentScope->Add(key, v);
+
+		auto d = currentScope->GetValueOrDefault("A");
+		std::function<T()> df = boost::any_cast<std::function<T()>>(d);
+		ICommand_Ptr c = df();
+		c->Execute();
+
+
+
+		int sdfs = 0;
 	}
 
 	std::string GetType() override
@@ -39,7 +47,7 @@ public:
 protected:
 	std::shared_ptr<Scopes::DependencyResolve>														depency;
 	std::string																						key;
-	//std::function<T()>																						fun;
+	std::function<T()>																				fun;
 };
 
 #endif /* _REGISTER_DEPENDENCY_COMMAND_H_ */
