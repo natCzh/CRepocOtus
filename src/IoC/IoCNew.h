@@ -36,10 +36,10 @@ public:
 		: dependencyResolve(std::make_shared<Scopes::DependencyResolve>())
 	{}
 
-	template<typename T, typename... Args>
+	template<typename T, typename TFunc, typename... Args>
 	T Resolve(std::string key, Args... args)
 	{
-		return (T) dependencyResolve->Resolve<T, Args...>(key, args...);
+		return (T) dependencyResolve->Resolve<T, TFunc, Args...>(key, args...);
 	}
 
 protected:

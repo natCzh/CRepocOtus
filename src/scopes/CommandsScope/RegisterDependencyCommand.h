@@ -19,8 +19,8 @@ public:
 		
 	}
 
-	template<typename T, typename... Args, typename... Args1>
-	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T(Args... args)> fun_, Args1... args)
+	template<typename T, typename... Args>
+	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T(Args... args)> fun_)
 		: depency(depency_)
 		, key(key_)
 		, fun(fun_)
@@ -34,8 +34,9 @@ public:
 
 		auto d = currentScope->GetValueOrDefault("A");
 		std::function<T()> df = boost::any_cast<std::function<T()> >(d);
-		ICommand_Ptr c = df();
-		c->Execute();
+		auto c = df();
+		/*ICommand_Ptr c = df();
+		c->Execute();*/
 
 
 		int sdfs = 0;

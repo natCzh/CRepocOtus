@@ -23,7 +23,7 @@ namespace Scopes
 		DependencyResolve();
 
 
-		template<typename T, typename... Args>
+		template<typename T, typename TFunc, typename... Args>
 		T Resolve(std::string key, Args... args)
 		{
 			if (strcmp(key.c_str(), "IoC.Register") == 0)
@@ -35,7 +35,7 @@ namespace Scopes
 
 				auto&& t = std::forward_as_tuple(args...);
 				auto t1 = std::get<1>(items);
-				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<ICommand_Ptr> >(RegisterDependencyCommand<ICommand_Ptr> (this, key1, t1));
+				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<TFunc> >(RegisterDependencyCommand<TFunc>(this, key1, t1));
 				return cmdI;
 
 				/*if constexpr (std::is_same<T, ICommand_Ptr>)

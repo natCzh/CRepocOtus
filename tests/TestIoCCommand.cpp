@@ -115,12 +115,7 @@ ICommand_Ptr reg()
 	return emptyCmd;
 }
 
-int reg1()
-{
-	return 1;
-}
-
-TEST(TestIoCCommand, commonIoC)
+/*TEST(TestIoCCommand, commonIoC)
 {
 	IoC ioc;
 
@@ -129,12 +124,35 @@ TEST(TestIoCCommand, commonIoC)
 
 
 	std::function<ICommand_Ptr()> func = &reg;
+
+	// [&]() {return x;  }
+	//ioc.Resolve<ICommand_Ptr, std::string, std::function<void()> >("IoC.Register", "A", [&]() {return x; } );
+
+	auto del = ioc.Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr()> >("IoC.Register", "A", func);
+	del->Execute();
+
+	/*auto del1 = ioc.Resolve<ICommand_Ptr>("IoC.Register", "Ab", func1);
+	del1->Execute();* /
+
+	int sdfsd = 0;
+}*/
+
+
+int reg1()
+{
+	return 1;
+}
+
+TEST(TestIoCCommand, commonIoC1)
+{
+	IoC ioc;
+
 	std::function<int()> func1 = &reg1;
 
 	// [&]() {return x;  }
 	//ioc.Resolve<ICommand_Ptr, std::string, std::function<void()> >("IoC.Register", "A", [&]() {return x; } );
 
-	auto del = ioc.Resolve<ICommand_Ptr, std::string, std::function<ICommand_Ptr()> >("IoC.Register", "A", func);
+	auto del = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int()> >("IoC.Register", "A", func1);
 	del->Execute();
 
 	/*auto del1 = ioc.Resolve<ICommand_Ptr>("IoC.Register", "Ab", func1);
