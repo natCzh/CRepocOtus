@@ -35,8 +35,17 @@ namespace Scopes
 
 				auto&& t = std::forward_as_tuple(args...);
 				auto t1 = std::get<1>(items);
-				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<ICommand_Ptr> >(RegisterDependencyCommand<ICommand_Ptr>(this, key1, t1));
+				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<ICommand_Ptr> >(RegisterDependencyCommand<ICommand_Ptr> (this, key1, t1));
 				return cmdI;
+
+				/*if constexpr (std::is_same<T, ICommand_Ptr>)
+				{
+					int sdfsd = 0;
+				}
+				else
+				{
+					int sdf = 0;
+				}*/
 
 				int swedf = 0;
 

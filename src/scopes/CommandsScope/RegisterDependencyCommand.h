@@ -10,14 +10,14 @@
 namespace Scopes
 { class DependencyResolve; }
 
-template<typename T>
+template<typename T, typename... Args>
 class RegisterDependencyCommand: public ICommand
 {
 public:
 	~RegisterDependencyCommand() {}
 
-	template<typename T>
-	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T()> fun_)
+	template<typename T, typename... Args>
+	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T(Args... args)> fun_, Args... args)
 		: depency(depency_)
 		, key(key_)
 		, fun(fun_)
@@ -35,7 +35,6 @@ public:
 		c->Execute();
 
 
-
 		int sdfs = 0;
 	}
 
@@ -47,7 +46,7 @@ public:
 protected:
 	std::shared_ptr<Scopes::DependencyResolve>														depency;
 	std::string																						key;
-	std::function<T()>																				fun;
+	std::function<T(Args... args)>																				fun;
 };
 
 #endif /* _REGISTER_DEPENDENCY_COMMAND_H_ */

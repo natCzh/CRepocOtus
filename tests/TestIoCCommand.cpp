@@ -109,10 +109,15 @@ TEST(TestIoCCommand, registerCommand1)
 #include "Command/CommandEmpty.h"
 
 
-ICommand_Ptr reg1()
+ICommand_Ptr reg()
 {
 	std::shared_ptr<ICommand> emptyCmd = std::shared_ptr<CommandEmpty>(new CommandEmpty());
 	return emptyCmd;
+}
+
+int reg1()
+{
+	return 1;
 }
 
 TEST(TestIoCCommand, commonIoC)
@@ -123,13 +128,17 @@ TEST(TestIoCCommand, commonIoC)
 	int x = 1;
 
 
-	std::function<ICommand_Ptr()> func = &reg1;
+	std::function<ICommand_Ptr()> func = &reg;
+	std::function<int()> func1 = &reg1;
 
 	// [&]() {return x;  }
 	//ioc.Resolve<ICommand_Ptr, std::string, std::function<void()> >("IoC.Register", "A", [&]() {return x; } );
 
-	auto del = ioc.Resolve<ICommand_Ptr>("IoC.Register", "A", func);
+	auto del = ioc.Resolve<ICommand_Ptr, std::string, std::function<ICommand_Ptr()> >("IoC.Register", "A", func);
 	del->Execute();
-	int sdfsd = 0;
 
+	/*auto del1 = ioc.Resolve<ICommand_Ptr>("IoC.Register", "Ab", func1);
+	del1->Execute();*/
+
+	int sdfsd = 0;
 }
