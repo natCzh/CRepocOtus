@@ -14,10 +14,8 @@ template<typename T, typename... Args>
 class RegisterDependencyCommand: public ICommand
 {
 public:
-	~RegisterDependencyCommand()
-	{
-		
-	}
+	virtual ~RegisterDependencyCommand()
+	{}
 
 	template<typename T, typename... Args>
 	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T(Args... args)> fun_)
@@ -33,8 +31,8 @@ public:
 		currentScope->Add(key, v);
 
 		auto d = currentScope->GetValueOrDefault("A");
-		std::function<T()> df = boost::any_cast<std::function<T()> >(d);
-		auto c = df();
+		//std::function<T(Args... args)> df = boost::any_cast<std::function<T(Args... args)> >(d);
+		//auto c = df();
 		/*ICommand_Ptr c = df();
 		c->Execute();*/
 

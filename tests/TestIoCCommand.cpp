@@ -115,6 +115,7 @@ ICommand_Ptr reg()
 	return emptyCmd;
 }
 
+// TODO расскомментировать и сделать тест !!!!!!!
 /*TEST(TestIoCCommand, commonIoC)
 {
 	IoC ioc;
@@ -131,9 +132,6 @@ ICommand_Ptr reg()
 	auto del = ioc.Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr()> >("IoC.Register", "A", func);
 	del->Execute();
 
-	/*auto del1 = ioc.Resolve<ICommand_Ptr>("IoC.Register", "Ab", func1);
-	del1->Execute();* /
-
 	int sdfsd = 0;
 }*/
 
@@ -143,7 +141,9 @@ int reg1()
 	return 1;
 }
 
-TEST(TestIoCCommand, commonIoC1)
+
+// TODO расскомментировать и сделать тест !!!!!!!
+/*TEST(TestIoCCommand, commonIoC1)
 {
 	IoC ioc;
 
@@ -156,7 +156,23 @@ TEST(TestIoCCommand, commonIoC1)
 	del->Execute();
 
 	/*auto del1 = ioc.Resolve<ICommand_Ptr>("IoC.Register", "Ab", func1);
-	del1->Execute();*/
+	del1->Execute();* /
+
+	int sdfsd = 0;
+}*/
+
+int regFuncVarTemplate(int x)
+{
+	return x;
+}
+
+TEST(TestIoCCommand, registerFuncVarTemplate)
+{
+	IoC ioc;
+	std::function<int(int)> func1 = &regFuncVarTemplate;
+
+	auto cmds = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int(int)> >("IoC.Register", "A", func1);
+	cmds->Execute();
 
 	int sdfsd = 0;
 }
