@@ -170,8 +170,9 @@ TEST(TestIoCCommand, registerFuncVarTemplate)
 {
 	IoC ioc;
 	std::function<int(int)> func1 = &regFuncVarTemplate;
+	int x = 1;
 
-	auto cmds = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int(int)> >("IoC.Register", "A", func1);
+	auto cmds = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int(int)>, int >("IoC.Register", "A", func1, x);
 	cmds->Execute();
 
 	int sdfsd = 0;

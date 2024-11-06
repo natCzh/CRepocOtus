@@ -31,8 +31,8 @@ public:
 		currentScope->Add(key, v);
 
 		auto d = currentScope->GetValueOrDefault("A");
-		//std::function<T(Args... args)> df = boost::any_cast<std::function<T(Args... args)> >(d);
-		//auto c = df();
+		std::function<T(Args... args)> df = boost::any_cast<std::function<T(Args... args)> >(d);
+		auto c = df(1);
 		/*ICommand_Ptr c = df();
 		c->Execute();*/
 
@@ -50,5 +50,6 @@ protected:
 	std::string																						key;
 	std::function<T(Args... args)>																	fun;
 };
+
 
 #endif /* _REGISTER_DEPENDENCY_COMMAND_H_ */
