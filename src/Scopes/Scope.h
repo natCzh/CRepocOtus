@@ -3,50 +3,33 @@
 
 #include <string>
 #include <unordered_map>
-#include <functional>
-#include <memory>
+#include <boost/any.hpp>
 
-#include "src/Scopes/IDependencyResolve.h"
-#include "src/Command/ICommand.h"
-#include "Common/UObject.h"
+#include "Exception/IoCException.h"
 
 namespace Scopes
 {
-	class Scope: public IDependencyResolve
+	class Scope
 	{
 	public:
 
-		ICommand_Ptr Resolve(const std::string &key, UObject *obj)
+		boost::any GetValueOrDefault(const std::string &key)
 		{
-			// ICommand_Ptr
-
-			return scopeIComand.begin()->second;
-		}
-
-		void dependencyResolve(std::unordered_map<std::string, ICommand_Ptr> &scopeCur)
-		{
-			// проверки на родительский скоуп нету
-			scopeIComand = scopeCur;
-		}
-
-		ICommand_Ptr GetValueOrDefault(const std::string &key)
-		{
-			auto iterF = scopeIComand.find(key);
-			if (iterF != scopeIComand.end())
+			auto iterF = scopeMap.find(key);
+			if (iterF != scopeMap.end())
 				return iterF->second;
 			else
-				return nullptr;
+				throw IoCException("IoC parameter of key isn't exist");
 		}
 		
-		void AddCommand(const std::string &key, ICommand_Ptr command) override
+		void Add(const std::string &key, boost::any dependence)
 		{
-			scopeIComand[key] = command;
+			scopeMap[key] = dependence;
 		}
 
 	private:
 
-		// TOOD пока тут будет много мапов, потом переделать !!!!!! или boost или cсвю any сюда впихнуть 
-		std::unordered_map<std::string, ICommand_Ptr >					scopeIComand; 
+		std::unordered_map<std::string, boost::any >					scopeMap; 
 	};
 }
 

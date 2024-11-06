@@ -1,14 +1,15 @@
 ﻿# include "gtest/gtest.h"
 # include "gmock/gmock.h"
-
-#include "src/IoC.h"
+#include "IoC/IoCNew.h"
 #include "src/Exception/IoCException.h"
 #include "src/Command/MoveCommand.h"
 #include "src/Command/ICommand.h"
 
 #include <typeinfo>
 
-class MoveCommandMock : public ICommand
+#include <functional>
+
+/*class MoveCommandMock : public ICommand
 {
 public:
 	MoveCommandMock() {}
@@ -18,8 +19,8 @@ public:
 
 	MOCK_METHOD0(GetType, std::string());
 	MOCK_METHOD0(Execute, void());
-};
-
+};*/
+/*
 #include <functional> 
 	class A
 	{
@@ -63,10 +64,10 @@ TEST(TestIoCCommand, registerCommand1)
 	std::string str1 = "1int";
 	int res = a.resolve<int>(str1);
 
-}
+}*/
 
 
-TEST(TestIoCCommand, registerCommand)
+/*TEST(TestIoCCommand, registerCommand)
 {
 	IoC ioc;
 
@@ -102,5 +103,21 @@ TEST(TestIoCCommand, registerCommand)
 
 
 
+
+}*/
+
+#include "Command/CommandEmpty.h"
+
+TEST(TestIoCCommand, commonIoC)
+{
+	IoC ioc;
+
+	CommandEmpty emptyCmd;
+	int x = 1;
+	// [&]() {return x;  }
+	//ioc.Resolve<ICommand_Ptr, std::string, std::function<void()> >("IoC.Register", "A", [&]() {return x; } );
+	auto del = ioc.Resolve<ICommand_Ptr>("IoC.Register", "A", [&]() {return emptyCmd; });
+	del->Execute();
+	int sdfsd = 0;
 
 }

@@ -1,3 +1,3 @@
 #include "IoC/IoCGlobal.h"
 
-IoC ioc;
+// IoC ioc;

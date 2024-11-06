@@ -17,7 +17,7 @@ public:
 		, quant(quant_)
 		, scopeIdCur(scopeIdCur_)
 	{
-		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
+		//ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
 
 		// TODO команда инициализации ƒќѕ»—ј“№ !!!!
 		init->Execute();
@@ -25,7 +25,7 @@ public:
 
 	void Execute()
 	{
-		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur);
+		//ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur);
 
 		std::time_t start = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		while (std::difftime(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()), start) <= quant)

@@ -2,7 +2,7 @@
 
 #include "IoC.h"
 #include "Common/UObject.h"
-
+/*
 ICommand_Ptr IoC::ResolveCommand(const std::string &key, void *args)
 {
 	UObject *obj = static_cast<UObject *>(args);
@@ -64,3 +64,4 @@ void IoC::DeleteScope(size_t idScope)
 	else
 		throw IoCException("IocRegister error, deletable scope isn't exist");
 }
+*/

@@ -4,9 +4,15 @@
 #include <unordered_map>
 #include <memory>
 #include <mutex>
+#include <functional>
+#include <boost/lexical_cast.hpp>
 
 #include "scopes/IDependencyResolve.h"
 #include "scopes/Scope.h"
+#include "Command/ICommand.h"
+#include "scopes/CommandsScope/RegisterDependencyCommand.h"
+
+//template<typename T, typename... Args>
 
 namespace Scopes
 {
@@ -16,8 +22,71 @@ namespace Scopes
 
 		DependencyResolve();
 
+
 		template<typename T, typename... Args>
-		T Resolve(std::string key, Args... args);
+		T Resolve(std::string key, Args... args)
+		{
+			if (strcmp(key.c_str(), "IoC.Register") == 0)
+			{
+				auto items{::std::tie(args...)};
+				std::string key1 = static_cast<std::string>(::std::get<0>(items));
+				auto func = &(::std::get<1>(items));
+
+
+				auto&& t = std::forward_as_tuple(args...);
+				auto t1 = std::get<1>(items);
+
+				//std::function<T()> funct = std::bind(func);
+				RegisterDependencyCommand<T> cmd(this, key1, t1);
+				// return cmd;
+
+				int swedf = 0;
+
+				//if constexpr (std::is_same_v<ICommand_Ptr, std::function<ICommand_Ptr()> >)
+				//if constexpr (std::is_same_v<T, std::function<ICommand_Ptr()> >)
+				//{
+					//auto list = { Args...};
+					//std::function<ICommand_Ptr()> functArgs = boost::lexical_cast<std::function<ICommand_Ptr()> >(args);
+
+
+					//std::function<ICommand_Ptr()> func = args[0];
+					//T v = ResolveInput<T>(key, func);
+
+
+
+
+
+				//}
+			}
+			//{
+				if (strcmp(key.c_str(), "IoC.Register") == 0)
+				{
+					//auto res = std::make_shared<T>(RegisterDependencyCommand<T, Args...>(this, key, ...args));
+					//ICommand_Ptr cmd = std::make_shared<RegisterDependencyCommand<ICommand_PtrArgs...>(new RegisterDependencyCommand<ICommand_Ptr, Args...>(this, key/*, std::function<ICommand_Ptr//()>*/));
+					//return cmd;
+					//RegisterDependencyCommand<T> cmd = RegisterDependencyCommand<T>(this, key, args);
+					//return cmd;
+				}
+
+
+
+				//if (strcmp(key.c_str(), "IoC.Register") == 0)
+					// TODOD доделать !!!!
+
+			//}
+			return nullptr;
+		}
+
+
+
+
+		template<typename T>
+		T ResolveInput(std::string key, std::function<ICommand_Ptr()> func)
+		{
+			RegisterDependencyCommand<T> cmd = RegisterDependencyCommand<T>(this, key, func);
+			return cmd;
+		}
+
 
 		void Init();
 
