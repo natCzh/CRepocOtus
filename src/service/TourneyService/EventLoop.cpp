@@ -1,4 +1,4 @@
-﻿#include <string>
+﻿#include <cstring>
 
 #include "service/TourneyService/EventLoop.h"
 
