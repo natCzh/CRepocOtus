@@ -1,4 +1,6 @@
-﻿#include "service/TourneyService/EventLoop.h"
+﻿#include <string>
+
+#include "service/TourneyService/EventLoop.h"
 
 #include "Command/GameCommand.h"
 
