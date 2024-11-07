@@ -45,6 +45,11 @@ void Scopes::DependencyResolve::Init(std::shared_ptr<Scopes::Scope> scopeCur)
 	std::function<void()> funCurClear = std::bind(&Scopes::DependencyResolve::ClearCurrentScopeCommand, this);
 	boost::any vCurClear = funCurClear;
 	scopeCur->Add("Scopes.Current.Clear", vCurClear);
+
+	// "Scopes.Current.SetId"
+	std::function<void(size_t)> funCurSetId = std::bind(&Scopes::DependencyResolve::SetCurrentScopeId, this, std::placeholders::_1);
+	boost::any vCurSetId = funCurSetId;
+	scopeCur->Add("Scopes.Current.SetId", vCurSetId);
 }
 
 /// "Scopes.Current.Set"
@@ -54,12 +59,21 @@ void Scopes::DependencyResolve::SetCurrentScope(std::shared_ptr<Scopes::Scope> s
 	currentScope = scopeCur_;
 }
 
+/// "Scopes.Current.SetId"
+void Scopes::DependencyResolve::SetCurrentScopeId(size_t idScope)
+{
+	std::unique_lock<std::mutex> lock(this->mutex);
+	if (scopes.find(idScope) == scopes.end())
+		throw ScopesException("Scopes with this id isn't exist");
+	currentScope = scopes.find(idScope)->second;
+}
+
 /// "Scopes.Create.Empty"
 std::shared_ptr<Scopes::Scope> Scopes::DependencyResolve::NewScopeEmpty(int idScope)
 {
 	std::unique_lock<std::mutex> lock(this->mutex);
 	if (scopes.find(idScope) != scopes.end())
-		throw ScopesException("Scopes with this id is exist");;
+		throw ScopesException("Scopes with this id is exist");
 	scopes[idScope] = std::shared_ptr<Scopes::Scope>(new Scopes::Scope());
 	return scopes[idScope];
 }

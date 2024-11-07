@@ -89,6 +89,8 @@ namespace Scopes
 		// работа со скоупами
 		/// "Scopes.Current.Set"
 		void SetCurrentScope(std::shared_ptr<Scopes::Scope> scopeCur_);
+		/// "Scopes.Current.SetId"
+		void SetCurrentScopeId(size_t idScope);
 		/// "Scopes.Delete"
 		void DeleteScope(int idScope);
 		/// "Scopes.Current.Clear"

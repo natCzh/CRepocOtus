@@ -5,7 +5,7 @@
 #include "scopes/DependencyResolve.h"
 
 // уже разрешенные команды в IoC
-// IoC.Register, Scopes.Create.Empty, Scopes.Create.Root,  Scopes.Current, Scopes.Delete(по ид), Scopes.Current.Set, Scopes.Current.Clear
+// IoC.Register, Scopes.Create.Empty, Scopes.Create.Root,  Scopes.Current, Scopes.Delete(по ид), Scopes.Current.Set, Scopes.Current.SetId(по ид), Scopes.Current.Clear
 
 
 
