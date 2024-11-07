@@ -28,19 +28,33 @@ namespace Scopes
 		{
 			if (strcmp(key.c_str(), "IoC.Register") == 0)
 			{
-				auto items{::std::tie(args...)};
+				auto items{ ::std::tie(args...) };
 				std::string key1 = static_cast<std::string>(::std::get<0>(items));
-				auto func = &(::std::get<1>(items));
-
-
-				auto&& t = std::forward_as_tuple(args...);
 				auto t1 = std::get<1>(items);
-				auto t2 = std::get<2>(items);
-				decltype(t2) df = 0;
-				//auto t2 = decltype(std::function{ t1 })::result_type;
-				//using t2 = decltype(std::get<>)
-				std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
+
+				static constexpr size_t n = sizeof...(Args);
+				std::shared_ptr<ICommand> cmdI;
+				if constexpr (sizeof...(Args) == 3)
+				{
+					auto t2 = std::get<2>(items);
+					decltype(t2) df = 0;
+					cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
+				}
+				else if constexpr (sizeof...(Args) == 2)
+					cmdI = std::make_shared<RegisterDependencyCommand1<TFunc> >(RegisterDependencyCommand1<TFunc>(this, key1, t1));
 				return cmdI;
+			}
+			else
+			{
+				// TODO тут нужно сделать поиск по родителю
+
+
+			}
+
+				
+
+				//std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
+				//return cmdI;
 
 				/*if constexpr (std::is_same<T, ICommand_Ptr>)
 				{
@@ -68,7 +82,6 @@ namespace Scopes
 
 
 				//}
-			}
 			//{
 				if (strcmp(key.c_str(), "IoC.Register") == 0)
 				{

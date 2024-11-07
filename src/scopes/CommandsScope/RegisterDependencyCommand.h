@@ -51,5 +51,45 @@ protected:
 	std::function<T(Args... args)>																	fun;
 };
 
+template<typename T>
+class RegisterDependencyCommand1: public ICommand
+{
+public:
+	virtual ~RegisterDependencyCommand1()
+	{}
+
+	template<typename T>
+	RegisterDependencyCommand1(Scopes::DependencyResolve* depency_, std::string key_, std::function<T()> fun_)
+		: depency(depency_)
+		, key(key_)
+		, fun(fun_)
+	{}
+
+	void Execute() override
+	{
+		auto currentScope = depency->GetCurrentScope();
+		boost::any v = fun;
+		currentScope->Add(key, v);
+
+		auto d = currentScope->GetValueOrDefault("A");
+		std::function<T()> df = boost::any_cast<std::function<T()> >(d);
+		auto c = df();
+		/*ICommand_Ptr c = df();
+		c->Execute();*/
+
+
+		int sdfs = 0;
+	}
+
+	std::string GetType() override
+	{
+		return "RegisterDependencyCommand";
+	}
+
+protected:
+	Scopes::DependencyResolve*																		depency;
+	std::string																						key;
+	std::function<T()>																	fun;
+};
 
 #endif /* _REGISTER_DEPENDENCY_COMMAND_H_ */
