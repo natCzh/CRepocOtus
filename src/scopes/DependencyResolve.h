@@ -7,8 +7,8 @@
 #include <functional>
 #include <boost/any.hpp>
 
-#include "scopes/IDependencyResolve.h"
-#include "scopes/Scope.h"
+#include "src/scopes/IDependencyResolve.h"
+#include "src/scopes/Scope.h"
 #include "Command/ICommand.h"
 #include "scopes/CommandsScope/RegisterDependencyCommand.h"
 
