@@ -5,7 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <functional>
-#include <boost/lexical_cast.hpp>
+#include <boost/any.hpp>
 
 #include "scopes/IDependencyResolve.h"
 #include "scopes/Scope.h"
@@ -37,7 +37,6 @@ namespace Scopes
 				if constexpr (sizeof...(Args) == 3)
 				{
 					auto t2 = std::get<2>(items);
-					decltype(t2) df = 0;
 					cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
 				}
 				else if constexpr (sizeof...(Args) == 2)
@@ -46,78 +45,60 @@ namespace Scopes
 			}
 			else
 			{
-				// TODO тут нужно сделать поиск по родителю
-
-
+				
+				 // TODO тут нужно сделать поиск по родителю
+				 boost::any curDepend = currentScope->GetValueOrDefault(key);
+				 auto items{ ::std::tie(args...) };
+				 static constexpr size_t n = sizeof...(Args);
+				 if constexpr (sizeof...(Args) == 1)
+				 {
+					 auto t1 = std::get<0>(items);
+					 std::function<T(decltype(t1) )> df = boost::any_cast<std::function<T(decltype(t1))> >(curDepend);
+					 return (T) df(t1);
+				 }
+				 else if constexpr (sizeof...(Args) == 0)
+				 {
+					 std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
+					 return (T) df();
+				 }
 			}
 
-				
-
-				//std::shared_ptr<ICommand> cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
-				//return cmdI;
-
-				/*if constexpr (std::is_same<T, ICommand_Ptr>)
-				{
-					int sdfsd = 0;
-				}
-				else
-				{
-					int sdf = 0;
-				}*/
-
-				int swedf = 0;
-
-				//if constexpr (std::is_same_v<ICommand_Ptr, std::function<ICommand_Ptr()> >)
-				//if constexpr (std::is_same_v<T, std::function<ICommand_Ptr()> >)
-				//{
-					//auto list = { Args...};
-					//std::function<ICommand_Ptr()> functArgs = boost::lexical_cast<std::function<ICommand_Ptr()> >(args);
-
-
-					//std::function<ICommand_Ptr()> func = args[0];
-					//T v = ResolveInput<T>(key, func);
-
-
-
-
-
-				//}
-			//{
-				if (strcmp(key.c_str(), "IoC.Register") == 0)
-				{
-					//auto res = std::make_shared<T>(RegisterDependencyCommand<T, Args...>(this, key, ...args));
-					//ICommand_Ptr cmd = std::make_shared<RegisterDependencyCommand<ICommand_PtrArgs...>(new RegisterDependencyCommand<ICommand_Ptr, Args...>(this, key/*, std::function<ICommand_Ptr//()>*/));
-					//return cmd;
-					//RegisterDependencyCommand<T> cmd = RegisterDependencyCommand<T>(this, key, args);
-					//return cmd;
-				}
-
-
-
-				//if (strcmp(key.c_str(), "IoC.Register") == 0)
-					// TODOD доделать !!!!
-
-			//}
-			return nullptr;
+			return (T)NULL;
 		}
 
-
-
+		template<typename T, typename F>
+		T Resolve(std::string key, F args)
+		{
+			// TODO тут нужно сделать поиск по родителю
+			boost::any curDepend = currentScope->GetValueOrDefault(key);
+				std::function<T(F )> df = boost::any_cast<std::function<T(F)> >(curDepend);
+				return (T) df(args);
+		}
 
 		template<typename T>
-		T ResolveInput(std::string key, std::function<ICommand_Ptr()> func)
+		T Resolve(std::string key)
 		{
-			RegisterDependencyCommand<T> cmd = RegisterDependencyCommand<T>(this, key, func);
-			return cmd;
+			// TODO тут нужно сделать поиск по родителю
+			boost::any curDepend = currentScope->GetValueOrDefault(key);
+				std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
+				return (T) df();
 		}
 
-
-		void Init();
+		void Init(std::shared_ptr<Scopes::Scope> scopeCur);
 
 		// работа со скоупами
+		/// "Scopes.Current.Set"
 		void SetCurrentScope(std::shared_ptr<Scopes::Scope> scopeCur_);
+		/// "Scopes.Delete"
+		void DeleteScope(int idScope);
+		/// "Scopes.Current.Clear"
 		void ClearCurrentScopeCommand();
+		/// "Scopes.Current"
 		std::shared_ptr<Scopes::Scope> GetCurrentScope();
+		/// "Scopes.Create.Empty"
+		std::shared_ptr<Scopes::Scope> NewScopeEmpty(int idScope);
+		/// "Scopes.Create.Root"
+		std::shared_ptr<Scopes::Scope> NewScopeRoot(int idScope);
 	
 		/*ICommand_Ptr Resolve(const std::string &key, UObject *obj)
 		{

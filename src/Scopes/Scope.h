@@ -27,6 +27,8 @@ namespace Scopes
 			scopeMap[key] = dependence;
 		}
 
+
+
 	private:
 
 		std::unordered_map<std::string, boost::any >					scopeMap; 

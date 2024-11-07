@@ -1,15 +1,14 @@
-﻿# include "gtest/gtest.h"
-# include "gmock/gmock.h"
+﻿#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
 #include "IoC/IoCNew.h"
 #include "src/Exception/IoCException.h"
-#include "src/Command/MoveCommand.h"
 #include "src/Command/ICommand.h"
 
 #include <typeinfo>
-
 #include <functional>
 
-/*class MoveCommandMock : public ICommand
+class MoveCommandMock : public ICommand
 {
 public:
 	MoveCommandMock() {}
@@ -19,130 +18,74 @@ public:
 
 	MOCK_METHOD0(GetType, std::string());
 	MOCK_METHOD0(Execute, void());
-};*/
-/*
-#include <functional> 
-	class A
+};
+
+class TestMock
+{
+public:
+
+	TestMock()
+		: mockMove() {}
+	virtual ~TestMock() {}
+
+	MoveCommandMock mockMove;
+	int x = 0;
+
+	ICommand_Ptr reg()
 	{
-	public:
+		std::shared_ptr<ICommand> cmd = std::make_shared<MoveCommandMock>(mockMove);
+		x = 1;
+		return cmd;
+	}
 
-					// вызов стратегии
-		template<typename T, typename ... ARG>
-		T resolve(ARG ... arg)
-		{
+	int reg1()
+	{
+		return x;
+	}
+};
 
-
-
-			std::cout << "resolve 1 " << std::typeid(T).name() << std::endl;
-		}
-
-
-
-
-			// вызов стратегии
-		template<typename T>
-		T resolve(std::string &type)
-		{
-			int e = 0;
-//			auto cx = std::typeid(e);
-			//std::cout << "resolve 1 " << std::typeid(T).name() << std::endl;
-			return (T)e;
-		}
-
-		// регистрация
-		template<typename T>
-		T resolve(std::string &type, std::string &structType, std::function < T(void)>)
-		{
-			std::cout << "resolve 2 " << std::typeid(T).name() << ", " << structType << std::endl;
-		}
-	};
-
-
-TEST(TestIoCCommand, registerCommand1)
-{
-	A a;
-	std::string str1 = "1int";
-	int res = a.resolve<int>(str1);
-
-}*/
-
-
-/*TEST(TestIoCCommand, registerCommand)
+TEST(TestIoCCommand, commonIoC_Register_ICommand_Ptr_void)
 {
 	IoC ioc;
+	TestMock testMock;
 
-	// добавляем новый скоуп
-	size_t idScope = 0;
-	EXPECT_NO_THROW(ioc.Resolve<ICommand>("Scopes.New", static_cast<void*>(&idScope)));
-	EXPECT_NO_THROW(ioc.Resolve<ICommand>("Scopes.Current", static_cast<void*>(&idScope)));
-
-	// регистрация команды
-	MoveCommandMock moveCommand;
-	inputParamsIocRegister params;
-	std::shared_ptr<MoveCommandMock> pa_ptr = std::make_shared<MoveCommandMock>(moveCommand);
-	ICommand_Ptr params_ptr = pa_ptr;
-	params.strCommand = "MoveCommandMock";
-	params.command = params_ptr;
-	ioc.Resolve<ICommand>("IoC.Register", static_cast<void*>(&params));
-
-	EXPECT_CALL(moveCommand, Execute()).WillOnce(testing::Return());
-
-	ICommand_Ptr cur = ioc.Resolve<ICommand>("MoveCommandMock", static_cast<void*>(&params));
+	std::function<ICommand_Ptr()> func = std::bind(&TestMock::reg, &testMock);
+	//EXPECT_CALL(testMock.mockMove, Execute()).WillOnce(testing::Return());
+	// регистрация
+	ioc.Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr()>>("IoC.Register", "MoveCommandMock", func)->Execute();
+	// получение
+ 	ICommand_Ptr cur = ioc.Resolve<ICommand_Ptr>("MoveCommandMock");
 	cur->Execute();
-	
-
-
-
-	// ---------------------------------
-
-
-
-	//ioc.Resolve<ICommand>("MoveCommandMock", static_cast<void*>(&params)).Execute(); //тут пар-ов нет
-	//ioc.Resolve<ICommand>("IoC.Register", static_cast<void*>(&params)); // "завимисость", std::function void()
-
-
-
-
-
-}*/
-
-#include "Command/CommandEmpty.h"
-
-
-ICommand_Ptr reg()
-{
-	std::shared_ptr<ICommand> emptyCmd = std::shared_ptr<CommandEmpty>(new CommandEmpty());
-	return emptyCmd;
+	EXPECT_EQ(testMock.x, 1);
 }
 
-// TODO расскомментировать и сделать тест !!!!!!!
-TEST(TestIoCCommand, commonIoC)
+TEST(TestIoCCommand, commonIoC_Register_int_void)
 {
 	IoC ioc;
+	TestMock testMock1;
+	std::function<int(void)> func = std::bind(&TestMock::reg1, testMock1);
+	// регистрация
+	ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int()> >("IoC.Register", "A", func)->Execute();
+	// получение
+	int cur = ioc.Resolve<int>("A");
+	EXPECT_EQ(cur, 0);
 
-	std::function<ICommand_Ptr()> func = &reg;
-	auto del = ioc.Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr()>>("IoC.Register", "A", func);
-	del->Execute();
-
-	int sdfsd = 0;
+	// проверка на эксепшен
+	//int cur1 = ioc.Resolve<int>("B");
+	EXPECT_THROW(ioc.Resolve<int>("B"), IoCException);
 }
 
-int reg1()
-{
-	return 1;
-}
-
-// TODO расскомментировать и сделать тест !!!!!!!
-TEST(TestIoCCommand, commonIoC1)
+TEST(TestIoCCommand, commonIoC_Register_exception)
 {
 	IoC ioc;
+	TestMock testMock1;
+	std::function<int(void)> func = std::bind(&TestMock::reg1, testMock1);
+	// регистрация
+	ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int()> >("IoC.Register", "A", func)->Execute();
 
-	std::function<int()> func1 = &reg1;
-
-	auto del = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int()> >("IoC.Register", "A", func1);
-	del->Execute();
-
-	int sdfsd = 0;
+	// проверка на эксепшен
+	//int cur1 = ioc.Resolve<int>("B");
+	EXPECT_THROW(ioc.Resolve<int>("B"), IoCException);
 }
 
 int regFuncVarTemplate(int x)
@@ -150,14 +93,22 @@ int regFuncVarTemplate(int x)
 	return x;
 }
 
-TEST(TestIoCCommand, registerFuncVarTemplate)
+TEST(TestIoCCommand, commonIoC_Register_int_int)
 {
 	IoC ioc;
 	std::function<int(int)> func1 = &regFuncVarTemplate;
-	int x = 1;
+	int x = 2;
 
+	// регистрация
 	auto cmds = ioc.Resolve<ICommand_Ptr, int, std::string, std::function<int(int)>, int >("IoC.Register", "A", func1, x);
 	cmds->Execute();
 
-	int sdfsd = 0;
+	// получение
+	int c = ioc.Resolve<int>("A", x);
+	EXPECT_EQ(c, 2);
+	x = 3;
+	c = ioc.Resolve<int>("A", x);
+	EXPECT_EQ(c, 3);
 }
+
+

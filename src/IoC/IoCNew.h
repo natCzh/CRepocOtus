@@ -5,7 +5,7 @@
 #include "scopes/DependencyResolve.h"
 
 // уже разрешенные команды в IoC
-// IoC.Register, Scopes.Create.Empty, Scopes.Create,  Scopes.Current, Scopes.Delete, Scopes.Current.Set, Scopes.Current.Clear
+// IoC.Register, Scopes.Create.Empty, Scopes.Create.Root,  Scopes.Current, Scopes.Delete(по ид), Scopes.Current.Set, Scopes.Current.Clear
 
 
 
@@ -40,6 +40,12 @@ public:
 	T Resolve(std::string key, Args... args)
 	{
 		return (T) dependencyResolve->Resolve<T, TFunc, Args...>(key, args...);
+	}
+
+	template<typename T, typename... Args>
+	T Resolve(std::string key, Args... args)
+	{
+		return (T) dependencyResolve->Resolve<T, Args...>(key, args...);
 	}
 
 protected:

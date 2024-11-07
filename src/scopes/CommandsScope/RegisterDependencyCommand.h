@@ -29,15 +29,6 @@ public:
 		auto currentScope = depency->GetCurrentScope();
 		boost::any v = fun;
 		currentScope->Add(key, v);
-
-		auto d = currentScope->GetValueOrDefault("A");
-		std::function<T(Args... args)> df = boost::any_cast<std::function<T(Args... args)> >(d);
-		auto c = df(1);
-		/*ICommand_Ptr c = df();
-		c->Execute();*/
-
-
-		int sdfs = 0;
 	}
 
 	std::string GetType() override
@@ -70,15 +61,6 @@ public:
 		auto currentScope = depency->GetCurrentScope();
 		boost::any v = fun;
 		currentScope->Add(key, v);
-
-		auto d = currentScope->GetValueOrDefault("A");
-		std::function<T()> df = boost::any_cast<std::function<T()> >(d);
-		auto c = df();
-		/*ICommand_Ptr c = df();
-		c->Execute();*/
-
-
-		int sdfs = 0;
 	}
 
 	std::string GetType() override
