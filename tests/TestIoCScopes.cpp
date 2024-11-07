@@ -4,7 +4,7 @@
 #include <functional>
 #include <thread>
 
-#include "IoC/IoCNew.h"
+#include "IoC/IoC.h"
 #include "src/Exception/ScopesException.h"
 #include "src/Exception/IoCException.h"
 #include "src/Command/ICommand.h"

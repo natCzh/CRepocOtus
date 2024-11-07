@@ -1,7 +1,7 @@
 ﻿#include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "IoC/IoCNew.h"
+#include "IoC/IoC.h"
 #include "src/Exception/IoCException.h"
 #include "src/Command/ICommand.h"
 
