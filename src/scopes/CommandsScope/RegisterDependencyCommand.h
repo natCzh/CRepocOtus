@@ -17,7 +17,7 @@ public:
 	virtual ~RegisterDependencyCommand()
 	{}
 
-	template<typename T, typename... Args>
+	//template<typename T, typename... Args>
 	RegisterDependencyCommand(Scopes::DependencyResolve* depency_, std::string key_, std::function<T(Args... args)> fun_)
 		: depency(depency_)
 		, key(key_)
@@ -49,7 +49,7 @@ public:
 	virtual ~RegisterDependencyCommand1()
 	{}
 
-	template<typename T>
+	//template<typename T>
 	RegisterDependencyCommand1(Scopes::DependencyResolve* depency_, std::string key_, std::function<T()> fun_)
 		: depency(depency_)
 		, key(key_)
