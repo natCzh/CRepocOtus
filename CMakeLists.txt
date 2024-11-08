@@ -4,6 +4,7 @@ project(natSpaceBattle)
 
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(src/)
+add_definitions(-D_USE_MATH_DEFINES)
 
 #TODO переделать это!!!
 FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
