@@ -5,6 +5,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <memory>
 
 class UObject
 {
@@ -18,5 +19,7 @@ public:
 	virtual int getNumberProperty() = 0;
 	virtual boost::any getPropertyIter(unsigned int iter, std::string &nameProperty) = 0;
 };
+
+using UObject_Ptr = std::shared_ptr<UObject>;
 
 #endif /* _U_OBJECT_H_ */
