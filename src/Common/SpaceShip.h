@@ -17,8 +17,7 @@ public:
 	{
 		mapKey["position_x"] = 0;
 		mapKey["position_y"] = 0;
-		mapKey["velocity_x"] = 0;
-		mapKey["velocity_y"] = 0;
+		mapKey["velocity"] = 0;
 		mapKey["direction"] = 0;
 		mapKey["directionNumber"] = 4; // можно двигаться только в 4 стороны 
 		mapKey["shotRange"] = 0;
