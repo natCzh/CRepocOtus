@@ -10,13 +10,13 @@ class UObject
 {
 public:
 	/// [out] - error
-	/// [in-out] nameProperty
-	/// [in-out] value
-	virtual int getProperty(const std::string &nameProperty, boost::any &value) = 0;
-	virtual int setProperty(const std::string &nameProperty, boost::any newValue) = 0;
+	/// [in] nameProperty
+	/// [out] value
+	virtual boost::any getProperty(const std::string &nameProperty) = 0;
+	virtual void setProperty(const std::string &nameProperty, boost::any newValue) = 0;
 
 	virtual int getNumberProperty() = 0;
-	virtual int getPropertyIter(unsigned int iter, std::string &nameProperty, boost::any &value) = 0;
+	virtual boost::any getPropertyIter(unsigned int iter, std::string &nameProperty) = 0;
 };
 
 #endif /* _U_OBJECT_H_ */

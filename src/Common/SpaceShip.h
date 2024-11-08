@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include "Common/UObject.h"
+#include "Exception/UobjectException.h"
 
 class SpaceShip: public UObject
 {
@@ -27,26 +28,24 @@ public:
 	virtual ~SpaceShip() {};
 
 	/// [out] - error
-	/// [in-out] nameProperty
-	/// [in-out] value
-	int getProperty(const std::string &nameProperty, boost::any &value) override
+	/// [in] nameProperty
+	/// [out] value
+	boost::any getProperty(const std::string &nameProperty) override
 	{
 		auto iter = mapKey.find(nameProperty);
 		if (iter == mapKey.end())
-			return 1;
+			throw UobjectException("Uobject parameter of key isn't exist");
 
-		value = iter->second;
-		return 0;
+		return iter->second;
 	}
 
-	int setProperty(const std::string &nameProperty, boost::any newValue) override
+	void setProperty(const std::string &nameProperty, boost::any newValue) override
 	{
 		auto iter = mapKey.find(nameProperty);
 		if (iter == mapKey.end())
-			return 1;
+			throw UobjectException("Uobject parameter of key isn't exist");
 
 		iter->second = newValue;
-		return 0;
 	}
 
 	int getNumberProperty()
@@ -54,18 +53,16 @@ public:
 		return mapKey.size();
 	}
 
-	int getPropertyIter(unsigned int iter, std::string &nameProperty, boost::any &value)
+	boost::any getPropertyIter(unsigned int iter, std::string &nameProperty)
 	{
 		if (mapKey.size() - iter < 1)
-			return 1;
+			throw UobjectException("Uobject parameter of key isn't exist");
 
 		std::unordered_map<std::string, boost::any>::iterator it = mapKey.begin();
 		std::advance (it,iter);
 
 		nameProperty = it->first;
-		value = it->second;
-
-		return 0;
+		return it->second;
 	}
 
 private:
