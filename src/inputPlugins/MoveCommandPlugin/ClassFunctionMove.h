@@ -30,6 +30,11 @@ public:
 
 		if (locationCur.size() != 2)
 			throw UobjectException("Uobject parameter value for set isn't correct");
+
+		boost::any newValue = locationCur[0];
+		obj->setProperty("position_x", newValue);
+		newValue = locationCur[1];
+		obj->setProperty("position_y", newValue);
 	}
 
 	static std::vector<int> IMovableVelocityFunc(UObject_Ptr obj)
