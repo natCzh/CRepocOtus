@@ -17,11 +17,17 @@ public:
 	{
 		mapKey["position_x"] = 0;
 		mapKey["position_y"] = 0;
-		mapKey["velocity"] = 0;
-		mapKey["direction"] = 0;
-		mapKey["directionNumber"] = 4; // можно двигаться только в 4 стороны 
-		mapKey["shotRange"] = 0;
+		mapKey["velocity"] = 0; // тут хранится модуль скорости
+		mapKey["direction"] = 0; // хранится как часть от окружности , чтобы получить угол надо (d*360/n)
+		mapKey["directionNumber"] = 4; // можно двигаться только в 4 стороны , те мы поделили окружность на 4 части
+		mapKey["directionAngular"] = 0; // на сколько поворачиваемся
+		
 		mapKey["health"] = 0;
+
+		// выстрел
+		mapKey["shotRange"] = 0;
+		mapKey["shotAct"] = 0; // был выстрел или нет у объекта
+		mapKey["numberShot"] = 0; // кол-во выстрелов, патронов
 	}
 
 	virtual ~SpaceShip() {};

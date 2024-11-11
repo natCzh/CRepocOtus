@@ -8,7 +8,7 @@
 #include <boost/any.hpp>
 
 #include "src/scopes/IDependencyResolve.h"
-#include "scopes/scopeCur.h"
+#include "scopes/Scope.h"
 #include "Command/ICommand.h"
 #include "scopes/CommandsScope/RegisterDependencyCommand.h"
 

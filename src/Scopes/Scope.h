@@ -13,6 +13,19 @@ namespace Scopes
 	{
 	public:
 
+		Scope() {}
+
+		Scope(const Scope &orig)
+			: scopeMap(orig.scopeMap)
+		{}
+
+		Scope& operator=(const Scope &orig)
+		{
+			this->scopeMap = orig.scopeMap;
+
+			return *this;
+		}
+
 		boost::any GetValueOrDefault(const std::string &key)
 		{
 			auto iterF = scopeMap.find(key);

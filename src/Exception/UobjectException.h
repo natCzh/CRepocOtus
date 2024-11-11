@@ -4,7 +4,8 @@
 #include <exception>
 #include <string>
 
-// "Uobject parameter of key isn't exist"  - по данному ключу нету параметров
+// "Uobject parameter of key isn't exist"  - РїРѕ РґР°РЅРЅРѕРјСѓ РєР»СЋС‡Сѓ РЅРµС‚Сѓ РїР°СЂР°РјРµС‚СЂРѕРІ
+// "Uobject parameter value for set isn't correct" - Р·Р°РґР°РЅС‹ РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё
 
 class UobjectException: public std::exception
 {
@@ -19,7 +20,7 @@ public:
 	}
 
 private:
-	std::string									message;			// сообщение об ошибке
+	std::string									message;			// СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
 };
 
 #endif /* _U_OBJECT_EXCEPTION_H_ */
