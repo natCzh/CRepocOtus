@@ -7,7 +7,7 @@
 
 #include "Command/ICommand.h"
 #include "Common/QueueCommand.h"
-#include "IoC/IoCGlobal.h"
+#include "service/TourneyService/IoCGlobal.h"
 
 class GameCommand: public ICommand
 {

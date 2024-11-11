@@ -1,6 +1,6 @@
 ﻿#include <string>
 
-#include "scopes/DependencyResolve.h"
+#include "Scopes/DependencyResolve.h"
 #include "Command/ICommand.h"
 #include "Exception/ScopesException.h"
 

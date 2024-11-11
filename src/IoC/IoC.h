@@ -1,13 +1,13 @@
 #ifndef _I_O_C_H_
 #define _I_O_C_H_
 
-#include "scopes/IDependencyResolve.h"
-#include "scopes/DependencyResolve.h"
+#include <memory>
+
+#include "Scopes/IDependencyResolve.h"
+#include "Scopes/DependencyResolve.h"
 
 // уже разрешенные команды в IoC
 // IoC.Register, Scopes.Create.Empty, Scopes.Create.Root,  Scopes.Current, Scopes.Delete(по ид), Scopes.Current.Set, Scopes.Current.SetId(по ид), Scopes.Current.Clear
-
-
 
 // TODO пока класс реализован так
 /////////////// список IoC команд

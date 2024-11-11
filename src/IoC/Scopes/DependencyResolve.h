@@ -7,12 +7,10 @@
 #include <functional>
 #include <boost/any.hpp>
 
-#include "src/scopes/IDependencyResolve.h"
-#include "scopes/Scope.h"
+#include "Scopes/IDependencyResolve.h"
+#include "Scopes/Scope.h"
 #include "Command/ICommand.h"
 #include "scopes/CommandsScope/RegisterDependencyCommand.h"
-
-//template<typename T, typename... Args>
 
 namespace Scopes
 {
@@ -45,7 +43,6 @@ namespace Scopes
 			}
 			else
 			{
-				
 				 // TODO тут нужно сделать поиск по родителю
 				 boost::any curDepend = currentScope->GetValueOrDefault(key);
 				 auto items{ ::std::tie(args...) };
@@ -101,36 +98,6 @@ namespace Scopes
 		std::shared_ptr<Scopes::Scope> NewScopeEmpty(int idScope);
 		/// "Scopes.Create.Root"
 		std::shared_ptr<Scopes::Scope> NewScopeRoot(int idScope);
-	
-		/*ICommand_Ptr Resolve(const std::string &key, UObject *obj)
-		{
-			// ICommand_Ptr
-			return scope.begin()->second;
-		}
-
-		void dependencyResolve(std::unordered_map<std::string, ICommand_Ptr> &scopeCur)
-		{
-			// проверки на родительский скоуп нету
-			scope = scopeCur;
-		}
-
-		ICommand_Ptr GetValueOrDefault(const std::string &key)
-		{
-			auto iterF = scope.find(key);
-			if (iterF != scope.end())
-				return iterF->second;
-			else
-				return nullptr;
-		}
-		
-		void AddCommand(const std::string &key, ICommand_Ptr command) override
-		{
-			scope[key] = command;
-		}*/
-
-
-
-
 
 	private:
 

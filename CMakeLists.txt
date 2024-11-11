@@ -6,10 +6,12 @@ include_directories(${PROJECT_SOURCE_DIR})
 include_directories(src/)
 add_definitions(-D_USE_MATH_DEFINES)
 
-#TODO переделать это!!!
-FILE(GLOB_RECURSE HEADERS ${PROJECT_SOURCE_DIR}/src/*.h )
 
-FILE(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+#TODO переделать это!!
+FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/objectAble/*.h src/Common/*.h src/EndPoint/*.h src/Exception/*.h src/IoC/*.h 
+                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h)
+
+FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src/service/*.cpp)
 
 FILE(GLOB_RECURSE TESTS_PROJECT_FILES ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
@@ -57,6 +59,8 @@ if(MSVC)
     endif()
 endif()
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/IoC/)
+
 # //////////////// Boost
 find_package(Boost)
 SET(Boost_USE_STATIC_LIBS OFF)
@@ -64,6 +68,7 @@ SET(Boost_USE_MULTITHREAD ON)
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${TESTS_PROJECT_FILES})
 target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
+target_link_libraries(${PROJECT_NAME} PRIVATE IoC)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
                                  ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR}  ${PROJECT_SOURCE_DIR}/Base/jsoncpp/)
