@@ -24,7 +24,8 @@ public:
 	{
 		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
 
-		ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable, queue)->Execute();
+		ICommand_Ptr cmdCur = ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable)->Execute();
+		queue->Push(cmdCur);
 	}
 
 	std::string GetType()

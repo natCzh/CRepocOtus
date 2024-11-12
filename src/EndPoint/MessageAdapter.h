@@ -19,8 +19,7 @@ public:
 
 	unsigned int getIdGame()
 	{
-		boost::any val;
-		message->getProperty("id.Game", val);
+		boost::any val = message->getProperty("id.Game");
 		return boost::any_cast<unsigned int>(val);
 	}
 
