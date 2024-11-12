@@ -1,5 +1,5 @@
 #ifndef _I_MOVABLE_H_
-#define _I_MOVABLE_H__
+#define _I_MOVABLE_H_
 
 #include <vector>
 #include <boost/any.hpp>

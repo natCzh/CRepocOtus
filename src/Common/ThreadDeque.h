@@ -4,7 +4,7 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "IThreadDeque.h"
+#include "CommonLib/IThreadDeque.h"
 
 template <typename T>
 class ThreadDeque: public IThreadDeque<T>

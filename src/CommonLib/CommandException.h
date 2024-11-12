@@ -7,9 +7,7 @@
 class CommandException: public std::exception
 {
 public:
-	CommandException(const std::string &message)
-		: message(message)
-	{}
+	CommandException(const std::string& message);
 
 	const char* what() const noexcept override
 	{
