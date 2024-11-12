@@ -9,8 +9,6 @@
 
 namespace Scopes
 {
-	std::atomic<size_t> IdScope::sourceId(0);
-
 	class IdScope
 	{
 	public:

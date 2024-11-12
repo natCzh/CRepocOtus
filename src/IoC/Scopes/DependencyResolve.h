@@ -10,7 +10,7 @@
 #include "Scopes/IDependencyResolve.h"
 #include "Scopes/Scope.h"
 #include "Command/ICommand.h"
-#include "scopes/CommandsScope/RegisterDependencyCommand.h"
+#include "Scopes/CommandsScope/RegisterDependencyCommand.h"
 
 namespace Scopes
 {
@@ -35,7 +35,7 @@ namespace Scopes
 				if constexpr (sizeof...(Args) == 3)
 				{
 					auto t2 = std::get<2>(items);
-					cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>(this, key1, t1));
+					cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>	(this, key1, t1));
 				}
 				else if constexpr (sizeof...(Args) == 2)
 					cmdI = std::make_shared<RegisterDependencyCommand1<TFunc> >(RegisterDependencyCommand1<TFunc>(this, key1, t1));
