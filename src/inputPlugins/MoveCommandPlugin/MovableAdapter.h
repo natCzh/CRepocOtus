@@ -2,10 +2,14 @@
 #define _MOVABLE_ADAPTER_H_
 
 #include <vector>
+#include <memory>
 
-#include "Common/objectAble/IMovable.h"
-#include "IoC/IoCGlobal.h"
-#include "Common/UObject.h"
+#include "CommonLib/objectAble/IMovable.h"
+#include "CommonLib/UObject.h"
+//#include "service/TourneyService/IoCGlobal.h"
+#include "IoC.h"
+
+extern std::shared_ptr<IoC> ioc;
 
 class MovableAdapter : public IMovable
 {
@@ -17,17 +21,17 @@ public:
 
 	boost::any getLocation() override
 	{
-		return ioc.Resolve<std::vector<int> >("IMovable.Location", obj);
+		return ioc->Resolve<std::vector<int> >("IMovable.Location", obj);
 	}
 
 	boost::any getVelocity() override
 	{
-		return ioc.Resolve<std::vector<int> >("IMovable.Velocity", obj);
+		return ioc->Resolve<std::vector<int> >("IMovable.Velocity", obj);
 	}
 	void setLocation(boost::any &newValue) override
 	{
 		std::vector<int> newValueAnyVect = boost::any_cast<std::vector<int>>(newValue);
-		ioc.Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect);
+		//ioc.Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect);
 	}
 
 protected:

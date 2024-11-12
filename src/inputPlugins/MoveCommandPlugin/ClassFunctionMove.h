@@ -2,11 +2,15 @@
 #define _CLASS_FUNCTION_MOVE_H_
 
 #include <cmath>
+#include <memory>
 
 #include "Command/ICommand.h"
-#include "Common/UObject.h"
+#include "CommonLib/UObject.h"
 #include "Exception/UobjectException.h"
 #include "inputPlugins/MoveCommandPlugin/CommandMove.h"
+#include "CommonLib/objectAble/IMovable.h"
+#include "inputPlugins/MoveCommandPlugin/MovableAdapter.h"
+#include "IoC/IoC.h"
 
 class ClassFunctionMove
 {
@@ -60,7 +64,7 @@ public:
 
 	static ICommand_Ptr CommandMoveFunc(UObject_Ptr obj)
 	{
-		return ICommand_Ptr(new CommandMove(ioc.Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj)));
+		return ICommand_Ptr(new CommandMove(ioc->Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj)));
 	}
 };
 

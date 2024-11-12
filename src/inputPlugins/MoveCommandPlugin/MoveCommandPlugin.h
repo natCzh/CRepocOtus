@@ -2,13 +2,13 @@
 #define _MOVE_COMMAND_PLUGIN_H_
 
 #include <string>
+#include <QtPlugin>
+#include <QObject>
 
-#include "IoC/IoCGlobal.h" // TODO сделать это как-то по-другому
-#include "Common/IPlugin.h"
-#include "Common/UObject.h"
-#include "ClassFunctionMove.h"
-#include "Common/SpaceShip.h"
-#include "inputPlugins/MoveCommandPlugin/MovableAdapter.h"
+#include "../../CommonLib/IPlugin.h"
+#include "../../CommonLib/UObject.h"
+#include "IoC.h"
+
 
 // Доступные команды 
 // TODO !!!!!!!!!!!! описать !!!!!!!!!!!
@@ -23,47 +23,19 @@
 
 class MoveCommandPlugin: public IPlugin
 {
+	Q_OBJECT
+	Q_PLUGIN_METADATA(IID IPlugin_iid)
+    Q_INTERFACES(IPlugin)
+
 public:
 
-	void Load() override
-	{
-		SpaceShip x;
-		UObject_Ptr obj = std::make_shared<SpaceShip>(x);
-		std::function<std::vector<int>(UObject_Ptr)> funcLoc = &ClassFunctionMove::IMovableLocationFunc;
-		ioc.Resolve<ICommand_Ptr, std::vector<int>, std::string, std::function<std::vector<int>(UObject_Ptr)> >(
-			"IoC.Register", 
-			"IMovable.Location", 
-			funcLoc, obj);
+	void Load() override;
 
-		std::function<void(UObject_Ptr obj, boost::any value)> funcLocSet = &ClassFunctionMove::IMovableLocationSetFunc;
-		ioc.Resolve<ICommand_Ptr, void, std::string, std::function<void(UObject_Ptr obj, boost::any value)> >(
-			"IoC.Register", 
-			"IMovable.Location.Set", 
-			funcLocSet, obj);
+	void InitPlugin(std::shared_ptr<IoC> iocCur);
 
-		std::function<std::vector<int>(UObject_Ptr obj)> funcVel = &ClassFunctionMove::IMovableVelocityFunc;
-		ioc.Resolve<ICommand_Ptr, std::vector<int>, std::string, std::function<std::vector<int>(UObject_Ptr obj)> >(
-			"IoC.Register", 
-			"IMovable.Velocity", 
-			funcVel, obj);
-
-		std::function<std::shared_ptr<IMovable>(UObject_Ptr obj)> funcAdapterIMovable = &ClassFunctionMove::AdaptersIMovableFunc;
-		ioc.Resolve<ICommand_Ptr, std::shared_ptr<IMovable>, std::string, std::function<std::shared_ptr<IMovable>(UObject_Ptr obj)> >(
-			"IoC.Register",
-			"Adapters.IMovable",
-			funcAdapterIMovable, obj);
-
-		std::function<ICommand_Ptr(UObject_Ptr obj)> funcCommandMove = &ClassFunctionMove::CommandMoveFunc;
-		ioc.Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(UObject_Ptr obj)> >(
-			"IoC.Register",
-			"Command.Move",
-			funcCommandMove, obj);
-	}
-
-	std::string GetType()
-	{
-		return "MoveCommandPlugin";
-	}
+	std::string GetType() override;
+private:
+	//std::shared_ptr<IoC> ioc_;
 };
 
 #endif /* _MOVE_COMMAND_PLUGIN_H_ */
