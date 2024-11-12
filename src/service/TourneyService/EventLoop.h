@@ -6,7 +6,7 @@
 
 #include "src/Common/ThreadDeque.h"
 #include "src/Command/ICommand.h"
-#include "src/Common/CommandException.h"
+#include "src/CommonLib/CommandException.h"
 #include "src/service/ExceptionHendler.h"
 #include "src/Exception/MessageTourneySException.h"
 
