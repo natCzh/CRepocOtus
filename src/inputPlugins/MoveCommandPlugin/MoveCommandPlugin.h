@@ -7,11 +7,11 @@
 
 #include "../../CommonLib/IPlugin.h"
 #include "../../CommonLib/UObject.h"
-#include "IoC.h"
+#include "IoC/IoC.h"
 
 
-// Доступные команды 
-// TODO !!!!!!!!!!!! описать !!!!!!!!!!!
+// Р”РѕСЃС‚СѓРїРЅС‹Рµ РєРѕРјР°РЅРґС‹ 
+// TODO !!!!!!!!!!!! РѕРїРёСЃР°С‚СЊ !!!!!!!!!!!
 // "IMovable.Location" - 
 
 
@@ -21,7 +21,7 @@
 // "Command.Move"
 
 
-class MoveCommandPlugin: public IPlugin
+class MoveCommandPlugin: public QObject, public IPlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID IPlugin_iid)

@@ -8,7 +8,7 @@
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/objectAble/IMovable.h"
 
-#include "service/TourneyService/IoCGlobal.h"
+#include "../../service/TourneyService/IoCGlobal.h"
 
 void MoveCommandPlugin::InitPlugin(std::shared_ptr<IoC> iocCur)
 { ioc = iocCur; }

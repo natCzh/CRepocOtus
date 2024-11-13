@@ -7,6 +7,7 @@ include_directories(src/)
 add_definitions(-D_USE_MATH_DEFINES)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+set(CMAKE_AUTOMOC ON)
 
 #TODO переделать это!!
 FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/*.h src/EndPoint/*.h src/Exception/*.h src/IoC/*.h 
@@ -80,5 +81,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
                                       CXX_STANDARD_REQUIRED ON)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+
+message(STATUS "root prefix path = ${CMAKE_INSTALL_PREFIX}")
+
+
+install(TARGETS ${PROJECT_NAME} DESTINATION .)
 
  

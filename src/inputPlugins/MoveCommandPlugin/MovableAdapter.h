@@ -4,10 +4,9 @@
 #include <vector>
 #include <memory>
 
-#include "CommonLib/objectAble/IMovable.h"
-#include "CommonLib/UObject.h"
-//#include "service/TourneyService/IoCGlobal.h"
-#include "IoC.h"
+#include "objectAble/IMovable.h"
+#include "UObject.h"
+#include "IoC/IoC.h"
 
 extern std::shared_ptr<IoC> ioc;
 

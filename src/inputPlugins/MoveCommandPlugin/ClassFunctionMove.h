@@ -4,12 +4,12 @@
 #include <cmath>
 #include <memory>
 
-#include "Command/ICommand.h"
-#include "CommonLib/UObject.h"
-#include "Exception/UobjectException.h"
-#include "inputPlugins/MoveCommandPlugin/CommandMove.h"
-#include "CommonLib/objectAble/IMovable.h"
-#include "inputPlugins/MoveCommandPlugin/MovableAdapter.h"
+#include "../../Command/ICommand.h"
+#include "UObject.h"
+#include "UobjectException.h"
+#include "CommandMove.h"
+#include "objectAble/IMovable.h"
+#include "MovableAdapter.h"
 #include "IoC/IoC.h"
 
 class ClassFunctionMove

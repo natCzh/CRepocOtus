@@ -7,6 +7,9 @@ find_package(Boost)
 SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD ON)
 
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+set(CMAKE_AUTOMOC ON)
+
 set(SOURCES_${PROJECT_NAME} CommandException.cpp)
 set(HEADERS_${PROJECT_NAME} CommandException.h IPlugin.h IThreadDeque.h UObject.h objectAble/IMovable.h objectAble/IRotable.h objectAble/IShotable.h)
 
@@ -19,5 +22,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
                                       CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE IoC)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Core)
 
 

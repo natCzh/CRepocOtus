@@ -1,8 +1,8 @@
 #ifndef _COMMAND_MOVE_H_
 #define _COMMAND_MOVE_H_
 
-#include "Command/ICommand.h"
-#include "CommonLib/objectAble/IMovable.h"
+#include "../../Command/ICommand.h"
+#include "objectAble/IMovable.h"
 
 class CommandMove: public ICommand
 {

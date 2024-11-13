@@ -4,12 +4,12 @@
 #include <string>
 #include <memory>
 
-#include <QObject>
 #include <QtPlugin>
 
-#include "IoC.h"
+#include "IoC/IoC.h"
+#include "IPluginExport.h"
 
-class IPlugin : public QObject
+class IPlugin
 {
 public: 
 
@@ -23,4 +23,4 @@ public:
 #define IPlugin_iid "Qt.PlugAndPaint.IPlugin"
 Q_DECLARE_INTERFACE(IPlugin, IPlugin_iid)
 
-#endif _I_PLUGIN_H_
+#endif /* _I_PLUGIN_H_ */

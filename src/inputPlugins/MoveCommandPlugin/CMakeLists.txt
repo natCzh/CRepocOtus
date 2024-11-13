@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 project(moveCommandPlugin)
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+set(CMAKE_AUTOMOC ON)
+
+add_definitions(-D_USE_MATH_DEFINES)
 
 # //////////////// Boost
 find_package(Boost)
@@ -16,12 +19,17 @@ message("STATUS" ${PROJECT_SOURCE_DIR})
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES_${PROJECT_NAME}} ${HEADERS_${PROJECT_NAME}})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../IoC)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../../ ../../CommonLib ../../Exception)
+target_compile_definitions(${PROJECT_NAME} PRIVATE -DPLUGIN_LIBRARY)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Core)
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE CommonLib IoC)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
                                       CXX_STANDARD_REQUIRED ON)
+
+message(STATUS "plugin prefix path = ${CMAKE_INSTALL_PREFIX}")
+
+install(TARGETS ${PROJECT_NAME} DESTINATION plugins)
 
 
