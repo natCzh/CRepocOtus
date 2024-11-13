@@ -12,7 +12,13 @@
 // TODO пока класс реализован так
 /////////////// список IoC команд
 // Скоупы
-// "Scopes.GetListIds" - получим вектор пар <ид игрового объектаб ID существующих Scopes>
+// "Scopes.Current.Set" -   // выставление текущего скоупа по скоупу // -> ioc.Resolve<void>("Scopes.Current.Set", newScope)
+// "Scopes.Create.Empty" -  // создание пустого скоупа // -> ioc.Resolve<std::shared_ptr<Scopes::Scope> >("Scopes.Create.Empty", 1);
+// "Scopes.Create.Root" -   // создание скоупа с командами рута // -> ioc.Resolve<std::shared_ptr<Scopes::Scope> >("Scopes.Create.Root", 4)
+// "Scopes.Current" - 		// получение текущего скоупа // -> ioc.Resolve<std::shared_ptr<Scopes::Scope> >("Scopes.Current")
+// "Scopes.Delete" - 		// удаление скоупа // -> ioc.Resolve<void>("Scopes.Delete", 1)
+// "Scopes.Current.Clear" - // очищение текущего скоупа // -> ioc.Resolve<void>("Scopes.Current.Clear") 
+// "Scopes.Current.SetId" - // выставление текущего скоупа по ид // -> ioc.Resolve<void>("Scopes.Current.SetId", 1)
 
 // Получение объекта, данных
 // "GameItems"
