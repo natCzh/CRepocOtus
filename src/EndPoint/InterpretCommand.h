@@ -4,9 +4,11 @@
 #include <memory>
 
 #include "Command/ICommand.h"
-#include "IoC/IoCGlobal.h"
+#include "IoC/IoC.h"
 #include "EndPoint/MessageAdapter.h"
+#include "Common/QueueCommand.h"
 
+extern std::shared_ptr<IoC> ioc;
 // Задача в нужную очередь(объекта) положить нужную команду
 class InterpretCommand : public ICommand
 {
@@ -22,9 +24,9 @@ public:
 
 	void Execute()
 	{
-		ioc.Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
+        ioc->Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
 
-		ICommand_Ptr cmdCur = ioc.Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable)->Execute();
+        ICommand_Ptr cmdCur = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
 		queue->Push(cmdCur);
 	}
 

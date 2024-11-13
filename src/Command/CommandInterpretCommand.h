@@ -3,11 +3,14 @@
 
 #include <memory>
 
-#include "IoC/IoCGlobal.h"
+#include "IoC/IoC.h"
 #include "Command/ICommand.h"
 #include "Common/QueueCommand.h"
 #include "Exception/InterpretCommandException.h"
+#include "EndPoint/IMessagable.h"
+#include "CommonLib/UObject.h"
 
+extern std::shared_ptr<IoC> ioc;
 class CommandInterpretCommand_StartMove: public ICommand
 {
 public:
@@ -20,14 +23,14 @@ public:
 	void Execute() override
 	{
 		// так как в Interpret уже выставлен scope для нужного объекта, мы просто получаем нужный объект
-		std::shared_ptr<UObject> curObject = ioc.Resolve<std::shared_ptr<UObject> >(
+        std::shared_ptr<UObject> curObject = ioc->Resolve<std::shared_ptr<UObject> >(
 			"GameItems");
-		ioc.Resolve<ICommand_Ptr>(
+        ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForMove",
 			curObject,
 			messagable);
 
-		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>("Move");
+        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Move");
 		queue->Push(cmd);
 	}
 
@@ -82,13 +85,13 @@ public:
 
 	void Execute() override
 	{
-		std::shared_ptr<UObject> curObject = ioc.Resolve<std::shared_ptr<UObject> >(
+        std::shared_ptr<UObject> curObject = ioc->Resolve<std::shared_ptr<UObject> >(
 		 	"GameItems");
-		ioc.Resolve<ICommand_Ptr>(
+        ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForStopMove",
 			curObject);
 		 
-		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>("MoveStop");
+        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("MoveStop");
 		//std::shared_ptr<QueueCommand> queue = ioc.Resolve<std::shared_ptr<QueueCommand> >("Game.Queue");
 		// queue->Push(cmd);
 	}
@@ -137,14 +140,14 @@ public:
 
 	void Execute() override
 	{
-		std::shared_ptr<UObject> curObject = ioc.Resolve<std::shared_ptr<UObject> >(
+        std::shared_ptr<UObject> curObject = ioc->Resolve<std::shared_ptr<UObject> >(
 			"GameItems");
-		ioc.Resolve<ICommand_Ptr>(
+        ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForShot",
 			curObject,
 			messagable);
 
-		ICommand_Ptr cmd = ioc.Resolve<ICommand_Ptr>("Shot");
+        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Shot");
 		queue->Push(cmd);
 	}
 

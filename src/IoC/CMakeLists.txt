@@ -10,7 +10,7 @@ SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD ON)
 
 set(SOURCES_${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/Scopes/DependencyResolve.cpp  ${PROJECT_SOURCE_DIR}/Scopes/IdScope.cpp)
-set(HEADERS_${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/IoC.h ${PROJECT_SOURCE_DIR}/Scopes/CommandsScope/RegisterDependencyCommand.h ${PROJECT_SOURCE_DIR}/Scopes/CommandsScope/SetCurrentScopeCommand.h  
+set(HEADERS_${PROJECT_NAME} IoC.h IoCException.h ${PROJECT_SOURCE_DIR}/Scopes/CommandsScope/RegisterDependencyCommand.h ${PROJECT_SOURCE_DIR}/Scopes/CommandsScope/SetCurrentScopeCommand.h  
                             ${PROJECT_SOURCE_DIR}/Scopes/DependencyResolve.h ${PROJECT_SOURCE_DIR}/Scopes/IDependencyResolve.h ${PROJECT_SOURCE_DIR}/Scopes/IdScope.h
                             ${PROJECT_SOURCE_DIR}/Scopes/Scope.h)
 

@@ -9,7 +9,7 @@
 
 #include "Scopes/IDependencyResolve.h"
 #include "Scopes/Scope.h"
-#include "Command/ICommand.h"
+#include "../../Command/ICommand.h"
 #include "Scopes/CommandsScope/RegisterDependencyCommand.h"
 
 namespace Scopes

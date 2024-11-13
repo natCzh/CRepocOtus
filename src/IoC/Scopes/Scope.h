@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <boost/any.hpp>
 
-#include "Exception/IoCException.h"
+#include "IoCException.h"
 
 namespace Scopes
 {
