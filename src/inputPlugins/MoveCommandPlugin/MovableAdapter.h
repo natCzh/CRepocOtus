@@ -8,8 +8,7 @@
 #include "UObject.h"
 #include "IoC/IoC.h"
 
-extern std::shared_ptr<IoC> ioc;
-
+extern IoC* ioc;
 class MovableAdapter : public IMovable
 {
 public:
@@ -30,7 +29,7 @@ public:
 	void setLocation(boost::any &newValue) override
 	{
 		std::vector<int> newValueAnyVect = boost::any_cast<std::vector<int>>(newValue);
-		//ioc.Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect);
+        // ioc->Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect); // TODO !!!!
 	}
 
 protected:

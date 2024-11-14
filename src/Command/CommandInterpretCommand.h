@@ -10,7 +10,7 @@
 #include "EndPoint/IMessagable.h"
 #include "CommonLib/UObject.h"
 
-extern std::shared_ptr<IoC> ioc;
+extern IoC* ioc;
 class CommandInterpretCommand_StartMove: public ICommand
 {
 public:

@@ -15,8 +15,8 @@ public:
 
 	virtual ~IPlugin() {};
 
-	// virtual void InitPlugin(IoC* iocCur) = 0;
-	virtual void Load() = 0;
+    virtual void InitPlugin(IoC* iocCur) = 0;
+    virtual void Load() = 0;
 	virtual std::string GetType() = 0;
 };
 

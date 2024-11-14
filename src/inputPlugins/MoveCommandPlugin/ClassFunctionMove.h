@@ -12,6 +12,7 @@
 #include "MovableAdapter.h"
 #include "IoC/IoC.h"
 
+extern IoC* ioc;
 class ClassFunctionMove
 {
 public:

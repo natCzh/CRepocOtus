@@ -29,9 +29,9 @@ class MoveCommandPlugin: public QObject, public IPlugin
 
 public:
 
-	void Load() override;
+    void Load() override;
 
-	void InitPlugin(std::shared_ptr<IoC> iocCur);
+    void InitPlugin(IoC* iocCur) override;
 
 	std::string GetType() override;
 private:

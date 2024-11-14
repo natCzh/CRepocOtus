@@ -9,7 +9,7 @@
 
 CorePluginBattleCommand::CorePluginBattleCommand()
 {
-    ioc = std::make_shared<IoC>();
+    ioc = new IoC();
 
     // загрузка плагинов
     auto pluginsDir = QDir(QCoreApplication::applicationDirPath());

@@ -8,7 +8,7 @@
 #include "EndPoint/MessageAdapter.h"
 #include "Common/QueueCommand.h"
 
-extern std::shared_ptr<IoC> ioc;
+extern IoC* ioc;
 // Задача в нужную очередь(объекта) положить нужную команду
 class InterpretCommand : public ICommand
 {

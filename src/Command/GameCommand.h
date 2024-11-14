@@ -9,7 +9,7 @@
 #include "Common/QueueCommand.h"
 #include "IoC/IoC.h"
 
-extern std::shared_ptr<IoC> ioc;
+extern IoC* ioc;
 class GameCommand: public ICommand
 {
 public:
