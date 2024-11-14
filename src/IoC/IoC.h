@@ -20,6 +20,8 @@
 // "Scopes.Current.Clear" - // очищение текущего скоупа // -> ioc.Resolve<void>("Scopes.Current.Clear") 
 // "Scopes.Current.SetId" - // выставление текущего скоупа по ид // -> ioc.Resolve<void>("Scopes.Current.SetId", 1)
 
+
+// ------------- это должно быть в других файлах !!!!!!!!! TODO убрать !!!!!!!!!!!
 // Получение объекта, данных
 // "GameItems"
 // "Game.Queue"

@@ -6,8 +6,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "UObject.h"
-#include "UobjectException.h"
+#include "CommonLib/UObject.h"
+#include "CommonLib/UobjectException.h"
 
 class SpaceShip: public UObject
 {
