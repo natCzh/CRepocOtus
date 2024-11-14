@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Common/objectAble/IRotable.h"
-#include "IoC/IoCGlobal.h"
+// #include "IoC/IoCGlobal.h"
 #include "Common/UObject.h"
 
 class RotableAdapter : public IRotable

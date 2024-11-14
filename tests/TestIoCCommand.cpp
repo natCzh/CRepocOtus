@@ -2,7 +2,7 @@
 #include "gmock/gmock.h"
 
 #include "IoC/IoC.h"
-#include "src/Exception/IoCException.h"
+#include "IoC/IoCException.h"
 #include "src/Command/ICommand.h"
 
 #include <typeinfo>
