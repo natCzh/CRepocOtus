@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
-OPTION (TEST_MoveCommandPlugin "Including test moveCommandPlugin" OFF)
-
 project(moveCommandPlugin)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
@@ -31,10 +29,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
                                       CXX_STANDARD_REQUIRED ON)
 
 if (TEST_MoveCommandPlugin)
-	add_subdirectory(${PROJECT_SOURCE_DIR}/../TestMoveCommandPlugin)
-	add_library(${PROJECT_NAME}_STATIC SHARED ${SOURCES_${PROJECT_NAME}} ${HEADERS_${PROJECT_NAME}})
-
-
+	add_subdirectory(${PROJECT_SOURCE_DIR}/TestMoveCommandPlugin)
+	add_library(${PROJECT_NAME}_STATIC STATIC ${SOURCES_${PROJECT_NAME}} ${HEADERS_${PROJECT_NAME}})
+	target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Core)
+	target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
+	target_link_libraries(${PROJECT_NAME} PRIVATE CommonLib IoC)
 endif()
 
 message(STATUS "plugin prefix path = ${CMAKE_INSTALL_PREFIX}")
