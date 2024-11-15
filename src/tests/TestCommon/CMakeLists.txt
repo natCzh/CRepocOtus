@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(TestNatSpaceBattle)
 
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/..)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
@@ -49,10 +50,6 @@ if(MSVC)
         endif()
       endforeach()
     endif()
-endif()
-
-if(TEST_MoveCommandPlugin)
-	add_subdirectory(${PROJECT_SOURCE_DIR}/TestMoveCommandPlugin)
 endif()
 
 # //////////////// Boost

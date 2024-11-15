@@ -4,14 +4,14 @@
 #include "Command/ICommand.h"
 #include "Exception/ScopesException.h"
 
-std::shared_ptr<Scopes::Scope> Scopes::DependencyResolve::currentScope = std::make_shared<Scopes::Scope>();
-std::unordered_map<int, std::shared_ptr<Scopes::Scope> > Scopes::DependencyResolve::scopes{ {0, Scopes::DependencyResolve::currentScope} };
+// std::shared_ptr<Scopes::Scope> Scopes::DependencyResolve::currentScope = std::make_shared<Scopes::Scope>();
+std::unordered_map<int, std::shared_ptr<Scopes::Scope> > Scopes::DependencyResolve::scopes{ /*{0, Scopes::DependencyResolve::currentScope} */};
 
 Scopes::DependencyResolve::DependencyResolve()
 {
 	std::unique_lock<std::mutex> lock(this->mutex);
 	currentScope = std::make_shared<Scopes::Scope>();
-	//scopes[0] = currentScope;
+    scopes[0] = currentScope;
 	Init(currentScope);
 }
 

@@ -5,10 +5,10 @@
 #include <memory>
 
 #include "../../Command/ICommand.h"
-#include "UObject.h"
-#include "UobjectException.h"
+#include "../../CommonLib/UObject.h"
+#include "../../CommonLib/UobjectException.h"
 #include "CommandMove.h"
-#include "objectAble/IMovable.h"
+#include "../../CommonLib/objectAble/IMovable.h"
 #include "MovableAdapter.h"
 #include "IoC/IoC.h"
 
@@ -20,7 +20,7 @@ public:
 	ClassFunctionMove() {}
 	virtual ~ClassFunctionMove() {}
 
-	static std::vector<int> IMovableLocationFunc(UObject_Ptr obj)
+    std::vector<int> IMovableLocationFunc(UObject_Ptr obj)
 	{
 		std::vector<int> locationCur;
 		locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_x")));
@@ -29,7 +29,19 @@ public:
 		return locationCur;
 	}
 
-	static void IMovableLocationSetFunc(UObject_Ptr obj, boost::any value)
+    int IMovableLocationFunc_Test()
+    {
+        /*std::vector<int> locationCur;
+        locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_x")));
+        locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_y")));
+
+        return locationCur;*/
+                std::cout << "plugin test IMovableLocationFunc_Test" << std::endl;
+        return 0;
+
+    }
+
+    void IMovableLocationSetFunc(UObject_Ptr obj, boost::any value)
 	{
 		std::vector<int> locationCur = boost::any_cast<std::vector<int> >(value);
 
@@ -42,7 +54,7 @@ public:
 		obj->setProperty("position_y", newValue);
 	}
 
-	static std::vector<int> IMovableVelocityFunc(UObject_Ptr obj)
+    std::vector<int> IMovableVelocityFunc(UObject_Ptr obj)
 	{
 		std::vector<int> velCur;
 
@@ -58,12 +70,12 @@ public:
 		return locationCur;
 	}
 
-	static std::shared_ptr<IMovable> AdaptersIMovableFunc(UObject_Ptr obj)
+    std::shared_ptr<IMovable> AdaptersIMovableFunc(UObject_Ptr obj)
 	{
 		return std::shared_ptr<IMovable>(new MovableAdapter(obj));
 	}
 
-	static ICommand_Ptr CommandMoveFunc(UObject_Ptr obj)
+    ICommand_Ptr CommandMoveFunc(UObject_Ptr obj)
 	{
 		return ICommand_Ptr(new CommandMove(ioc->Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj)));
 	}

@@ -14,9 +14,9 @@ set(CMAKE_AUTOMOC ON)
 
 #TODO переделать это!!
 FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/*.h src/EndPoint/*.h src/Exception/*.h src/IoC/*.h 
-                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h)
+                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h src.service/TourneyService/*.h)
 
-FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp)
+FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
@@ -65,7 +65,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/src/inputPlugins/)
 
 # //////////////// Boost
 find_package(Boost)
-SET(Boost_USE_STATIC_LIBS OFF)
+SET(Boost_USE_STATIC_LIBS ON)
 SET(Boost_USE_MULTITHREAD ON)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
@@ -76,7 +76,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Gui Qt5::Core Qt5::Widgets)
 
 if(TESTINCLUDE)
-	add_subdirectory(${PROJECT_SOURCE_DIR}/src/tests)
 	add_library(${PROJECT_NAME}_STATIC STATIC ${SOURCES} ${HEADERS})
 	target_link_libraries(${PROJECT_NAME}_STATIC PRIVATE IoC CommonLib)
 	set_target_properties(${PROJECT_NAME}_STATIC PROPERTIES CXX_STANDARD 17
@@ -85,9 +84,14 @@ if(TESTINCLUDE)
 	target_link_libraries(${PROJECT_NAME}_STATIC PRIVATE Qt5::Gui Qt5::Core Qt5::Widgets)
 endif()
 
+if(TESTINCLUDE)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/src/tests/TestCommon)
+endif()
+
 message(STATUS "root prefix path = ${CMAKE_INSTALL_PREFIX}")
 
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 
  
+      

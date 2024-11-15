@@ -74,7 +74,8 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
 #include "Common/SpaceShip.h"
         SpaceShip x;
         UObject_Ptr obj = std::make_shared<SpaceShip>(x);
-        std::vector<int> cmd = ioc->Resolve<std::vector<int> >("IMovable.Location", obj);
+        std::string key1 = "IMovable.Location";
+        int f = ioc->Resolve<int>(key1);
 
         int sdfs = 0;
     }

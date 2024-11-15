@@ -7,6 +7,7 @@
 
 #include "../../CommonLib/IPlugin.h"
 #include "../../CommonLib/UObject.h"
+#include "ClassFunctionMove.h"
 #include "IoC/IoC.h"
 
 
@@ -29,13 +30,16 @@ class MoveCommandPlugin: public QObject, public IPlugin
 
 public:
 
+    ~MoveCommandPlugin()
+    {}
+
     void Load() override;
 
     void InitPlugin(IoC* iocCur) override;
 
 	std::string GetType() override;
 private:
-	//std::shared_ptr<IoC> ioc_;
+    ClassFunctionMove                   classFunctionMove;
 };
 
 #endif /* _MOVE_COMMAND_PLUGIN_H_ */

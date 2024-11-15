@@ -4,7 +4,7 @@
 #include <functional>
 #include <string>
 
-#include "../../Command/ICommand.h"
+#include "Command/ICommand.h"
 #include "scopes/DependencyResolve.h"
 
 namespace Scopes

@@ -7,6 +7,8 @@
 #include <functional>
 #include <boost/any.hpp>
 
+#include <typeinfo>
+
 #include "Scopes/IDependencyResolve.h"
 #include "Scopes/Scope.h"
 #include "../../Command/ICommand.h"
@@ -35,10 +37,10 @@ namespace Scopes
 				if constexpr (sizeof...(Args) == 3)
 				{
 					auto t2 = std::get<2>(items);
-					cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(RegisterDependencyCommand<TFunc, decltype(t2)>	(this, key1, t1));
+                    cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(this, key1, t1);
 				}
 				else if constexpr (sizeof...(Args) == 2)
-					cmdI = std::make_shared<RegisterDependencyCommand1<TFunc> >(RegisterDependencyCommand1<TFunc>(this, key1, t1));
+                    cmdI = std::make_shared<RegisterDependencyCommand1<TFunc> >(this, key1, t1);
 				return cmdI;
 			}
 			else
@@ -68,7 +70,10 @@ namespace Scopes
 		{
 			// TODO тут нужно сделать поиск по родителю
 			boost::any curDepend = currentScope->GetValueOrDefault(key);
-				std::function<T(F )> df = boost::any_cast<std::function<T(F)> >(curDepend);
+            std::string typeT{typeid(T).name()};
+            std::string typeF{typeid(F).name()};
+            std::cout << "type T is " << typeT << "; type F is " << typeF << std::endl;
+                std::function<T(F)> df = boost::any_cast<std::function<T(F)> >(curDepend);
 				return (T) df(args);
 		}
 
@@ -77,8 +82,10 @@ namespace Scopes
 		{
 			// TODO тут нужно сделать поиск по родителю
 			boost::any curDepend = currentScope->GetValueOrDefault(key);
-				std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
-				return (T) df();
+            std::string typeT{typeid(T).name()};
+            std::cout << "type T is " << typeT << std::endl;
+            std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
+            return (T) df();
 		}
 
 		void Init(std::shared_ptr<Scopes::Scope> scopeCur);
@@ -101,7 +108,7 @@ namespace Scopes
 
 	private:
 
-		static std::shared_ptr<Scopes::Scope>											currentScope;
+        std::shared_ptr<Scopes::Scope>                                                  currentScope;
 		static std::unordered_map<int, std::shared_ptr<Scopes::Scope> >					scopes;
 		std::mutex																		mutex;
 	};
