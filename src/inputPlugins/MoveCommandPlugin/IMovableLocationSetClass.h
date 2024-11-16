@@ -1,7 +1,6 @@
 #ifndef _I_MOVABLE_LOCATION_SET_CLASS_H_
 #define _I_MOVABLE_LOCATION_SET_CLASS_H_
 
-
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/UObject.h"
 #include "../../CommonLib/UobjectException.h"

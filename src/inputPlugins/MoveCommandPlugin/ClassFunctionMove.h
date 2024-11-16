@@ -6,7 +6,6 @@
 
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/UObject.h"
-#include "../../Common/SpaceShip.h" // TODO убрать !!!!!!
 #include "../../CommonLib/UobjectException.h"
 #include "CommandMove.h"
 #include "../../CommonLib/objectAble/IMovable.h"

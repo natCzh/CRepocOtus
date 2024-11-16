@@ -7,7 +7,7 @@
 #include "../../Common/SpaceShip.h"
 #include "RotableAdapter.h"
 #include "../../Command/ICommand.h"
-#include "../../CommonLib/objectAble/IMovable.h"
+#include "../../CommonLib/objectAble/IRotable.h"
 
 #include "../../service/TourneyService/IoCGlobal.h"
 
