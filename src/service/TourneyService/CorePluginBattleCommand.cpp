@@ -71,7 +71,7 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
         qDebug() << "Plugin load " << QString::fromStdString(h1);
         iPlugin->InitPlugin(ioc);
         iPlugin->Load();
-#include "CommonLib/UObject.h"
+/*#include "CommonLib/UObject.h"
 
         int xVel = 1;
         xObj->setProperty("velocity", xVel);
@@ -79,7 +79,7 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
         ICommand_Ptr f = ioc->Resolve<ICommand_Ptr>(key1, xObj);
         auto strd = f->GetType();
         f->Execute();
-        int werwe = 0;
+        int werwe = 0;*/
     }
 }
 
