@@ -6,8 +6,10 @@
 #include "service/TourneyService/CorePluginBattleCommand.h"
 #include "service/TourneyService/IoCGlobal.h"
 #include "CommonLib/IPlugin.h"
+#include "Common/SpaceShip.h"
 
 CorePluginBattleCommand::CorePluginBattleCommand()
+    : xObj(std::make_shared<SpaceShip>())
 {
     ioc = new IoC();
 
@@ -69,15 +71,15 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
         qDebug() << "Plugin load " << QString::fromStdString(h1);
         iPlugin->InitPlugin(ioc);
         iPlugin->Load();
-/*#include "CommonLib/UObject.h"
-#include "Common/SpaceShip.h"
+#include "CommonLib/UObject.h"
 
-        SpaceShip x;
-        xObj = std::make_shared<SpaceShip>(x);
+        int xVel = 1;
+        xObj->setProperty("velocity", xVel);
         std::string key1 = "Command.Move";
         ICommand_Ptr f = ioc->Resolve<ICommand_Ptr>(key1, xObj);
         auto strd = f->GetType();
-        f->Execute();*/
+        f->Execute();
+        int werwe = 0;
     }
 }
 
@@ -86,6 +88,5 @@ void CorePluginBattleCommand::LoadPluginForScope(const std::vector<std::string> 
     qDebug() << "Plugin load for scope " << scopeIdCur_;
     ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur_);
     CorePluginBattleCommand::LoadPlugin(listNamePlugin);
-
 }
 

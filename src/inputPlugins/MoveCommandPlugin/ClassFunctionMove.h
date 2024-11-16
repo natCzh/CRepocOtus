@@ -12,6 +12,7 @@
 #include "../../CommonLib/objectAble/IMovable.h"
 #include "MovableAdapter.h"
 #include "IoC/IoC.h"
+#include "IMovableLocationSetClass.h"
 
 extern IoC* ioc;
 class ClassFunctionMove
@@ -30,17 +31,9 @@ public:
 		return locationCur;
 	}
 
-    void IMovableLocationSetFunc(UObject_Ptr obj, boost::any value)
+    ICommand_Ptr IMovableLocationSetFunc(UObject_Ptr obj, std::vector<int> value)
 	{
-		std::vector<int> locationCur = boost::any_cast<std::vector<int> >(value);
-
-		if (locationCur.size() != 2)
-			throw UobjectException("Uobject parameter value for set isn't correct");
-
-		boost::any newValue = locationCur[0];
-		obj->setProperty("position_x", newValue);
-		newValue = locationCur[1];
-		obj->setProperty("position_y", newValue);
+        return ICommand_Ptr(new IMovableLocationSetClass(obj, value));
 	}
 
     std::vector<int> IMovableVelocityFunc(UObject_Ptr obj)
@@ -49,7 +42,7 @@ public:
 
 		int d = boost::any_cast<int>(obj->getProperty("direction"));
 		int n = boost::any_cast<int>(obj->getProperty("directionNumber"));
-		int vel = boost::any_cast<int>(obj->getProperty("velocity"));
+        int vel = boost::any_cast<int>(obj->getProperty("velocity"));
 
 		std::vector<int> locationCur;
 		int angle = d * 360 / n;

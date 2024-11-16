@@ -29,7 +29,7 @@ public:
 	void setLocation(boost::any &newValue) override
 	{
 		std::vector<int> newValueAnyVect = boost::any_cast<std::vector<int>>(newValue);
-        // ioc->Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect); // TODO !!!!
+        ioc->Resolve<ICommand_Ptr>("IMovable.Location.Set", obj, newValueAnyVect)->Execute();
 	}
 
 protected:

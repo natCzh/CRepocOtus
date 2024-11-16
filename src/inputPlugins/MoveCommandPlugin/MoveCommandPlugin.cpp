@@ -25,12 +25,12 @@ void MoveCommandPlugin::Load()
 		"IMovable.Location", 
         funcLoc, obj)->Execute();
 
-    boost::any valueNew;
-    std::function<void(UObject_Ptr obj, boost::any value)> funcLocSet = boost::bind(&ClassFunctionMove::IMovableLocationSetFunc, &classFunctionMove, std::placeholders::_1, std::placeholders::_2);
-    ioc->Resolve<ICommand_Ptr, void, std::string, std::function<void(UObject_Ptr obj, boost::any value)> >(
+    std::vector<int> Vel(2, 0);
+    std::function<ICommand_Ptr(UObject_Ptr obj, std::vector<int> value)> funcLocSet = boost::bind(&ClassFunctionMove::IMovableLocationSetFunc, &classFunctionMove, std::placeholders::_1, std::placeholders::_2);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(UObject_Ptr obj, std::vector<int> value)> >(
         "IoC.Register",
         "IMovable.Location.Set",
-        funcLocSet, obj, valueNew)->Execute();
+        funcLocSet, obj, Vel)->Execute();
 
     std::function<std::vector<int>(UObject_Ptr obj)> funcVel = boost::bind(&ClassFunctionMove::IMovableVelocityFunc, &classFunctionMove, std::placeholders::_1);
     ioc->Resolve<ICommand_Ptr, std::vector<int>, std::string, std::function<std::vector<int>(UObject_Ptr obj)> >(
