@@ -32,6 +32,19 @@ public:
 
 	virtual ~SpaceShip() {};
 
+
+    SpaceShip(const SpaceShip &orig)
+        : mapKey(orig.mapKey)
+    {}
+
+
+    SpaceShip& operator=(const SpaceShip &orig)
+    {
+        this->mapKey = orig.mapKey;
+
+        return *this;
+    }
+
 	/// [out] - error
 	/// [in] nameProperty
 	/// [out] value
@@ -53,12 +66,12 @@ public:
 		iter->second = newValue;
 	}
 
-	int getNumberProperty()
+    int getNumberProperty() override
 	{
 		return mapKey.size();
 	}
 
-	boost::any getPropertyIter(unsigned int iter, std::string &nameProperty)
+    boost::any getPropertyIter(unsigned int iter, std::string &nameProperty) override
 	{
 		if (mapKey.size() - iter < 1)
 			throw UobjectException("Uobject parameter of key isn't exist");
