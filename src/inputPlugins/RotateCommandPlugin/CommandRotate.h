@@ -1,8 +1,8 @@
 #ifndef _COMMAND_ROTATE_H_
 #define _COMMAND_ROTATE_H_
 
-#include "Command/ICommand.h"
-#include "Common/objectAble/IRotable.h"
+#include "../../Command/ICommand.h"
+#include "../../CommonLib/objectAble/IRotable.h"
 
 class CommandRotate: public ICommand
 {

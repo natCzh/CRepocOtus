@@ -2,6 +2,7 @@
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDebug>
+#include <cstring>
 
 #include "service/TourneyService/CorePluginBattleCommand.h"
 #include "service/TourneyService/IoCGlobal.h"
@@ -71,15 +72,26 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
         qDebug() << "Plugin load " << QString::fromStdString(h1);
         iPlugin->InitPlugin(ioc);
         iPlugin->Load();
-/*#include "CommonLib/UObject.h"
-
-        int xVel = 1;
+//#include "CommonLib/UObject.h"
+        /*int xVel = 1;
         xObj->setProperty("velocity", xVel);
         std::string key1 = "Command.Move";
         ICommand_Ptr f = ioc->Resolve<ICommand_Ptr>(key1, xObj);
         auto strd = f->GetType();
         f->Execute();
         int werwe = 0;*/
+
+        /*if (strcmp(h1.c_str(), "RotateCommandPlugin") == 0)
+        {
+            int xVel = 1;
+                    xObj->setProperty("directionAngular", xVel);
+                    std::string key1 = "Command.Rotate";
+                    ICommand_Ptr f = ioc->Resolve<ICommand_Ptr>(key1, xObj);
+                    auto strd = f->GetType();
+                    f->Execute();
+
+        }*/
+
     }
 }
 

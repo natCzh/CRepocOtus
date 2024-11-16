@@ -20,7 +20,7 @@ public:
 		mapKey["velocity"] = 0; // тут хранится модуль скорости
 		mapKey["direction"] = 0; // хранится как часть от окружности , чтобы получить угол надо (d*360/n)
 		mapKey["directionNumber"] = 4; // можно двигаться только в 4 стороны , те мы поделили окружность на 4 части
-		mapKey["directionAngular"] = 0; // на сколько поворачиваемся
+        mapKey["directionAngular"] = 0; // на сколько поворачиваемся 1 или -1
 		
 		mapKey["health"] = 0;
 

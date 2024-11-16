@@ -2,12 +2,16 @@
 #define _CLASS_FUNCTION_ROTATE_H_
 
 #include <cmath>
+#include <memory>
 
-#include "Command/ICommand.h"
-#include "Common/UObject.h"
-#include "Exception/UobjectException.h"
-#include "inputPlugins/RotateCommandPlugin/RotableAdapter.h"
-#include "inputPlugins/RotateCommandPlugin/CommandRotate.h"
+#include "../../Command/ICommand.h"
+#include "../../CommonLib/UObject.h"
+#include "../../CommonLib/UobjectException.h"
+#include "RotableAdapter.h"
+#include "CommandRotate.h"
+#include "../../CommonLib/objectAble/IRotable.h"
+#include "IoC/IoC.h"
+#include "IRotableSetDirectionClass.h"
 
 class ClassFunctionRotate
 {
@@ -16,37 +20,37 @@ public:
 	ClassFunctionRotate() {}
 	virtual ~ClassFunctionRotate() {}
 
-	static int IRotableDirectionFunc(UObject_Ptr obj)
+    int IRotableDirectionFunc(UObject_Ptr obj)
 	{
 		int d = boost::any_cast<int>(obj->getProperty("direction"));
 		return d;
 	}
 
-	static void IRotableDirectionSetFunc(UObject_Ptr obj, boost::any value)
+    ICommand_Ptr IRotableDirectionSetFunc(UObject_Ptr obj, int value)
 	{
-		obj->setProperty("direction", value);
+        return ICommand_Ptr(new IRotableSetDirectionClass(obj, value));
 	}
 
-	static int IRotableDirectionAngularFunc(UObject_Ptr obj)
+    int IRotableDirectionAngularFunc(UObject_Ptr obj)
 	{
-		int d = boost::any_cast<int>(obj->getProperty("directionAngular")); // дб 1 или -1 против часовой, по часовой
+		int d = boost::any_cast<int>(obj->getProperty("directionAngular")); // РґР± 1 РёР»Рё -1 РїСЂРѕС‚РёРІ С‡Р°СЃРѕРІРѕР№, РїРѕ С‡Р°СЃРѕРІРѕР№
 		return d;
 	}
 
-	static int IRotableDirectionNumberFunc(UObject_Ptr obj)
+    int IRotableDirectionNumberFunc(UObject_Ptr obj)
 	{
 		int d = boost::any_cast<int>(obj->getProperty("directionNumber"));
 		return d;
 	}
 
-	static std::shared_ptr<IRotable> AdaptersIRotableFunc(UObject_Ptr obj)
+    std::shared_ptr<IRotable> AdaptersIRotableFunc(UObject_Ptr obj)
 	{
 		return std::shared_ptr<IRotable>(new RotableAdapter(obj));
 	}
 
-	static ICommand_Ptr CommandRotateFunc(UObject_Ptr obj)
+    ICommand_Ptr CommandRotateFunc(UObject_Ptr obj)
 	{
-		return ICommand_Ptr(new CommandRotate(ioc.Resolve<std::shared_ptr<IRotable> >("Adapters.IRotable", obj)));
+        return ICommand_Ptr(new CommandRotate(ioc->Resolve<std::shared_ptr<IRotable> >("Adapters.IRotable", obj)));
 	}
 };
 
