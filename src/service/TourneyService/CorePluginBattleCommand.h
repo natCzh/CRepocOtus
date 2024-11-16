@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 
+#include "../../CommonLib/UObject.h"
 class CorePluginBattleCommand
 {
 public:
@@ -26,6 +27,7 @@ protected:
 private:
     std::vector<std::string>                 pluginFileNames;
     std::vector<QObject*>                    pluginInstance;
+    UObject_Ptr                              xObj;
 };
 
 #endif /* _CORE_PLUGIN_BATTLE_COMMAND_H_ */

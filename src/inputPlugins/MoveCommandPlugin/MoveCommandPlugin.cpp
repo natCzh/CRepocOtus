@@ -26,14 +26,16 @@ void MoveCommandPlugin::Load()
         funcLoc, obj)->Execute();*/
 
 
-    std::function<int(void)> funcLoc = boost::bind(&ClassFunctionMove::IMovableLocationFunc_Test, &classFunctionMove);
-    ioc->Resolve<ICommand_Ptr, void, std::string, std::function<int()> >(
-           "IoC.Register",
-           "IMovable.Location",
-           funcLoc)->Execute();
+    SpaceShip x;
+    UObject_Ptr obj = std::make_shared<SpaceShip>(x);
+    std::function<int(UObject_Ptr)> funcLoc = boost::bind(&ClassFunctionMove::IMovableLocationFunc_Test, &classFunctionMove, std::placeholders::_1);
+    ioc->Resolve<ICommand_Ptr, int, std::string, std::function<int(UObject_Ptr)> >(
+          "IoC.Register",
+          "IMovable.Location",
+          funcLoc, obj)->Execute();
 
     int s = 0;
-    int ds = ioc->Resolve<int>("IMovable.Location");
+    int ds = ioc->Resolve<int>("IMovable.Location", obj);
     s += 1;
 
 

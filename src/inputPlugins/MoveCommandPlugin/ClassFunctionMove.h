@@ -6,6 +6,7 @@
 
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/UObject.h"
+#include "../../Common/SpaceShip.h" // TODO убрать !!!!!!
 #include "../../CommonLib/UobjectException.h"
 #include "CommandMove.h"
 #include "../../CommonLib/objectAble/IMovable.h"
@@ -29,14 +30,14 @@ public:
 		return locationCur;
 	}
 
-    int IMovableLocationFunc_Test()
+    int IMovableLocationFunc_Test(UObject_Ptr x)
     {
         /*std::vector<int> locationCur;
         locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_x")));
         locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_y")));
 
         return locationCur;*/
-                std::cout << "plugin test IMovableLocationFunc_Test" << std::endl;
+                std::cout << "plugin test IMovableLocationFunc_Test" << /*x.get() <<*/ std::endl;
         return 0;
 
     }
