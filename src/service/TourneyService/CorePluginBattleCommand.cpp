@@ -69,16 +69,15 @@ void CorePluginBattleCommand::LoadPlugin(const std::vector<std::string> &listNam
         qDebug() << "Plugin load " << QString::fromStdString(h1);
         iPlugin->InitPlugin(ioc);
         iPlugin->Load();
-
-#include "CommonLib/UObject.h"
+/*#include "CommonLib/UObject.h"
 #include "Common/SpaceShip.h"
 
         SpaceShip x;
         xObj = std::make_shared<SpaceShip>(x);
-        std::string key1 = "IMovable.Location";
-        int f = ioc->Resolve<int>(key1, xObj);
-
-        int sdfs = 0;
+        std::string key1 = "Command.Move";
+        ICommand_Ptr f = ioc->Resolve<ICommand_Ptr>(key1, xObj);
+        auto strd = f->GetType();
+        f->Execute();*/
     }
 }
 

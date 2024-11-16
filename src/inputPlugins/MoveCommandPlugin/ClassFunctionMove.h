@@ -30,18 +30,6 @@ public:
 		return locationCur;
 	}
 
-    int IMovableLocationFunc_Test(UObject_Ptr x)
-    {
-        /*std::vector<int> locationCur;
-        locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_x")));
-        locationCur.push_back(boost::any_cast<int>(obj->getProperty("position_y")));
-
-        return locationCur;*/
-                std::cout << "plugin test IMovableLocationFunc_Test" << /*x.get() <<*/ std::endl;
-        return 0;
-
-    }
-
     void IMovableLocationSetFunc(UObject_Ptr obj, boost::any value)
 	{
 		std::vector<int> locationCur = boost::any_cast<std::vector<int> >(value);

@@ -17,60 +17,41 @@ void MoveCommandPlugin::InitPlugin(IoC* iocCur)
 
 void MoveCommandPlugin::Load()
 {
-    /*SpaceShip x;
+    SpaceShip x;
 	UObject_Ptr obj = std::make_shared<SpaceShip>(x);
     std::function<std::vector<int>(UObject_Ptr)> funcLoc = boost::bind(&ClassFunctionMove::IMovableLocationFunc, &classFunctionMove, std::placeholders::_1);
     ioc->Resolve<ICommand_Ptr, std::vector<int>, std::string, std::function<std::vector<int>(UObject_Ptr)> >(
 		"IoC.Register", 
 		"IMovable.Location", 
-        funcLoc, obj)->Execute();*/
+        funcLoc, obj)->Execute();
 
-
-    SpaceShip x;
-    UObject_Ptr obj = std::make_shared<SpaceShip>(x);
-    std::function<int(UObject_Ptr)> funcLoc = boost::bind(&ClassFunctionMove::IMovableLocationFunc_Test, &classFunctionMove, std::placeholders::_1);
-    ioc->Resolve<ICommand_Ptr, int, std::string, std::function<int(UObject_Ptr)> >(
-          "IoC.Register",
-          "IMovable.Location",
-          funcLoc, obj)->Execute();
-
-    int s = 0;
-    int ds = ioc->Resolve<int>("IMovable.Location", obj);
-    s += 1;
-
-
-    /*boost::any valueNew;
-	std::function<void(UObject_Ptr obj, boost::any value)> funcLocSet = &ClassFunctionMove::IMovableLocationSetFunc;
+    boost::any valueNew;
+    std::function<void(UObject_Ptr obj, boost::any value)> funcLocSet = boost::bind(&ClassFunctionMove::IMovableLocationSetFunc, &classFunctionMove, std::placeholders::_1, std::placeholders::_2);
     ioc->Resolve<ICommand_Ptr, void, std::string, std::function<void(UObject_Ptr obj, boost::any value)> >(
         "IoC.Register",
         "IMovable.Location.Set",
         funcLocSet, obj, valueNew)->Execute();
 
-	std::function<std::vector<int>(UObject_Ptr obj)> funcVel = &ClassFunctionMove::IMovableVelocityFunc;
+    std::function<std::vector<int>(UObject_Ptr obj)> funcVel = boost::bind(&ClassFunctionMove::IMovableVelocityFunc, &classFunctionMove, std::placeholders::_1);
     ioc->Resolve<ICommand_Ptr, std::vector<int>, std::string, std::function<std::vector<int>(UObject_Ptr obj)> >(
 		"IoC.Register", 
 		"IMovable.Velocity", 
         funcVel, obj)->Execute();
 
-	std::function<std::shared_ptr<IMovable>(UObject_Ptr obj)> funcAdapterIMovable = &ClassFunctionMove::AdaptersIMovableFunc;
+    std::function<std::shared_ptr<IMovable>(UObject_Ptr obj)> funcAdapterIMovable = boost::bind(&ClassFunctionMove::AdaptersIMovableFunc, &classFunctionMove, std::placeholders::_1);
     ioc->Resolve<ICommand_Ptr, std::shared_ptr<IMovable>, std::string, std::function<std::shared_ptr<IMovable>(UObject_Ptr obj)> >(
 		"IoC.Register",
 		"Adapters.IMovable",
         funcAdapterIMovable, obj)->Execute();
 
-	std::function<ICommand_Ptr(UObject_Ptr obj)> funcCommandMove = &ClassFunctionMove::CommandMoveFunc;
+    std::function<ICommand_Ptr(UObject_Ptr obj)> funcCommandMove = boost::bind(&ClassFunctionMove::CommandMoveFunc, &classFunctionMove, std::placeholders::_1);
     ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(UObject_Ptr obj)> >(
 		"IoC.Register",
 		"Command.Move",
-        funcCommandMove, obj)->Execute();*/
+        funcCommandMove, obj)->Execute();
 }
 
 std::string MoveCommandPlugin::GetType()
 {
 	return "MoveCommandPlugin";
 }
-
-/*void InitPlugin(IoC* ioc)
-{
-	
-}*/
