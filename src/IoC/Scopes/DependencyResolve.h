@@ -83,6 +83,19 @@ namespace Scopes
 				return (T) df(args);
 		}
 
+        template<typename T, typename F, typename F2>
+        T Resolve(std::string key, F args, F2 args2)
+        {
+            // TODO тут нужно сделать поиск по родителю
+            boost::any curDepend = currentScope->GetValueOrDefault(key);
+            std::string typeT{typeid(T).name()};
+            std::string typeF{typeid(F).name()};
+            std::string typeF2{typeid(F2).name()};
+            std::cout << "type T is " << typeT << "; type F is " << typeF << std::endl;
+                std::function<T(F, F2)> df = boost::any_cast<std::function<T(F, F2)> >(curDepend);
+                return (T) df(args, args2);
+        }
+
 		template<typename T>
 		T Resolve(std::string key)
 		{
