@@ -39,6 +39,12 @@ namespace Scopes
 					auto t2 = std::get<2>(items);
                     cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2)> >(this, key1, t1);
 				}
+                if constexpr (sizeof...(Args) == 4)
+                {
+                    auto t2 = std::get<2>(items);
+                    auto t3 = std::get<3>(items);
+                    cmdI = std::make_shared<RegisterDependencyCommand<TFunc, decltype(t2), decltype(t3)> >(this, key1, t1);
+                }
 				else if constexpr (sizeof...(Args) == 2)
                     cmdI = std::make_shared<RegisterDependencyCommand1<TFunc> >(this, key1, t1);
 				return cmdI;
