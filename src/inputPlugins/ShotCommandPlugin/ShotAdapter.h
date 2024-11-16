@@ -2,11 +2,13 @@
 #define _SHOTABLE_ADAPTER_H_
 
 #include <vector>
+#include <memory>
 
-#include "Common/objectAble/IShotable.h"
-//#include "IoC/IoCGlobal.h"
-#include "Common/UObject.h"
+#include "../../CommonLib/objectAble/IShotable.h"
+#include "../../CommonLib/UObject.h"
+#include "IoC/IoC.h"
 
+extern IoC* ioc;
 class ShotableAdapter : public IShotable
 {
 public:
@@ -17,19 +19,19 @@ public:
 
 	boost::any getNumberShot() override
 	{
-		return ioc.Resolve<int>("IShotable.NumberShot", obj);
+        return ioc->Resolve<int>("IShotable.NumberShot", obj);
 	}
 
 	void setShotAct() override
 	{
 		int newValueAny = boost::any_cast<int>(1);
-		ioc.Resolve<ICommand_Ptr>("IShotable.ShotAct.Set", obj, newValueAny);
+        ioc->Resolve<ICommand_Ptr>("IShotable.ShotAct.Set", obj, newValueAny)->Execute();
 	}
 
 	void setNumberShot(boost::any& newValue) override
 	{
 		int newValueAny = boost::any_cast<int>(newValue);
-		ioc.Resolve<ICommand_Ptr>("IShotable.NumberShot.Set", obj, newValueAny);
+        ioc->Resolve<ICommand_Ptr>("IShotable.NumberShot.Set", obj, newValueAny)->Execute();
 	}
 
 protected:

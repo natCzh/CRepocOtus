@@ -2,12 +2,17 @@
 #define _CLASS_FUNCTION_SHOT_H_
 
 #include <cmath>
+#include <memory>
 
-#include "Command/ICommand.h"
-#include "Common/UObject.h"
-#include "Exception/UobjectException.h"
-#include "inputPlugins/ShotCommandPlugin/ShotAdapter.h"
-#include "inputPlugins/ShotCommandPlugin/CommandShot.h"
+#include "../../Command/ICommand.h"
+#include "../../CommonLib/UObject.h"
+#include "../../CommonLib/UobjectException.h"
+#include "ShotAdapter.h"
+#include "CommandShot.h"
+#include "../../CommonLib/objectAble/IShotable.h"
+#include "IoC/IoC.h"
+#include "IShotableSetShotActClass.h"
+#include "IShotableSetNumberShotClass.h"
 
 class ClassFunctionShot
 {
@@ -16,30 +21,30 @@ public:
 	ClassFunctionShot() {}
 	virtual ~ClassFunctionShot() {}
 
-	static int IShotableNumberShotFunc(UObject_Ptr obj)
+    int IShotableNumberShotFunc(UObject_Ptr obj)
 	{
 		int d = boost::any_cast<int>(obj->getProperty("numberShot"));
 		return d;
 	}
 
-	static void IShotableShotActSetFunc(UObject_Ptr obj, boost::any value)
+    ICommand_Ptr IShotableShotActSetFunc(UObject_Ptr obj, int value)
 	{
-		obj->setProperty("shotAct", value);
+        return ICommand_Ptr(new IShotableSetShotActClass(obj, value));
 	}
 
-	static void IShotableNumberShotSetFunc(UObject_Ptr obj, boost::any value)
-	{
-		obj->setProperty("numberShot", value);
+    ICommand_Ptr IShotableNumberShotSetFunc(UObject_Ptr obj, int value)
+    {
+        return ICommand_Ptr(new IShotableSetNumberShotClass(obj, value));
 	}
 
-	static std::shared_ptr<IShotable> AdaptersIShotableFunc(UObject_Ptr obj)
+    std::shared_ptr<IShotable> AdaptersIShotableFunc(UObject_Ptr obj)
 	{
-		return std::shared_ptr<IShotable>(new ShotableAdapter(obj));
+        return std::shared_ptr<IShotable>(new ShotableAdapter(obj));
 	}
 
-	static ICommand_Ptr CommandShotFunc(UObject_Ptr obj)
+    ICommand_Ptr CommandShotFunc(UObject_Ptr obj)
 	{
-		return ICommand_Ptr(new CommandShot(ioc.Resolve<std::shared_ptr<IShotable> >("Adapters.IShotable", obj)));
+        return ICommand_Ptr(new CommandShot(ioc->Resolve<std::shared_ptr<IShotable> >("Adapters.IShotable", obj)));
 	}
 };
 

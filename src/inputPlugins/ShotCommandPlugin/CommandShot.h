@@ -1,8 +1,8 @@
 #ifndef _COMMAND_SHOT_H_
 #define _COMMAND_SHOT_H_
 
-#include "Command/ICommand.h"
-#include "Common/objectAble/IShotable.h"
+#include "../../Command/ICommand.h"
+#include "../../CommonLib/objectAble/IShotable.h"
 
 class CommandShot: public ICommand
 {
