@@ -56,6 +56,13 @@ void MoveCommandPlugin::Load()
         "IoC.Register",
         "Command.Movement",
         funcCommandMovement, idObj)->Execute();
+
+    std::shared_ptr<QueueCommand> qCommand = std::make_shared<QueueCommand>(100);
+    std::function<ICommand_Ptr(size_t idObj, std::shared_ptr<QueueCommand> qCommand)> funcCommandMoveLongOperation = boost::bind(&ClassFunctionMove::CommandMoveLongOperationFunc, &classFunctionMove, std::placeholders::_1, std::placeholders::_2);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(size_t idObj, std::shared_ptr<QueueCommand> qCommand)> >(
+        "IoC.Register",
+        "Command.MoveLongOperation",
+        funcCommandMoveLongOperation, idObj, qCommand)->Execute();
 }
 
 std::string MoveCommandPlugin::GetType()
