@@ -22,9 +22,9 @@ public:
 
 	void Execute() override
 	{
-		// так как в Interpret уже выставлен scope для нужного объекта, мы просто получаем нужный объект
+        // так как в Interpret уже выставлен scope для нужной игры, мы просто получаем нужный объект
         std::shared_ptr<UObject> curObject = ioc->Resolve<std::shared_ptr<UObject> >(
-			"GameItems");
+            "GameItems", messagable->getIdObject());
         ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForMove",
 			curObject,
