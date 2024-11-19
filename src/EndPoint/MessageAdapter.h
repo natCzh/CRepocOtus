@@ -10,37 +10,34 @@ class MessageAdapter : public IMessagable
 {
 public:
 
-	// TODO переписать через IoC
+	// TODO РїРµСЂРµРїРёСЃР°С‚СЊ С‡РµСЂРµР· IoC
 	MessageAdapter(std::shared_ptr<UObject> message_)
 		: message(message_)
 	{}
 
 	virtual ~MessageAdapter() {};
 
-	unsigned int getIdGame()
+    unsigned int getIdGame() override
 	{
 		boost::any val = message->getProperty("id.Game");
 		return boost::any_cast<unsigned int>(val);
 	}
 
-	unsigned int getIdObject()
+    unsigned int getIdObject() override
 	{
-		boost::any val;
-		message->getProperty("id.Object", val);
+        boost::any val = message->getProperty("id.Object");
 		return boost::any_cast<unsigned int>(val);
 	}
 
-	std::string getTypeCommand()
+    std::string getTypeCommand() override
 	{
-		boost::any val;
-		message->getProperty("TypeCommand", val);
+        boost::any val = message->getProperty("TypeCommand");
 		return boost::any_cast<std::string>(val);
 	}
 	
-	std::map<std::string, boost::any> getProperties()
+    std::map<std::string, boost::any> getProperties() override
 	{
-		boost::any val;
-		message->getProperty("TypeCommand", val);
+        boost::any val = message->getProperty("TypeCommand");
 		return boost::any_cast<std::map<std::string, boost::any> >(val);
 	}
 

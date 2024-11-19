@@ -3,7 +3,8 @@
 
 #include <boost/any.hpp>
 
-#include "Common/UObject.h"
+#include "CommonLib/UObject.h"
+#include "CommonLib/UobjectException.h"
 
 // Описание содержания сообщения
 // Обязательные поля:
@@ -28,46 +29,39 @@ public:
 
 	virtual ~Message() {};
 
-	/// [out] - error
-	/// [in-out] nameProperty
-	/// [in-out] value
-	int getProperty(const std::string &nameProperty, boost::any &value) override
+    boost::any getProperty(const std::string &nameProperty) override
 	{
 		auto iter = mapKey.find(nameProperty);
 		if (iter == mapKey.end())
-			return 1;
+            throw UobjectException("Uobject parameter of key isn't exist");
 
-		value = iter->second;
-		return 0;
+        return iter->second;
 	}
 
-	int setProperty(const std::string &nameProperty, boost::any newValue) override
+    void setProperty(const std::string &nameProperty, boost::any newValue) override
 	{
 		auto iter = mapKey.find(nameProperty);
 		if (iter == mapKey.end())
-			return 1;
+            throw UobjectException("Uobject parameter of key isn't exist");
 
 		iter->second = newValue;
-		return 0;
 	}
 
-	int getNumberProperty()
+    int getNumberProperty() override
 	{
 		return mapKey.size();
 	}
 
-	int getPropertyIter(unsigned int iter, std::string &nameProperty, boost::any &value)
+    boost::any getPropertyIter(unsigned int iter, std::string &nameProperty) override
 	{
-		if (mapKey.size() - iter < 1)
-			return 1;
+        if (mapKey.size() - iter < 1)
+            throw UobjectException("Uobject parameter of key isn't exist");
 
-		std::unordered_map<std::string, boost::any>::iterator it = mapKey.begin();
-		std::advance (it,iter);
+        std::unordered_map<std::string, boost::any>::iterator it = mapKey.begin();
+        std::advance (it,iter);
 
-		nameProperty = it->first;
-		value = it->second;
-
-		return 0;
+        nameProperty = it->first;
+        return it->second;
 	}
 
 private:
