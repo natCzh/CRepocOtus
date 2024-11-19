@@ -14,9 +14,10 @@ set(CMAKE_AUTOMOC ON)
 
 #TODO переделать это!!
 FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/*.h src/EndPoint/*.h src/Exception/*.h src/IoC/*.h 
-                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h src.service/TourneyService/*.h)
+                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h src.service/TourneyService/*.h 
+                          src/inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
 
-FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp)
+FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp src/Command/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
