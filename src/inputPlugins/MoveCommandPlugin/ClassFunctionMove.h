@@ -65,6 +65,9 @@ public:
     ICommand_Ptr CommandMovementFunc(size_t idObj)
     {
         return ICommand_Ptr(new CommandMovement(idObj));
+    ICommand_Ptr CommandMoveLongOperationFunc(size_t idObj, std::shared_ptr<QueueCommand> qCommand)
+    {
+        return std::make_shared<CommandMoveLongOperation>(idObj, qCommand);
     }
 };
 

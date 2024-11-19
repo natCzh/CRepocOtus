@@ -13,7 +13,8 @@ SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD ON)
 
 set(SOURCES_${PROJECT_NAME} MoveCommandPlugin.cpp)
-set(HEADERS_${PROJECT_NAME} ClassFunctionMove.h CommandMove.h MovableAdapter.h MoveCommandPlugin.h IMovableLocationSetClass.h CommandMovement.h)
+set(HEADERS_${PROJECT_NAME} ClassFunctionMove.h CommandMove.h MovableAdapter.h MoveCommandPlugin.h IMovableLocationSetClass.h CommandMovement.h
+							CommandMoveLongOperation.h)
 
 message("STATUS" ${PROJECT_SOURCE_DIR})
 message("STATUS" !!!!!!!!!!!!!!!!!!!)
