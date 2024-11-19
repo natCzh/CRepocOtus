@@ -13,6 +13,7 @@
 #include "IoC/IoC.h"
 #include "IMovableLocationSetClass.h"
 #include "CommandMovement.h"
+#include "CommandMoveLongOperation.h"
 
 extern IoC* ioc;
 class ClassFunctionMove
@@ -33,7 +34,7 @@ public:
 
     ICommand_Ptr IMovableLocationSetFunc(UObject_Ptr obj, std::vector<int> value)
 	{
-        return ICommand_Ptr(new IMovableLocationSetClass(obj, value));
+        return std::make_shared<IMovableLocationSetClass>(obj, value);
 	}
 
     std::vector<int> IMovableVelocityFunc(UObject_Ptr obj)
@@ -54,17 +55,19 @@ public:
 
     std::shared_ptr<IMovable> AdaptersIMovableFunc(UObject_Ptr obj)
 	{
-		return std::shared_ptr<IMovable>(new MovableAdapter(obj));
+        return std::make_shared<MovableAdapter>(obj);
 	}
 
     ICommand_Ptr CommandMoveFunc(UObject_Ptr obj)
 	{
-		return ICommand_Ptr(new CommandMove(ioc->Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj)));
+        return std::make_shared<CommandMove>(ioc->Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj));
 	}
 
     ICommand_Ptr CommandMovementFunc(size_t idObj)
     {
-        return ICommand_Ptr(new CommandMovement(idObj));
+        return std::make_shared<CommandMovement>(idObj);
+    }
+
     ICommand_Ptr CommandMoveLongOperationFunc(size_t idObj, std::shared_ptr<QueueCommand> qCommand)
     {
         return std::make_shared<CommandMoveLongOperation>(idObj, qCommand);

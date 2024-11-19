@@ -28,7 +28,7 @@ public:
 
     ICommand_Ptr IRotableDirectionSetFunc(UObject_Ptr obj, int value)
 	{
-        return ICommand_Ptr(new IRotableSetDirectionClass(obj, value));
+        return std::make_shared<IRotableSetDirectionClass>(obj, value);
 	}
 
     int IRotableDirectionAngularFunc(UObject_Ptr obj)
@@ -45,12 +45,12 @@ public:
 
     std::shared_ptr<IRotable> AdaptersIRotableFunc(UObject_Ptr obj)
 	{
-		return std::shared_ptr<IRotable>(new RotableAdapter(obj));
+        return std::make_shared<RotableAdapter>(obj);
 	}
 
     ICommand_Ptr CommandRotateFunc(UObject_Ptr obj)
 	{
-        return ICommand_Ptr(new CommandRotate(ioc->Resolve<std::shared_ptr<IRotable> >("Adapters.IRotable", obj)));
+        return std::make_shared<CommandRotate>(ioc->Resolve<std::shared_ptr<IRotable> >("Adapters.IRotable", obj));
 	}
 };
 

@@ -29,22 +29,22 @@ public:
 
     ICommand_Ptr IShotableShotActSetFunc(UObject_Ptr obj, int value)
 	{
-        return ICommand_Ptr(new IShotableSetShotActClass(obj, value));
+        return std::make_shared<IShotableSetShotActClass>(obj, value);
 	}
 
     ICommand_Ptr IShotableNumberShotSetFunc(UObject_Ptr obj, int value)
     {
-        return ICommand_Ptr(new IShotableSetNumberShotClass(obj, value));
+        return std::make_shared<IShotableSetNumberShotClass>(obj, value);
 	}
 
     std::shared_ptr<IShotable> AdaptersIShotableFunc(UObject_Ptr obj)
 	{
-        return std::shared_ptr<IShotable>(new ShotableAdapter(obj));
+        return std::make_shared<ShotableAdapter>(obj);
 	}
 
     ICommand_Ptr CommandShotFunc(UObject_Ptr obj)
 	{
-        return ICommand_Ptr(new CommandShot(ioc->Resolve<std::shared_ptr<IShotable> >("Adapters.IShotable", obj)));
+        return std::make_shared<CommandShot>(ioc->Resolve<std::shared_ptr<IShotable> >("Adapters.IShotable", obj));
 	}
 };
 
