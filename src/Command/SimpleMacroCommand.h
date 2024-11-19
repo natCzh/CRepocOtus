@@ -8,11 +8,11 @@
 class SimpleMacroCommand : public ICommand
 {
 public:
-	SimpleMacroCommand(const std::vector<std::shared_ptr<ICommand> > &cmds_value)
+    SimpleMacroCommand(const std::vector<ICommand_Ptr> &cmds_value)
 		: cmds(cmds_value)
 	{}
 
-	void Execute()
+    void Execute() override
 	{
 		unsigned int sizeData = cmds.size();
 		for (unsigned int it = 0; it < sizeData; it++)
@@ -25,7 +25,7 @@ public:
 	}
 
 private:
-	std::vector<std::shared_ptr<ICommand> > cmds;
+    std::vector<ICommand_Ptr> cmds;
 };
 
 #endif /* _SIMPLE_MACRO_COMMAND_H_*/

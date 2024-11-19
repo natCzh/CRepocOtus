@@ -12,6 +12,8 @@ public:
 
     virtual ~IBridgeCommand();
 
+    virtual void Execute() = 0;
+
     virtual void Inject(ICommand_Ptr injectableCommand) = 0;
 };
 
