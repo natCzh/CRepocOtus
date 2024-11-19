@@ -7,28 +7,48 @@
 #include "service/TourneyService/EventLoop.h"
 #include "Command/ICommand.h"
 
+struct idGameAndThread
+{
+    size_t              threadId;             // ид потока
+    size_t              idGame;               // ид игры
+};
+
 // сущность, которая содержит игры, очередь игр, запускает их и тд
+// о скоупах ничего не знает, только пользует
 class SpaceBattle
 {
 public:
-	SpaceBattle() {}
+    SpaceBattle(size_t maxThreadId_)
+        : maxThreadId(maxThreadId_)
+    {}
 
-	size_t CreateNewGame(); // тут надо что-то передать для инициализацииы
+    /// @brief Создание новой игры
+    /// @param[in] cmdInit - команда инициализации игры
+    /// @param[in] scopeId
+    idGameAndThread CreateNewGame(ICommand_Ptr cmdInit, size_t scopeId); // тут надо что-то передать для инициализацииы
 
 	void StartGame(size_t id);
 	void StopGame(size_t id);
-	void AddCommandForObject(size_t idGame, size_t idObj, ICommand_Ptr cmd);
+
+    /// @brief Получение очереди команд игры
+    /// @param[in] idGame
+    /// @param[out] очередь команд для игры
+    std::shared_ptr<QueueCommand> GetQueueGame(idGameAndThread idInf)
+    {
+        return hashMapGames[idInf.threadId]->getQueueGame(idInf.idGame);
+    }
 
 protected:
-	size_t getNextGameId()
+    size_t getThreadId()
 	{
-		return gameId++;
+        return gameThreadId++;
 	}
 
 private:
 
-	static std::atomic<size_t>									gameId;
-	// хэш таблица - ид игры, EventLoop с игрой
+    static std::atomic<size_t>									gameThreadId;
+    size_t                                                      maxThreadId;                      // кол-во потоков
+    // хэш таблица - ид потока, EventLoop с играми
 	std::map<size_t, std::shared_ptr<EventLoop> >				hashMapGames;
 };
 

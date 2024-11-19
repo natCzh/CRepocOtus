@@ -8,14 +8,15 @@
 #include "Command/ICommand.h"
 #include "Common/QueueCommand.h"
 #include "IoC/IoC.h"
+#include "CommonLib/UObject.h"
 
 extern IoC* ioc;
 class GameCommand: public ICommand
 {
 public:
-	GameCommand(std::shared_ptr<QueueCommand> queue_, const unsigned long long &quant_, size_t scopeIdCur_, ICommand_Ptr init)
-		: queue(queue_)
-		, quant(quant_)
+    GameCommand(std::shared_ptr<QueueCommand> queue_, const unsigned long long &quant_, size_t scopeIdCur_, ICommand_Ptr init)
+        : queue(queue_)
+        , quant(quant_)
 		, scopeIdCur(scopeIdCur_)
 	{
         ioc->Resolve<ICommand_Ptr>("Scopes.Current.SetId", &scopeIdCur);
@@ -36,19 +37,14 @@ public:
 		}
 	}
 
-	void addCommand(ICommand_Ptr commandAdd)
+    /*void addCommand(ICommand_Ptr commandAdd)
 	{
 		queue->Push(commandAdd);
-	}
+    }*/
 
-	std::string GetType()
+    std::string GetType()
 	{
 		return "GameCommand";
-	}
-
-	std::shared_ptr<QueueCommand> getQueuue()
-	{
-		return queue;
 	}
 	
 private:

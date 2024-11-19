@@ -40,44 +40,55 @@ public:
 	void setExceptionHandler(ExceptionHendler &excHendler_);
 
 	void stop();
-
-	void add(ICommand_Ptr cmd);
-
 	void startLoop();
-
 	void loop();
-
 	void behaviorCommon();
-
 	void softStop();
-
 	void behaviorSS();
 
-	unsigned long long getNextObjectId()
-	{
-		return gameObjectId++;
-	}
+    // TODO !!! проверить перед этим обязательно в вызове делается установка текущего скоупа
+    /// @brief Создание новой команды в очередь, не игры
+    /// @param[in] cmdInit - команда инициализации игры
+    void add(ICommand_Ptr cmd);
+    /// @brief Создание новой игры
+    /// @param[in] cmdInit - команда инициализации игры
+    /// @param[in] scopeId
+    size_t addNewGame(ICommand_Ptr cmdInit, size_t scopeIdCur);
 
-	// нахождение индекса в очереди игр
-	size_t findIndexCollectionGameId(unsigned long long gameId)
-	{
-		auto indexGameId = std::find(idsGameObject.begin(), idsGameObject.end(), gameId);
-		if (indexGameId == idsGameObject.end())
-			throw MessageTourneySException("id game object isn't correct");
-		return std::distance(idsGameObject.begin(), indexGameId);
-	}
+    std::shared_ptr<ThreadDeque<ICommand_Ptr> > getCollectionGame()
+    {
+        return std::make_shared<ThreadDeque<ICommand_Ptr> >(collection);
+    }
 
-	void setICommandToGameObject(size_t index, ICommand_Ptr cmd);
+    /// @brief Получение очереди команд игры
+    /// @param[in] idGame
+    /// @param[out] очередь команд для игры
+    std::shared_ptr<QueueCommand> getQueueGame(size_t idGame)
+    {
+        return queueGame[idGame];
+    }
+
 
 protected:
-	ThreadDeque<ICommand_Ptr>				collection;
-	bool									flagStop;				// флаг остановки, false - работаем
-	int										waitMilliSec;			// кол-во миллисекунд, которые ждем команду
-	ExceptionHendler						excHendler;
-	std::thread								*threadCur;
-	std::function<void()>					behavior;
-	std::deque<long long>					idsGameObject;			// ид всех объектов данной игры - идут на пару с collection, -1 - если это не игра
-	long long								gameObjectId;
+
+    size_t getNextGameId()
+    {
+        return gameId++;
+    }
+
+private:
+
+    ThreadDeque<ICommand_Ptr>                                       collection;
+    bool                                                            flagStop;				// флаг остановки, false - работаем
+    int                                                             waitMilliSec;			// кол-во миллисекунд, которые ждем команду
+    ExceptionHendler                                                excHendler;
+    std::thread                                                     *threadCur;
+    std::function<void()>                                           behavior;
+    // параметры для игр
+    static size_t                                                   gameId;
+    std::unordered_map<size_t, std::shared_ptr<QueueCommand> >      queueGame;              // ид игры - очередь игры
+    int                                                             maxSizeQueueGame;       // максимальное кол-во команд в очереди игры
+    unsigned long long                                              quantGame;              // кол-во секунд сессии 1 прохода игры
 };
 
 #endif /* _EVENT_LOOP_H_ */
