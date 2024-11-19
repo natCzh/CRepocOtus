@@ -49,6 +49,13 @@ void MoveCommandPlugin::Load()
 		"IoC.Register",
 		"Command.Move",
         funcCommandMove, obj)->Execute();
+
+    size_t idObj = 0;
+    std::function<ICommand_Ptr(size_t idObj)> funcCommandMovement = boost::bind(&ClassFunctionMove::CommandMovementFunc, &classFunctionMove, std::placeholders::_1);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(size_t idObj)> >(
+        "IoC.Register",
+        "Command.Movement",
+        funcCommandMovement, idObj)->Execute();
 }
 
 std::string MoveCommandPlugin::GetType()

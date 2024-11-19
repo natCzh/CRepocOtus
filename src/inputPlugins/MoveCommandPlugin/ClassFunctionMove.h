@@ -12,6 +12,7 @@
 #include "MovableAdapter.h"
 #include "IoC/IoC.h"
 #include "IMovableLocationSetClass.h"
+#include "CommandMovement.h"
 
 extern IoC* ioc;
 class ClassFunctionMove
@@ -60,6 +61,11 @@ public:
 	{
 		return ICommand_Ptr(new CommandMove(ioc->Resolve<std::shared_ptr<IMovable> >("Adapters.IMovable", obj)));
 	}
+
+    ICommand_Ptr CommandMovementFunc(size_t idObj)
+    {
+        return ICommand_Ptr(new CommandMovement(idObj));
+    }
 };
 
 #endif /* _CLASS_FUNCTION_MOVE_H_ */
