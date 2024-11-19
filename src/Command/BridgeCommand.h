@@ -2,25 +2,26 @@
 #define _BRIDGE_COMMAND_H_
 
 #include "Command/ICommand.h"
+#include "Command/IBridgeCommand.h"
 
-class BridgeCommand : public ICommand
+class BridgeCommand : public ICommand, public IBridgeCommand
 {
 public:
 	BridgeCommand(ICommand_Ptr cmd_)
 		: cmd(cmd_)
 	{}
 
-	void Inject(ICommand_Ptr injectableCommand)
+    void Inject(ICommand_Ptr injectableCommand) override
 	{
 		cmd = injectableCommand;
 	}
 
-	void Execute()
+    void Execute() override
 	{
 		cmd->Execute();
 	}
 
-	std::string GetType()
+    std::string GetType() override
 	{
 		return "BridgeCommand";
 	}
