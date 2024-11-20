@@ -17,7 +17,7 @@ FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/*.h src/EndPoint/*.h src/Ex
                           src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h src.service/TourneyService/*.h 
                           src/inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
 
-FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp src/Command/*.cpp)
+FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp src/Command/*.cpp src/inputPlugins/CommandInterpretMoveStopRotateShot/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
