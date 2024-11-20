@@ -8,7 +8,6 @@
 extern IoC* ioc;
 void InitCommandInterpretCommand::Execute()
 {
-
     UObject_Ptr obj;
     IMessagable_Ptr messagable;
     std::function<ICommand_Ptr(UObject_Ptr, IMessagable_Ptr)> funcPrepareForMove = boost::bind(&ClassFunctionInitCommandInterpret::CommandPrepareForMove, &classFunction, std::placeholders::_1, std::placeholders::_2);
@@ -23,6 +22,18 @@ void InitCommandInterpretCommand::Execute()
         "IoC.Register",
         "CommandInterpret.StartMove",
         funcInterpretStartMove, messagable, queue);
+
+    std::function<ICommand_Ptr(UObject_Ptr)> funcPrepareForStopMove = boost::bind(&ClassFunctionInitCommandInterpret::CommandPrepareForStopMove, &classFunction, std::placeholders::_1);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(UObject_Ptr)> >(
+        "IoC.Register",
+        "CommandInterpret.PrepareForStopMove",
+        funcPrepareForStopMove, obj);
+
+    std::function<ICommand_Ptr(IMessagable_Ptr)> funcInterpretStartMove = boost::bind(&ClassFunctionInitCommandInterpret::CommandInterpretCommandStopMove, &classFunction, std::placeholders::_1);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(IMessagable_Ptr)> >(
+        "IoC.Register",
+        "CommandInterpret.StopMove",
+        funcInterpretStartMove, messagable);
 }
 
 std::string InitCommandInterpretCommand::GetType()

@@ -1,5 +1,5 @@
 #ifndef _COMMAND_INTERPRET_COMMAND_START_MOVE_H_
-#define _COMMAND_INTERPRET_COMMAND_START_MOVE_H_s
+#define _COMMAND_INTERPRET_COMMAND_START_MOVE_H_
 
 #include <memory>
 
@@ -8,7 +8,6 @@
 #include "CommonLib/IMessagable.h"
 #include "CommonLib/UObject.h"
 #include "Command/IBridgeCommand.h"
-#include "Command/CommandEmpty.h"
 
 extern IoC* ioc;
 class CommandInterpretCommand_StartMove: public ICommand
@@ -39,7 +38,7 @@ public:
 
 	std::string GetType() override
 	{
-        return "CommandInterpretCommand.StartMove";
+        return "CommandInterpret.StartMove";
 	}
 
 protected:

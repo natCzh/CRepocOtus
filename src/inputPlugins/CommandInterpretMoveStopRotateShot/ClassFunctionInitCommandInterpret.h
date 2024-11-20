@@ -6,6 +6,8 @@
 #include "../../CommonLib/IMessagable.h"
 #include "CommandInterpretCommand_PrepareForMove.h"
 #include "CommandInterpretCommand_StartMove.h"
+#include "CommandInterpretCommand_PrepareForStopMove.h"
+#include "CommandInterpretCommand_StopMove.h"
 
 class ClassFunctionInitCommandInterpret
 {
@@ -21,6 +23,16 @@ public:
     ICommand_Ptr CommandInterpretCommandStartMove(IMessagable_Ptr messagable, std::shared_ptr<QueueCommand> queue)
     {
         return std::make_shared<CommandInterpretCommand_StartMove>(messagable, queue);
+    }
+
+    ICommand_Ptr CommandPrepareForStopMove(UObject_Ptr obj)
+    {
+        return std::make_shared<CommandInterpretCommand_PrepareForStopMove>(obj);
+    }
+
+    ICommand_Ptr CommandInterpretCommandStopMove(IMessagable_Ptr messagable)
+    {
+        return std::make_shared<CommandInterpretCommand_StopMove>(messagable);
     }
 };
 
