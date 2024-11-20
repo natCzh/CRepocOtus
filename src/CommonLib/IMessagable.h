@@ -17,4 +17,6 @@ public:
 	virtual std::map<std::string, boost::any> getProperties() = 0;
 };
 
+using IMessagable_Ptr = std::shared_ptr<IMessagable>;
+
 #endif /* _I_MESSAGABLE_H_ */

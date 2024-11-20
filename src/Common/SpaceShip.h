@@ -28,6 +28,9 @@ public:
 		mapKey["shotRange"] = 0;
 		mapKey["shotAct"] = 0; // был выстрел или нет у объекта
 		mapKey["numberShot"] = 0; // кол-во выстрелов, патронов
+
+        // длительные операции
+        // mapKey["Move"] = IBridgeCommand_Ptr; - длительная операция движения
 	}
 
 	virtual ~SpaceShip() {};

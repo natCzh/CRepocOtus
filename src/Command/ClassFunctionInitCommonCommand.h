@@ -1,7 +1,6 @@
 ﻿#ifndef _CLASS_FUNCTION_INIT_COMMON_COMMAND_H_
 #define _CLASS_FUNCTION_INIT_COMMON_COMMAND_H_
 
-#include <string>
 #include <vector>
 
 #include "Command/ICommand.h"
@@ -13,9 +12,9 @@ public:
     ClassFunctionInitCommonCommand(){}
     virtual ~ClassFunctionInitCommonCommand() {}
 
-    ICommand_Ptr CommandSimpleMacroCommand(const std::vector<std::shared_ptr<ICommand> > &cmds_value)
+    ICommand_Ptr CommandSimpleMacroCommand(const std::vector<ICommand_Ptr> &cmds_value)
     {
-        return ICommand_Ptr(new SimpleMacroCommand(cmds_value));
+        return std::make_shared<SimpleMacroCommand>(cmds_value);
     }
 
 };

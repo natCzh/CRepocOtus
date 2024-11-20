@@ -24,10 +24,10 @@ public:
 
 	void Execute()
 	{
-        ioc->Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur); // TODO тут должна быть команда переделать !!!!!!!!!!!!
-
+        // Должен добавить конкретную команду в игру Game Command TODO проверить!!!!!!!
+        ioc->Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur);
+        // TODO доделать !!!!!!!!!
         ICommand_Ptr cmdCur = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
-		queue->Push(cmdCur);
 	}
 
 	std::string GetType()

@@ -3,7 +3,7 @@
 
 #include "EndPoint/IEndPoint.h"
 #include "EndPoint/InterpretCommand.h"
-#include "EndPoint/MessageAdapter.h"
+#include "CommonLib/MessageAdapter.h"
 #include "EndPoint/Message.h" // TODO перепроверить подключения !поудалять !!!!!!!!!!
 #include "src/Common/ThreadDeque.h"
 #include "service/TourneyService/EventLoop.h"

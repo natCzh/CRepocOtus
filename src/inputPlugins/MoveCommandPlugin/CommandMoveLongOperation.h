@@ -2,7 +2,7 @@
 #define _COMMAND_MOVE_LONG_OPERATION_H_
 
 #include "IoC/IoC.h"
-#include "CommonLib/UObject.h"
+
 #include "../../Command/ICommand.h"
 #include "../../Command/IBridgeCommand.h"
 #include "../../Command/BridgeCommand.h"

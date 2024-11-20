@@ -1,7 +1,7 @@
 #ifndef _I_END_POINT_H_
 #define _I_END_POINT_H_
 
-// Êëàññ òî îáðàçîì ïðèíèìàåò çàïðîñ, êîíâåðòèðóåò â json -> string -> IMessage -> InterpretCommand
+// Â Ð»Ð°ÑÑ Ñ‚Ð¾ Ð¾Ð±Ñ€Ð°Ð·Ð¾Ð¼ Ð¿Ñ€Ð¸Ð½Ð¸Ð¼Ð°ÐµÑ‚ Ð·Ð°Ð¿Ñ€Ð¾Ñ, ÐºÐ¾Ð½Ð²ÐµÑ€Ñ‚Ð¸Ñ€ÑƒÐµÑ‚ Ð² json -> string -> IMessage -> InterpretCommand
 class IEndPoint
 {
 public:

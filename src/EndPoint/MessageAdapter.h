@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "EndPoint/IMessagable.h"
+#include "CommonLib/IMessagable.h"
 #include "EndPoint/Message.h"
 
 class MessageAdapter : public IMessagable
