@@ -6,6 +6,7 @@
 
 #include "IoC/IoC.h"
 #include "CommonLib/IMessagable.h"
+#include "Common/QueueCommand.h"
 #include "CommonLib/UObject.h"
 #include "Command/IBridgeCommand.h"
 #include "Command/CommandEmpty.h"
