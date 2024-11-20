@@ -12,6 +12,8 @@ public:
 		, qCommand(qCommand_)
 	{}
 
+    virtual ~CommandRepeat(){}
+
 	void Execute()
 	{
 		qCommand->Push(command);

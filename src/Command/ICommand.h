@@ -2,7 +2,7 @@
 #define _I_COMMAND_H_
 
 #include <string>
-#include <iostream>
+#include <memory>
 
 class ICommand
 {

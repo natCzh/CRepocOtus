@@ -16,11 +16,12 @@ class CommandMoveLongOperation: public ICommand, public IBridgeCommand
 public:
     CommandMoveLongOperation(size_t idObj, std::shared_ptr<QueueCommand> qCommand_)
     {
-        bridgeCommand = std::make_shared<BridgeCommand>(std::make_shared<ICommand_Ptr>(CommandEmpty()));
+        ICommand_Ptr cmdBr = std::make_shared<CommandEmpty>();
+        bridgeCommand = std::make_shared<BridgeCommand>(cmdBr);
         repeatCommand = std::make_shared<CommandRepeat>(qCommand_, bridgeCommand);
         ICommand_Ptr movement = ioc->Resolve<ICommand_Ptr>("Command.Movement", idObj);
         std::vector<ICommand_Ptr> cmdsVect{movement, repeatCommand};
-        macroCmd = std::make_shared<ICommand_Ptr>(SimpleMacroCommand(cmdsVect));
+        macroCmd = std::make_shared<SimpleMacroCommand>(cmdsVect);
         bridgeCommand->Inject(macroCmd);
     }
 

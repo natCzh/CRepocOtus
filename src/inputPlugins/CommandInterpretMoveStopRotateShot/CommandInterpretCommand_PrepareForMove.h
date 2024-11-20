@@ -21,7 +21,7 @@ public:
 	{
         std::map<std::string, boost::any> mapPropCur = messagable->getProperties();
 
-        auto valVel = std::find(mapPropCur.begin(), mapPropCur.end(), "velocity");
+        auto valVel = mapPropCur.find("velocity");
         if (valVel == mapPropCur.end())
             InterpretCommandException("UObject messagable - velocity isn't exist");
 

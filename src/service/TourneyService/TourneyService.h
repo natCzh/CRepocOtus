@@ -10,8 +10,11 @@ class TourneyService
 {
 public:
 
-	// тут запускает EndPoint ловить исключения 
+    // тут запускает EndPoint ловить исключения
 
+
+
+    // Класс то образом принимает запрос, конвертирует в json -> string -> IMessage -> InterpretCommand
 
 
 protected:

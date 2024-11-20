@@ -7,7 +7,7 @@ class IBridgeCommand
 {
 public:
 
-    virtual ~IBridgeCommand();
+    virtual ~IBridgeCommand(){}
 
     virtual void Execute() = 0;
 

@@ -5,7 +5,7 @@
 
 #include "Command/ICommand.h"
 #include "IoC/IoC.h"
-#include "EndPoint/MessageAdapter.h"
+#include "CommonLib/IMessagable.h"
 #include "Common/QueueCommand.h"
 
 extern IoC* ioc;
@@ -26,8 +26,7 @@ public:
 	{
         // Должен добавить конкретную команду в игру Game Command TODO проверить!!!!!!!
         ioc->Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur);
-        // TODO доделать !!!!!!!!!
-        ICommand_Ptr cmdCur = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable);
+        ICommand_Ptr cmdCur = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable, queue);
 	}
 
 	std::string GetType()

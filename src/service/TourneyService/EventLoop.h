@@ -6,7 +6,6 @@
 
 #include "src/Common/ThreadDeque.h"
 #include "src/Command/ICommand.h"
-#include "src/CommonLib/CommandException.h"
 #include "src/service/ExceptionHendler.h"
 #include "src/Exception/MessageTourneySException.h"
 
@@ -15,10 +14,10 @@ class EventLoop
 public:
 
 	EventLoop()
-		: flagStop(false)
+        : collection(std::make_shared<ThreadDeque<ICommand_Ptr> >())
+        , flagStop(false)
 		, waitMilliSec(1)
 		, threadCur(nullptr)
-		, gameObjectId(0)
 	{
 		behavior = std::bind(&EventLoop::behaviorCommon, this);
 	}
@@ -27,7 +26,6 @@ public:
 		: flagStop(false)
 		, waitMilliSec(waitMilliSec_)
 		, excHendler(excHendler_)
-		, gameObjectId(0)
 	{
 		//this->threadCur = std::thread{ &CommandCollection::loop, this };
 	}
@@ -55,11 +53,6 @@ public:
     /// @param[in] scopeId
     size_t addNewGame(ICommand_Ptr cmdInit, size_t scopeIdCur);
 
-    std::shared_ptr<ThreadDeque<ICommand_Ptr> > getCollectionGame()
-    {
-        return std::make_shared<ThreadDeque<ICommand_Ptr> >(collection);
-    }
-
     /// @brief Получение очереди команд игры
     /// @param[in] idGame
     /// @param[out] очередь команд для игры
@@ -78,14 +71,14 @@ protected:
 
 private:
 
-    ThreadDeque<ICommand_Ptr>                                       collection;
+    std::shared_ptr<ThreadDeque<ICommand_Ptr> >                     collection;
     bool                                                            flagStop;				// флаг остановки, false - работаем
     int                                                             waitMilliSec;			// кол-во миллисекунд, которые ждем команду
     ExceptionHendler                                                excHendler;
     std::thread                                                     *threadCur;
     std::function<void()>                                           behavior;
     // параметры для игр
-    static size_t                                                   gameId;
+    static std::atomic<size_t>                                      gameId;
     std::unordered_map<size_t, std::shared_ptr<QueueCommand> >      queueGame;              // ид игры - очередь игры
     int                                                             maxSizeQueueGame;       // максимальное кол-во команд в очереди игры
     unsigned long long                                              quantGame;              // кол-во секунд сессии 1 прохода игры

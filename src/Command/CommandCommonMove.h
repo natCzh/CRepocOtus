@@ -1,6 +1,8 @@
 #ifndef _COMMAND_COMMON_MOVE_H_
 #define _COMMAND_COMMON_MOVE_H_
 
+#include <iostream>
+
 #include "ICommand.h"
 #include "Common/QueueCommand.h"
 

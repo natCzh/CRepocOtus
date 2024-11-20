@@ -8,7 +8,7 @@
 class SimpleMacroCommand : public ICommand
 {
 public:
-    SimpleMacroCommand(const std::vector<ICommand_Ptr> &cmds_value)
+    SimpleMacroCommand(std::vector<ICommand_Ptr> cmds_value)
 		: cmds(cmds_value)
 	{}
 
