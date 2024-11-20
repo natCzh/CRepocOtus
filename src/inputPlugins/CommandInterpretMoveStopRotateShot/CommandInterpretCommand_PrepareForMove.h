@@ -25,6 +25,9 @@ public:
         if (valVel == mapPropCur.end())
             InterpretCommandException("UObject messagable - velocity isn't exist");
 
+
+
+
         obj->setProperty("velocity", valVel);
 	}
 

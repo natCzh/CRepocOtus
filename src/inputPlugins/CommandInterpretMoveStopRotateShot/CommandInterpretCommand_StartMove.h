@@ -27,7 +27,7 @@ public:
         ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForMove",
 			curObject,
-			messagable);
+            messagable)->Execute();
 
         ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Command.MoveLongOperation", messagable->getIdObject(), queue);
 		queue->Push(cmd);

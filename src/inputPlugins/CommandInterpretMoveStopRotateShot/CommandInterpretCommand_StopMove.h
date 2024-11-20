@@ -26,7 +26,7 @@ public:
             "GameItems", messagable->getIdObject());
         ioc->Resolve<ICommand_Ptr>(
             "CommandInterpret.PrepareForStopMove",
-            curObject);
+            curObject)->Execute();
 
         boost::any property = curObject->getProperty("Move");
         IBridgeCommand_Ptr cmd = boost::any_cast<IBridgeCommand_Ptr>(property);
