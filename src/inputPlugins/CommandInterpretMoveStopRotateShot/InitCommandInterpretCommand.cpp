@@ -47,6 +47,18 @@ void InitCommandInterpretCommand::Execute()
         "IoC.Register",
         "CommandInterpret.Rotate",
         funcInterpretRotate, messagable, queue)->Execute();
+
+    std::function<ICommand_Ptr(UObject_Ptr)> funcPrepareForShot = boost::bind(&ClassFunctionInitCommandInterpret::CommandPrepareForShot, &classFunction, std::placeholders::_1);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(UObject_Ptr)> >(
+           "IoC.Register",
+           "CommandInterpret.PrepareForShot",
+           funcPrepareForShot, obj)->Execute();
+
+    std::function<ICommand_Ptr(IMessagable_Ptr, std::shared_ptr<QueueCommand> queue)> funcInterpretShot = boost::bind(&ClassFunctionInitCommandInterpret::CommandInterpretCommandShot, &classFunction, std::placeholders::_1, std::placeholders::_2);
+    ioc->Resolve<ICommand_Ptr, ICommand_Ptr, std::string, std::function<ICommand_Ptr(IMessagable_Ptr, std::shared_ptr<QueueCommand> queu)> >(
+           "IoC.Register",
+           "CommandInterpret.Shot",
+           funcInterpretShot, messagable, queue)->Execute();
 }
 
 std::string InitCommandInterpretCommand::GetType()

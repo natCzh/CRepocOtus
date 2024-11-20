@@ -10,6 +10,8 @@
 #include "CommandInterpretCommand_StopMove.h"
 #include "CommandInterpretCommand_PrepareForRotate.h"
 #include "CommandInterpretCommand_Rotate.h"
+#include "CommandInterpretCommand_PrepareForShot.h"
+#include "CommandInterpretCommand_Shot.h"
 
 class ClassFunctionInitCommandInterpret
 {
@@ -47,6 +49,15 @@ public:
         return std::make_shared<CommandInterpretCommand_Rotate>(messagable, queue);
     }
 
+    ICommand_Ptr CommandPrepareForShot(UObject_Ptr obj)
+    {
+        return std::make_shared<CommandInterpretCommand_PrepareForShot>(obj);
+    }
+
+    ICommand_Ptr CommandInterpretCommandShot(IMessagable_Ptr messagable, std::shared_ptr<QueueCommand> queue)
+    {
+        return std::make_shared<CommandInterpretCommand_Shot>(messagable, queue);
+    }
 };
 
 #endif /* _CLASS_FUNCTION_INIT_COMMAND_INTERPRET_H_ */
