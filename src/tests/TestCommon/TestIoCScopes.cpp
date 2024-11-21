@@ -5,9 +5,9 @@
 #include <thread>
 
 #include "IoC/IoC.h"
-#include "src/Exception/ScopesException.h"
+#include "Exception/ScopesException.h"
 #include "IoC/IoCException.h"
-#include "src/Command/ICommand.h"
+#include "Command/ICommand.h"
 
 // проверка работы "Scopes.Create.Empty",  
 TEST(TestIoCScopes, getNewEmptyScopeAndSet)

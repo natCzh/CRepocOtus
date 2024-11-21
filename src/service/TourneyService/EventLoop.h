@@ -4,10 +4,10 @@
 #include <thread>
 #include <functional>
 
-#include "src/Common/ThreadDeque.h"
-#include "src/Command/ICommand.h"
-#include "src/service/ExceptionHendler.h"
-#include "src/Exception/MessageTourneySException.h"
+#include "Common/ThreadDeque.h"
+#include "Command/ICommand.h"
+#include "service/ExceptionHendler.h"
+#include "Exception/MessageTourneySException.h"
 
 class EventLoop
 {

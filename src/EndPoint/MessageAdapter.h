@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "CommonLib/IMessagable.h"
-#include "EndPoint/Message.h"
+#include "CommonLib/UObject.h"
 
 class MessageAdapter : public IMessagable
 {

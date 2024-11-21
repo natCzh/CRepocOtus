@@ -3,7 +3,7 @@
 
 #include "IoC/IoC.h"
 #include "IoC/IoCException.h"
-#include "src/Command/ICommand.h"
+#include "Command/ICommand.h"
 
 #include <typeinfo>
 #include <functional>

@@ -5,7 +5,6 @@ project(natSpaceBattle)
 OPTION (TESTINCLUDE "Including utest " ON)
 OPTION (TEST_MoveCommandPlugin "Including test moveCommandPlugin" OFF)
 
-include_directories(src/)
 include_directories(${PROJECT_SOURCE_DIR}/)
 add_definitions(-D_USE_MATH_DEFINES)
 
@@ -13,11 +12,11 @@ find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 
 #TODO переделать это!!
-FILE(GLOB_RECURSE HEADERS src/Command/*.h src/Common/*.h src/EndPoint/*.h src/Exception/*.h src/IoC/*.h 
-                          src/RegisterCommand/*.h src/Scopes/*.h src/service/*.h src.service/TourneyService/*.h 
-                          src/inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
+FILE(GLOB_RECURSE HEADERS Command/*.h Common/*.h EndPoint/*.h Exception/*.hIoC/*.h 
+                          RegisterCommand/*.h Scopes/*.h service/*.h service/TourneyService/*.h 
+                          inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
 
-FILE(GLOB_RECURSE SOURCES src/Scopes/*.cpp src/service/*.cpp src.service/TourneyService/*.cpp src/Command/*.cpp src/inputPlugins/CommandInterpretMoveStopRotateShot/*.cpp)
+FILE(GLOB_RECURSE SOURCES Scopes/*.cpp service/*.cpp service/TourneyService/*.cpp Command/*.cpp inputPlugins/CommandInterpretMoveStopRotateShot/*.cpp)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})
@@ -59,10 +58,10 @@ if(MSVC)
     endif()
 endif()
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/Base/jsoncpp/)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/IoC/)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/CommonLib/)
-add_subdirectory(${PROJECT_SOURCE_DIR}/src/inputPlugins/)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Base/jsoncpp/)
+add_subdirectory(${PROJECT_SOURCE_DIR}/IoC/)
+add_subdirectory(${PROJECT_SOURCE_DIR}/CommonLib/)
+add_subdirectory(${PROJECT_SOURCE_DIR}/inputPlugins/)
 
 # //////////////// Boost
 find_package(Boost)
@@ -86,7 +85,7 @@ if(TESTINCLUDE)
 endif()
 
 if(TESTINCLUDE)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/src/tests/TestCommon)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/tests/TestCommon)
 endif()
 
 message(STATUS "root prefix path = ${CMAKE_INSTALL_PREFIX}")

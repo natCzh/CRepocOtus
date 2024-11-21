@@ -1,6 +1,8 @@
 #ifndef _END_POINT_H_
 #define _END_POINT_H_
 
+#include <memory.h>
+
 #include "EndPoint/IEndPoint.h"
 #include "EndPoint/InterpretCommand.h"
 #include "EndPoint/MessageAdapter.h"
@@ -21,10 +23,10 @@ public:
     /// @param[in] m - сообщение Message
     /// @param[in] scopeId - скоуп ид уже нужной игры
     /// @param[in] queue - очередь команд уже нужной игры
-    void process(UObject_Ptr m, size_t scopeId, std::shared_ptr<QueueCommand> queue)
+    void process(std::shared_ptr<Message> m, size_t scopeId, std::shared_ptr<QueueCommand> queue)
 	{
-		std::shared_ptr<IMessagable> messagable = std::make_shared<MessageAdapter>(std::make_shared<Message>(m));
-        std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(std::make_shared<IMessagable>(messagable), scopeId);
+        std::shared_ptr<IMessagable> messagable = std::make_shared<MessageAdapter>(m);
+        std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(messagable, scopeId, queue);
 		// те interpret Cоmmand мы положим в очередь игры уже для нужного объекта
 	}
 };
