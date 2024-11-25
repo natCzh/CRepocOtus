@@ -4,6 +4,9 @@
 #include <exception>
 #include <string>
 
+// "MessageTourneySException - file with typeObject game isn't exist"
+// "MessageTourneySException - file with typeObject game isn't correct"
+
 class MessageTourneySException: public std::exception
 {
 public:

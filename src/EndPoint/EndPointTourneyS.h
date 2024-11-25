@@ -6,7 +6,7 @@
 #include "EndPoint/IEndPoint.h"
 #include "EndPoint/InterpretCommand.h"
 #include "EndPoint/MessageAdapter.h"
-#include "EndPoint/Message.h"
+#include "service/Message.h"
 
 // EndPoint отвечает за обработку сообщений извне
 // необходимо проинициализировать команды InterpretCommand !!!!!! TODO

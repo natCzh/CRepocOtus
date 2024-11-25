@@ -12,7 +12,7 @@ set(CMAKE_AUTOMOC ON)
 
 set(SOURCES_${PROJECT_NAME} CommandException.cpp)
 set(HEADERS_${PROJECT_NAME} CommandException.h IPlugin.h IThreadDeque.h UObject.h UobjectException.h objectAble/IMovable.h 
-                            objectAble/IRotable.h objectAble/IShotable.h IMessagable.h)
+                            objectAble/IRotable.h objectAble/IShotable.h IMessagable.h IMessagableStartGame.h)
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES_${PROJECT_NAME}} ${HEADERS_${PROJECT_NAME}})
 

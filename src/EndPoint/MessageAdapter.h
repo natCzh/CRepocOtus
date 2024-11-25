@@ -37,7 +37,7 @@ public:
 	
     std::map<std::string, boost::any> getProperties() override
 	{
-        boost::any val = message->getProperty("TypeCommand");
+        boost::any val = message->getProperty("args");
 		return boost::any_cast<std::map<std::string, boost::any> >(val);
 	}
 

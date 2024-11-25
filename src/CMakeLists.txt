@@ -12,7 +12,7 @@ find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 
 #TODO переделать это!!
-FILE(GLOB_RECURSE HEADERS Command/*.h Common/*.h EndPoint/*.h Exception/*.hIoC/*.h 
+FILE(GLOB_RECURSE HEADERS Command/*.h Common/*.h EndPoint/*.h Exception/*.h IoC/*.h 
                           RegisterCommand/*.h Scopes/*.h service/*.h service/TourneyService/*.h 
                           inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
 

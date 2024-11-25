@@ -25,6 +25,8 @@ public:
 		mapKey["id.Object"] = 0;
 		mapKey["TypeCommand"] = 0;
 		mapKey["args"] = NULL;
+
+        mapKey["typeObj"] = 0;
 	}
 
 	virtual ~Message() {};
