@@ -44,6 +44,15 @@ public:
 	}
 };
 
+TEST(TestIoCCommand, commonIoC_Register_value_int)
+{
+    IoC ioc;
+    int x = 1;
+    ioc.Resolve<ICommand_Ptr, std::string, int>("IoC.Register", "A", x)->Execute();
+
+    int xExp = ioc.Resolve<int>("A");
+}
+
 TEST(TestIoCCommand, commonIoC_Register_ICommand_Ptr_void)
 {
 	IoC ioc;
@@ -110,5 +119,6 @@ TEST(TestIoCCommand, commonIoC_Register_int_int)
 	c = ioc.Resolve<int>("A", x);
 	EXPECT_EQ(c, 3);
 }
+
 
 

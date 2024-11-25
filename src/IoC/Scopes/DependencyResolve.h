@@ -7,6 +7,7 @@
 #include <functional>
 #include <boost/any.hpp>
 #include <iostream>
+#include <boost/type_traits/is_convertible.hpp>
 
 #include <typeinfo>
 
@@ -87,6 +88,16 @@ namespace Scopes
         template<typename T, typename F, typename F2>
         T Resolve(std::string key, F args, F2 args2)
         {
+            if (strcmp(key.c_str(), "IoC.Register") == 0)
+            {
+                int sdf = 0;
+                if constexpr (std::is_same<F, std::string>::value)
+                {
+                    ICommand_Ptr cmdI = std::make_shared<RegisterDependencyCommand2<F2> >(this, args, args2);
+                    return cmdI;
+                }
+            }
+
             // TODO тут нужно сделать поиск по родителю
             boost::any curDepend = currentScope->GetValueOrDefault(key);
             std::string typeT{typeid(T).name()};
@@ -104,8 +115,15 @@ namespace Scopes
 			boost::any curDepend = currentScope->GetValueOrDefault(key);
             std::string typeT{typeid(T).name()};
             std::cout << "type T is " << typeT << std::endl;
-            std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
-            return (T) df();
+
+            if (curDepend.type() == typeid(std::function<T()>))
+            {
+                std::function<T()> df = boost::any_cast<std::function<T()> >(curDepend);
+                return (T) df();
+            }
+
+            T df = boost::any_cast<T>(curDepend);
+            return df;
 		}
 
 		void Init(std::shared_ptr<Scopes::Scope> scopeCur);

@@ -74,4 +74,38 @@ protected:
 	std::function<T()>																	fun;
 };
 
+template<typename T>
+class RegisterDependencyCommand2: public ICommand
+{
+public:
+    virtual ~RegisterDependencyCommand2()
+    {}
+
+    //template<typename T>
+    RegisterDependencyCommand2(Scopes::DependencyResolve* depency_, std::string key_, T fun_)
+        : depency(depency_)
+        , key(key_)
+        , fun(fun_)
+    {}
+
+    void Execute() override
+    {
+        auto currentScope = depency->GetCurrentScope();
+        boost::any v = fun;
+        currentScope->Add(key, v);
+    }
+
+    std::string GetType() override
+    {
+        return "RegisterDependencyCommand";
+    }
+
+protected:
+    Scopes::DependencyResolve*																		depency;
+    std::string																						key;
+    T                           																	fun;
+};
+
+
+
 #endif /* _REGISTER_DEPENDENCY_COMMAND_H_ */
