@@ -18,8 +18,12 @@ public:
 
     void Execute() override
     {
-        std::vector<std::string> commandsDesc = ioc->Resolve<std::vector<std::string> >("Description.Movement", idObject);
-        UObject_Ptr obj = ioc->Resolve<UObject_Ptr>("GameItems", idObject);
+        std::unordered_map<unsigned long long, std::vector<std::string> > commandsDescMap = ioc->Resolve<std::unordered_map<unsigned long long, std::vector<std::string> > >("Description.Movement");
+        std::vector<std::string> commandsDesc = commandsDescMap.find(idObject)->second;
+
+        std::unordered_map<unsigned long long, UObject_Ptr> curVectObject = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >(
+            "GameItems");
+        UObject_Ptr obj = curVectObject.find(idObject)->second;
 
         std::vector<ICommand_Ptr> cmdsVect;
         for (auto iter = commandsDesc.begin(); iter != commandsDesc.end(); iter++)

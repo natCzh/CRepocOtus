@@ -22,8 +22,10 @@ public:
 	void Execute() override
 	{
         // так как в Interpret уже выставлен scope для нужной игры, мы просто получаем нужный объект
-        std::shared_ptr<UObject> curObject = ioc->Resolve<std::shared_ptr<UObject> >(
-            "GameItems", messagable->getIdObject());
+        std::unordered_map<unsigned long long, UObject_Ptr> curVectObject = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >(
+            "GameItems");
+        UObject_Ptr curObject = curVectObject.find(messagable->getIdObject())->second;
+
         ioc->Resolve<ICommand_Ptr>(
 			"CommandInterpret.PrepareForMove",
 			curObject,

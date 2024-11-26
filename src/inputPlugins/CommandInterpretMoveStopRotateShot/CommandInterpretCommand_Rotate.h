@@ -2,6 +2,7 @@
 #define _COMMAND_INTERPRET_COMMAND_ROTATE_H_
 
 #include <memory>
+#include <unordered_map>
 #include "boost/any.hpp"
 
 #include "IoC/IoC.h"
@@ -25,8 +26,9 @@ public:
 	void Execute() override
 	{
         // так как в Interpret уже выставлен scope для нужной игры, мы просто получаем нужный объект
-        UObject_Ptr curObject = ioc->Resolve<UObject_Ptr>(
-            "GameItems", messagable->getIdObject());
+        std::unordered_map<unsigned long long, UObject_Ptr> curVectObject = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >(
+            "GameItems");
+        UObject_Ptr curObject = curVectObject.find(messagable->getIdObject())->second;
 
         std::map<std::string, boost::any> allProperties = messagable->getProperties();
         auto iter = allProperties.find("directionAngular");
