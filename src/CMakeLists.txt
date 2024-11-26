@@ -24,9 +24,9 @@ source_group ("Header Files" FILES ${HEADERS})
 add_subdirectory(${PROJECT_SOURCE_DIR}/Base/jsoncpp/)
 add_subdirectory(${PROJECT_SOURCE_DIR}/IoC/)
 add_subdirectory(${PROJECT_SOURCE_DIR}/CommonLib/)
-if(NOT TESTINCLUDE)
+#if(NOT TESTINCLUDE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/inputPlugins/)
-endif()
+#endif()
 
 # //////////////// Boost
 find_package(Boost)
@@ -41,44 +41,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Gui Qt5::Core Qt5::Widgets)
 
 if(TESTINCLUDE)
-
-        if(MSVC)
-            # Default to statically-linked runtime.
-            if("${MSVC_RUNTIME}" STREQUAL "")
-              set(MSVC_RUNTIME "static")
-            endif()
-            # Set compiler options.
-            set(variables
-              CMAKE_C_FLAGS_DEBUG
-              CMAKE_C_FLAGS_MINSIZEREL
-              CMAKE_C_FLAGS_RELEASE
-              CMAKE_C_FLAGS_RELWITHDEBINFO
-              CMAKE_CXX_FLAGS_DEBUG
-              CMAKE_CXX_FLAGS_MINSIZEREL
-              CMAKE_CXX_FLAGS_RELEASE
-              CMAKE_CXX_FLAGS_RELWITHDEBINFO
-            )
-            if(${MSVC_RUNTIME} STREQUAL "static")
-              message(STATUS
-                "MSVC -> forcing use of statically-linked runtime."
-              )
-              foreach(variable ${variables})
-                if(${variable} MATCHES "/MD")
-                  string(REGEX REPLACE "/MD" "/MT" ${variable} "${${variable}}")
-                endif()
-              endforeach()
-            else()
-              message(STATUS
-                "MSVC -> forcing use of dynamically-linked runtime."
-              )
-              foreach(variable ${variables})
-                if(${variable} MATCHES "/MT")
-                  string(REGEX REPLACE "/MT" "/MD" ${variable} "${${variable}}")
-                endif()
-              endforeach()
-            endif()
-        endif()
-
 	add_library(${PROJECT_NAME}_STATIC STATIC ${SOURCES} ${HEADERS})
         target_link_libraries(${PROJECT_NAME}_STATIC PRIVATE IoC_STATIC CommonLib)
 	set_target_properties(${PROJECT_NAME}_STATIC PROPERTIES CXX_STANDARD 17
