@@ -18,7 +18,7 @@ public:
         , flagStop(false)
 		, waitMilliSec(1)
 		, threadCur(nullptr)
-        , quantGame(30)
+        , quantGame(300)
 	{
 		behavior = std::bind(&EventLoop::behaviorCommon, this);
 	}

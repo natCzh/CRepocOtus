@@ -34,6 +34,9 @@ public:
 
     // Класс то образом принимает запрос, конвертирует в json -> string -> IMessage -> InterpretCommand
 
+    /// Добавим команду в игру
+    void AddCommandToGame(idGameAndThread idGame, size_t scopeId, std::shared_ptr<Message> m);
+
 
 protected:
     SpaceBattle                                                       spaceBattle;

@@ -15,8 +15,9 @@ public:
     void Execute() override
 	{
 		unsigned int sizeData = cmds.size();
-		for (unsigned int it = 0; it < sizeData; it++)
-			cmds[it]->Execute();
+        for (auto iter = cmds.begin(); iter != cmds.end(); ++iter)
+        //for (unsigned int it = 0; it < sizeData; it++)
+            iter->get()->Execute();
 	}
 
 	std::string GetType() override

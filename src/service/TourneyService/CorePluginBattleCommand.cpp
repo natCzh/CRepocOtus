@@ -13,6 +13,8 @@
 #include "CommonLib/IMessagableStartGame.h"
 #include "service/TourneyService/MessageAdapterStartGame.h"
 
+#include "Command/InitCommonCommand.h"
+
 CorePluginBattleCommand::CorePluginBattleCommand()
 {
     ioc = new IoC();
@@ -130,8 +132,21 @@ size_t CorePluginBattleCommand::getNewGame(UObject_Ptr message)
     std::vector<std::string> loadPlugin = vectExistParam[messagable->getIdObjects()[0]];
     LoadPluginForScope(loadPlugin, scopeIdForIoc.back());
 
-    tourneyService.StartNewGame(newIdGame);
-
     return newIdGame.idGame;
+}
+
+void CorePluginBattleCommand::addCommandForGame(std::shared_ptr<Message> message)
+{
+    std::shared_ptr<IMessagable> messagable = std::make_shared<MessageAdapter>(message);
+    std::pair<size_t,size_t > pairIdScopeIdThr = storageScope.getIdInfScope(messagable->getIdGame());
+
+    idGameAndThread idGame{messagable->getIdGame(), pairIdScopeIdThr.second};
+    tourneyService.AddCommandToGame(idGame, pairIdScopeIdThr.first, message);
+}
+
+void CorePluginBattleCommand::startNewGame(size_t idGame, size_t idThread)
+{
+    idGameAndThread idGameStr{idGame, idThread};
+    tourneyService.StartNewGame(idGameStr);
 }
 

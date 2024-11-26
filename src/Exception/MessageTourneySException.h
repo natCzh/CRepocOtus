@@ -6,6 +6,7 @@
 
 // "MessageTourneySException - file with typeObject game isn't exist"
 // "MessageTourneySException - file with typeObject game isn't correct"
+// "MessageTourneySException - idObj isn't correct"
 
 class MessageTourneySException: public std::exception
 {
@@ -20,7 +21,7 @@ public:
 	}
 
 private:
-	std::string									message;			// сообщение об ошибке
+	std::string									message;			// СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
 };
 
 #endif /* _MESSAGE_TOURNEY_S_EXCEPTION_H_ */

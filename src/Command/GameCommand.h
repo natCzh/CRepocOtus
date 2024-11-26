@@ -27,7 +27,7 @@ public:
 
 	void Execute()
 	{
-        std::shared_ptr<Scopes::Scope> scopeGames = ioc->Resolve<std::shared_ptr<Scopes::Scope>>("Scopes.Current", &scopeIdCur);
+        std::shared_ptr<Scopes::Scope> scopeGames = ioc->Resolve<std::shared_ptr<Scopes::Scope>>("Scopes.Current", scopeIdCur);
 
 		std::time_t start = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		while (std::difftime(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()), start) <= quant)

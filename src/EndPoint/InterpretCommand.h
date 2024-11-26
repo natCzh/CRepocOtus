@@ -7,6 +7,7 @@
 #include "IoC/IoC.h"
 #include "CommonLib/IMessagable.h"
 #include "Common/QueueCommand.h"
+#include "CommonLib/UObject.h"
 
 extern IoC* ioc;
 // Задача в нужную очередь(объекта) положить нужную команду
@@ -25,8 +26,17 @@ public:
 	void Execute()
 	{
         // Должен добавить конкретную команду в игру Game Command TODO проверить!!!!!!!
-        ioc->Resolve<ICommand_Ptr>("Scopes.Current", &scopeIdCur);
-        ICommand_Ptr cmdCur = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable, queue);
+        ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur);
+        unsigned int idObj = massagable->getIdObject();
+        ICommand_Ptr cmd;
+        std::unordered_map<unsigned long long, UObject> objs = ioc->Resolve<std::unordered_map<unsigned long long, UObject> >("GameItems");
+        UObject_Ptr obj = std::make_shared<UObject>(objs.find(idObj).second);
+        if (std::strcmp(massagable->getTypeCommand().c_str(), "Command.MoveLongOperation") == 0) // TODO тут потом проверять имя на LongOperation автоматом
+            cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), size_t(idObj), queue);
+        else
+            cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), obj);
+
+        queue->Push(cmd);
 	}
 
 	std::string GetType()

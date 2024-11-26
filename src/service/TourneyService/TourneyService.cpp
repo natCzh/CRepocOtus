@@ -24,3 +24,9 @@ void TourneyService::StartNewGame(idGameAndThread idGame)
 {
     spaceBattle.StartGame(idGame.threadId); // TODO тут мы запускаем все игры в этом потоке
 }
+
+void TourneyService::AddCommandToGame(idGameAndThread idGame, size_t scopeId, std::shared_ptr<Message> m)
+{
+    std::shared_ptr<QueueCommand> queue = spaceBattle.GetQueueGame(idGame);
+    endPoint.process(m, scopeId, queue);
+}

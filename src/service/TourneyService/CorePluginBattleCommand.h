@@ -27,7 +27,9 @@ public:
     size_t getNewGame(UObject_Ptr message);
 
     /// отправляем команду в игру
-    void addCommandForGame(UObject_Ptr message);
+    void addCommandForGame(std::shared_ptr<Message> message);
+
+    void startNewGame(size_t idGame, size_t idThread);
 
 
 protected:

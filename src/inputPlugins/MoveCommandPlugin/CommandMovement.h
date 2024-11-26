@@ -7,6 +7,7 @@
 #include "../../Command/ICommand.h"
 #include "IoC/IoC.h"
 #include "CommonLib/UObject.h"
+#include "Command/SimpleMacroCommand.h"
 
 extern IoC* ioc;
 class CommandMovement: public ICommand
@@ -27,9 +28,12 @@ public:
 
         std::vector<ICommand_Ptr> cmdsVect;
         for (auto iter = commandsDesc.begin(); iter != commandsDesc.end(); iter++)
-            cmdsVect.push_back(ioc->Resolve<ICommand_Ptr>(*iter, obj));
+            cmdsVect.push_back(ioc->Resolve<ICommand_Ptr>(*iter, idObject));
 
-        ioc->Resolve<ICommand_Ptr>("Command.SimpleMacroCommand", cmdsVect)->Execute();
+        SimpleMacroCommand cmdMacro(cmdsVect);
+        cmdMacro.Execute();
+        std::cout << "Movement idObj " << idObject << std::endl;
+        //ioc->Resolve<ICommand_Ptr>("Command.SimpleMacroCommand", cmdsVect)->Execute();
     }
 
     std::string GetType() override

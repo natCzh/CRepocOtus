@@ -27,6 +27,7 @@ public:
 	{
         std::shared_ptr<IMessagable> messagable = std::make_shared<MessageAdapter>(m);
         std::shared_ptr<InterpretCommand> interpretCommand = std::make_shared<InterpretCommand>(messagable, scopeId, queue);
+        interpretCommand->Execute();
 		// те interpret Cоmmand мы положим в очередь игры уже для нужного объекта
 	}
 };

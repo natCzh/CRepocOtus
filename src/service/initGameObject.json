@@ -2,11 +2,11 @@
   "typeObject":
     [
       {"1": {
-	"GameItems.listPlugins" : ["MoveCommandPlugin", "RotateCommandPlugin", "ShotCommandPlugin"],
+	"GameItems.listPlugins" : ["moveCommandPlugin.dll", "rotateCommandPlugin.dll", "shotCommandPlugin.dll"],
 	"Description.Movement" : ["Command.Movement"]
         }},
       {"2": {
-	"GameItems.listPlugins" : ["MoveCommandPlugin", "RotateCommandPlugin", "ShotCommandPlugin"],
+	"GameItems.listPlugins" : ["moveCommandPlugin.dll", "rotateCommandPlugin.dll", "shotCommandPlugin.dll"],
 	"Description.Movement" : ["Command.Movement"]
         }}
     ]
