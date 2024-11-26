@@ -18,6 +18,7 @@ public:
         , flagStop(false)
 		, waitMilliSec(1)
 		, threadCur(nullptr)
+        , quantGame(30)
 	{
 		behavior = std::bind(&EventLoop::behaviorCommon, this);
 	}
@@ -60,7 +61,6 @@ public:
     {
         return queueGame[idGame];
     }
-
 
 protected:
 

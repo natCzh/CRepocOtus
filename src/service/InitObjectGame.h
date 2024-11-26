@@ -43,9 +43,9 @@ private:
     unsigned long long                                                                                idObjType;
     unsigned long long                                                                                idObj;
     size_t                                                                                            idScope;
-    std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > >               vectExistParamListPlug;
+    std::unordered_map<unsigned long long, std::vector<std::string> >                                 vectExistParamListPlug;
     std::vector<std::string>                                                                          vectListPlugin;
-    std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > >               vectExistParamDescMov;
+    std::unordered_map<unsigned long long, std::vector<std::string> >               vectExistParamDescMov;
     std::vector<std::string>                                                                          vectDescMovement;
 };
 

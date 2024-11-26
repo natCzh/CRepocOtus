@@ -19,7 +19,7 @@ public:
         , quant(quant_)
 		, scopeIdCur(scopeIdCur_)
 	{
-        ioc->Resolve<ICommand_Ptr>("Scopes.Current.SetId", &scopeIdCur);
+        ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur);
 
 		// TODO команда инициализации ДОПИСАТЬ !!!!
 		init->Execute();

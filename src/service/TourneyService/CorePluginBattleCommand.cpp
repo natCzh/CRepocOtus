@@ -116,19 +116,21 @@ void CorePluginBattleCommand::LoadPluginForScope(const std::vector<std::string> 
 size_t CorePluginBattleCommand::getNewGame(UObject_Ptr message)
 {
     // сначало работа со скоупами !!!!!!!!!!
-    size_t idScope = storageScope.getNewScope();
-    ioc->Resolve<void>("Scopes.Current.SetId", idScope);
+    scopeIdForIoc.push_back(storageScope.getNewScope());
+    ioc->Resolve<void>("Scopes.Current.SetId", scopeIdForIoc.back());
 
     std::shared_ptr<IMessagableStartGame> messagable = std::make_shared<MessageAdapterStartGame>(message);
 
     /// [in] idObjs - ид объектов, idObjsType - ид типов для этих объектов(все это с маршрутизатора приходит)
-    idGameAndThread newIdGame = tourneyService.CreateNewGame(idScope, messagable->getIdObjects(), messagable->getTypeObjs());
+    idGameAndThread newIdGame = tourneyService.CreateNewGame(scopeIdForIoc.back(), messagable->getIdObjects(), messagable->getTypeObjs());
 
     // TODO тут надо переделать и загружать для каждого свое
-    storageScope.saveScopeWithIdGame(idScope, newIdGame);
-    std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > vectExistParam = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("GameItems.listPlugins");
-    std::vector<std::string> loadPlugin = *(vectExistParam[messagable->getIdObjects()[0]]);
-    LoadPluginForScope(loadPlugin, idScope);
+    storageScope.saveScopeWithIdGame(scopeIdForIoc.back(), newIdGame);
+    std::unordered_map<unsigned long long, std::vector<std::string> > vectExistParam = ioc->Resolve<std::unordered_map<unsigned long long, std::vector<std::string> > >("GameItems.listPlugins");
+    std::vector<std::string> loadPlugin = vectExistParam[messagable->getIdObjects()[0]];
+    LoadPluginForScope(loadPlugin, scopeIdForIoc.back());
+
+    tourneyService.StartNewGame(newIdGame);
 
     return newIdGame.idGame;
 }

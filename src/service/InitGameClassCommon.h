@@ -40,13 +40,13 @@ public:
         std::vector<std::string> vectStr;
         vectStr.push_back("");
         for (auto iter = idObjs.begin(); iter != idObjs.end(); iter++)
-            descMovement[*iter] = std::make_shared<std::vector<std::string> >(vectStr);
-        ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "Description.Movement", descMovement)->Execute();
+            descMovement[*iter] = std::vector<std::string>(vectStr);
+        ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::vector<std::string> > >("IoC.Register", "Description.Movement", descMovement)->Execute();
 
         vectStr.push_back("");
         for (auto iter = idObjs.begin(); iter != idObjs.end(); iter++)
-            listPluginsObg[*iter] = std::make_shared<std::vector<std::string> >(vectStr);
-        ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "GameItems.listPlugins", listPluginsObg)->Execute();
+            listPluginsObg[*iter] = std::vector<std::string>(vectStr);
+        ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::vector<std::string> > >("IoC.Register", "GameItems.listPlugins", listPluginsObg)->Execute();
     }
 
     std::string GetType() override
@@ -58,8 +58,8 @@ private:
     std::vector<unsigned long long>                                                             idObjs;
     size_t                                                                                      idScope;
     std::unordered_map<unsigned long long, UObject_Ptr>                                         objVect;
-    std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > >         descMovement;
-    std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > >         listPluginsObg;
+    std::unordered_map<unsigned long long, std::vector<std::string>>         descMovement;
+    std::unordered_map<unsigned long long, std::vector<std::string> >         listPluginsObg;
 };
 
 #endif /* _INIT_GAME_CLASS_COMMON_H_ */

@@ -26,6 +26,9 @@ public:
     /// должны вернуть ид игры
     size_t getNewGame(UObject_Ptr message);
 
+    /// отправляем команду в игру
+    void addCommandForGame(UObject_Ptr message);
+
 
 protected:
     void initPossiblePlugin();
@@ -38,6 +41,7 @@ private:
     std::vector<QObject*>                    pluginInstance;
     StorageIdScope                           storageScope;
     TourneyService                           tourneyService;
+    std::vector<size_t>                      scopeIdForIoc;
 };
 
 #endif /* _CORE_PLUGIN_BATTLE_COMMAND_H_ */

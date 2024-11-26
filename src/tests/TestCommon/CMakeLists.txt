@@ -9,7 +9,9 @@ find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 
 set(TESTS_${PROJECT_NAME}                  TestCollectionCommanrMultithread.cpp
-TestIoCCommand.cpp TestMain.cpp TestSpaceBattle.cpp TestInitObjectGame.cpp #TestIoCScopes.cpp
+TestIoCCommand.cpp  TestMain.cpp   TestSpaceBattle.cpp   TestInitObjectGame.cpp
+TestCorePluginBattleCommand.cpp
+#TestIoCScopes.cpp 
 						  utest.cpp)
 
 source_group ("Test Files" FILES ${TESTS_${PROJECT_NAME}})

@@ -46,9 +46,9 @@ void InitObjectGame::Execute()
                         auto p = iterStr->toString();
                         vectListPlugin.push_back(p.toStdString());
                     }
-                    vectExistParamListPlug = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr< std::vector<std::string> > > >("GameItems.listPlugins");
-                    vectExistParamListPlug[idObj] = std::make_shared<std::vector<std::string> >(vectListPlugin);
-                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "GameItems.listPlugins", vectExistParamListPlug)->Execute();
+                    vectExistParamListPlug = ioc->Resolve<std::unordered_map<unsigned long long, std::vector<std::string> > >("GameItems.listPlugins");
+                    vectExistParamListPlug[idObj] = std::vector<std::string>(vectListPlugin);
+                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::vector<std::string> > >("IoC.Register", "GameItems.listPlugins", vectExistParamListPlug)->Execute();
                 }
                 else if (namePropJson == "Description.Movement")
                 {
@@ -57,9 +57,9 @@ void InitObjectGame::Execute()
                         auto p = iterStr->toString();
                         vectDescMovement.push_back(p.toStdString());
                     }
-                    vectExistParamDescMov = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr< std::vector<std::string> > > >("Description.Movement");
-                    vectExistParamDescMov[idObj] = std::make_shared<std::vector<std::string> >(vectDescMovement);
-                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "Description.Movement", vectExistParamDescMov)->Execute();
+                    vectExistParamDescMov = ioc->Resolve<std::unordered_map<unsigned long long, std::vector<std::string> > >("Description.Movement");
+                    vectExistParamDescMov[idObj] = std::vector<std::string>(vectDescMovement);
+                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::vector<std::string> > >("IoC.Register", "Description.Movement", vectExistParamDescMov)->Execute();
                 }
             }
         }
