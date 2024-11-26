@@ -9,6 +9,11 @@
 #include <vector>
 
 #include "../../CommonLib/UObject.h"
+#include "service/StorageIdScope.h"
+#include "service/TourneyService/TourneyService.h"
+
+
+
 class CorePluginBattleCommand
 {
 public:
@@ -17,17 +22,22 @@ public:
     virtual ~CorePluginBattleCommand(){}
 
     std::vector<std::string> GetPossiblePlugin();
-    void LoadPluginForScope(const std::vector<std::string> &listNamePlugin, size_t scopeIdCur_);
+
+    /// должны вернуть ид игры
+    size_t getNewGame(UObject_Ptr message);
+
 
 protected:
     void initPossiblePlugin();
     bool checkNamePlugin(const std::string &namePluginCur);
     void LoadPlugin(const std::vector<std::string> &listNamePlugin);
+    void LoadPluginForScope(const std::vector<std::string> &listNamePlugin, size_t scopeIdCur_);
 
 private:
     std::vector<std::string>                 pluginFileNames;
     std::vector<QObject*>                    pluginInstance;
-    UObject_Ptr                              xObj;
+    StorageIdScope                           storageScope;
+    TourneyService                           tourneyService;
 };
 
 #endif /* _CORE_PLUGIN_BATTLE_COMMAND_H_ */

@@ -14,7 +14,7 @@ class EndPoint: public IEndPoint
 {
 public:
 
-    EndPoint(ICommand_Ptr initCommand) {}
+    EndPoint() {}
 
     // переж этим получили запрос
     //из json -> string

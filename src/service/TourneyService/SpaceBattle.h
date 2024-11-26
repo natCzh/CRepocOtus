@@ -6,12 +6,9 @@
 
 #include "service/TourneyService/EventLoop.h"
 #include "Command/ICommand.h"
-
-struct idGameAndThread
-{
-    size_t              threadId;             // ид потока
-    size_t              idGame;               // ид игры
-};
+#include "service/IdGameAndThread.h"
+#include "service/InitObjectGame.h"
+#include "service/InitGameClassCommon.h"
 
 // сущность, которая содержит игры, очередь игр, запускает их и тд
 // о скоупах ничего не знает, только пользует

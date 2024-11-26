@@ -9,8 +9,11 @@
 #include "CommonLib/IPlugin.h"
 #include "Common/SpaceShip.h"
 
+#include "service/Message.h"
+#include "CommonLib/IMessagableStartGame.h"
+#include "service/TourneyService/MessageAdapterStartGame.h"
+
 CorePluginBattleCommand::CorePluginBattleCommand()
-    : xObj(std::make_shared<SpaceShip>())
 {
     ioc = new IoC();
 
@@ -42,7 +45,7 @@ void CorePluginBattleCommand::initPossiblePlugin()
     }
 
     size_t scopeIdCur_ = 0;
-    LoadPluginForScope(pluginFileNames, scopeIdCur_);
+    //LoadPluginForScope(pluginFileNames, scopeIdCur_);
 }
 
 std::vector<std::string> CorePluginBattleCommand::GetPossiblePlugin()
@@ -108,5 +111,20 @@ void CorePluginBattleCommand::LoadPluginForScope(const std::vector<std::string> 
     qDebug() << "Plugin load for scope " << scopeIdCur_;
     ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur_);
     CorePluginBattleCommand::LoadPlugin(listNamePlugin);
+}
+
+size_t CorePluginBattleCommand::getNewGame(UObject_Ptr message)
+{
+    // сначало работа со скоупами !!!!!!!!!!
+    size_t idScope = storageScope.getNewScope();
+
+    std::shared_ptr<IMessagableStartGame> messagable = std::make_shared<MessageAdapterStartGame>(message);
+
+    /// [in] idObjs - ид объектов, idObjsType - ид типов для этих объектов(все это с маршрутизатора приходит)
+    idGameAndThread newIdGame = tourneyService.CreateNewGame(idScope, messagable->getIdObjects(), messagable->getTypeObjs());
+
+    storageScope.saveScopeWithIdGame(idScope, newIdGame);
+
+    return newIdGame.idGame;
 }
 

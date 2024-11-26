@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <boost/any.hpp>
+#include <vector>
 
 class IMessagableStartGame
 {
@@ -11,8 +12,8 @@ public:
 
     virtual ~IMessagableStartGame() {}
 
-    virtual unsigned long long getIdObject() = 0;
-    virtual unsigned long long getTypeObj() = 0;
+    virtual std::vector<unsigned long long> getIdObjects() = 0;
+    virtual std::vector<unsigned long long> getTypeObjs() = 0;
 	virtual std::map<std::string, boost::any> getProperties() = 0;
 };
 

@@ -9,6 +9,7 @@ std::atomic<size_t> SpaceBattle::gameThreadId(0);
 // std::deque<size_t> idsScopesGame;			// ид скоупов всех игр - идут на пару с collection, -1 - если это не игра
 
 // TODO скоуп под игру уже должен быть создан !!!!!!!!!
+/// [in] cmdInit - повторяющаяся команда пр инициализации
 idGameAndThread SpaceBattle::CreateNewGame(ICommand_Ptr cmdInit, size_t scopeId)
 {
     size_t newThreadId = getThreadId();

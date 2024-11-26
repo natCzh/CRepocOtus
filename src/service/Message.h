@@ -26,7 +26,8 @@ public:
 		mapKey["TypeCommand"] = 0;
 		mapKey["args"] = NULL;
 
-        mapKey["typeObj"] = 0;
+        mapKey["typeObjs"] = 0; // vector<unsigned long long> тип объектов
+        mapKey["idObjsNewGame"] = 0; // vector<unsigned long long> ид объектов
 	}
 
 	virtual ~Message() {};

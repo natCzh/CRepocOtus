@@ -85,7 +85,7 @@ std::shared_ptr<Scopes::Scope> Scopes::DependencyResolve::NewScopeRoot(int idSco
 	std::unique_lock<std::mutex> lock(this->mutex);
 	if (scopes.find(idScope) != scopes.end())
 		throw ScopesException("Scopes with this id is exist");;
-	scopes[idScope] = std::shared_ptr<Scopes::Scope>(new Scopes::Scope());
+    scopes[idScope] = std::make_shared<Scopes::Scope>();
 	Init(scopes[idScope]);
 	return scopes[idScope];
 }

@@ -34,8 +34,8 @@ size_t EventLoop::addNewGame(ICommand_Ptr cmdInit, size_t scopeIdCur)
     queueGame[idCurGame] = std::make_shared<QueueCommand>(maxSizeQueueGame);
 
     // это повторяющаяся команда в коллекции очереди самих игр
-    ICommand_Ptr cmd = std::make_shared<GameCommandPlayRepeat>(collection, std::make_shared<GameCommand>(queueGame[idCurGame], quantGame, scopeIdCur, cmdInit));
-    collection->push(cmd);
+    //ICommand_Ptr cmd = std::make_shared<GameCommandPlayRepeat>(collection, std::make_shared<GameCommand>(queueGame[idCurGame], quantGame, scopeIdCur, cmdInit));
+    //collection->push(cmd);
 
     return idCurGame;
 }
