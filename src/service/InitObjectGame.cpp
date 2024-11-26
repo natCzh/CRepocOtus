@@ -35,24 +35,32 @@ void InitObjectGame::Execute()
             auto val1 = obj.toVariantMap()[obj.keys().front()].toMap();
             for (auto iterPr = val1.keyValueBegin(); iterPr != val1.keyValueEnd(); ++iterPr)
             {
-                std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > vectExistParamMap;
-                vectExistParam.push_back(vectExistParamMap);
-
-                std::vector<std::string> valueProp;
                 auto namePropJson = iterPr->first;
                 auto valuePropJson = iterPr->second;
                 auto valuePropArray = valuePropJson.toJsonArray();
 
-                for (auto iterStr = valuePropArray.begin(); iterStr != valuePropArray.end(); iterStr++)
+                if (namePropJson == "GameItems.listPlugins")
                 {
-                    auto p = iterStr->toString();
-                    valueProp.push_back(p.toStdString());
+                    for (auto iterStr = valuePropArray.begin(); iterStr != valuePropArray.end(); iterStr++)
+                    {
+                        auto p = iterStr->toString();
+                        vectListPlugin.push_back(p.toStdString());
+                    }
+                    vectExistParamListPlug = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr< std::vector<std::string> > > >("GameItems.listPlugins");
+                    vectExistParamListPlug[idObj] = std::make_shared<std::vector<std::string> >(vectListPlugin);
+                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "GameItems.listPlugins", vectExistParamListPlug)->Execute();
                 }
-
-                strNamePr = iterPr->first.toStdString();
-                vectExistParam.back() = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr< std::vector<std::string> > > >(strNamePr);
-                vectExistParam.back()[idObj] = std::make_shared<std::vector<std::string> >(valueProp);
-                ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", strNamePr, vectExistParam.back())->Execute();
+                else if (namePropJson == "Description.Movement")
+                {
+                    for (auto iterStr = valuePropArray.begin(); iterStr != valuePropArray.end(); iterStr++)
+                    {
+                        auto p = iterStr->toString();
+                        vectDescMovement.push_back(p.toStdString());
+                    }
+                    vectExistParamDescMov = ioc->Resolve<std::unordered_map<unsigned long long, std::shared_ptr< std::vector<std::string> > > >("Description.Movement");
+                    vectExistParamDescMov[idObj] = std::make_shared<std::vector<std::string> >(vectDescMovement);
+                    ioc->Resolve<ICommand_Ptr, std::string, std::unordered_map<unsigned long long, std::shared_ptr<std::vector<std::string> > > >("IoC.Register", "Description.Movement", vectExistParamDescMov)->Execute();
+                }
             }
         }
     }

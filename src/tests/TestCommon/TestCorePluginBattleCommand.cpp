@@ -12,7 +12,7 @@ TEST(TestCorePluginBattleCommand, test)
 
     Message mes;
 
-    std::vector<unsigned long long> typeObjsVect{0};
+    std::vector<unsigned long long> typeObjsVect{1};
     boost::any typeObjsAny = typeObjsVect;
     mes.setProperty("typeObjs", typeObjsAny);
 
@@ -22,6 +22,7 @@ TEST(TestCorePluginBattleCommand, test)
     mes.setProperty("idObjsNewGame", idObjsAny);
 
     UObject_Ptr message_ptr = std::make_shared<Message>(mes);
+
 
     core.getNewGame(message_ptr);
 

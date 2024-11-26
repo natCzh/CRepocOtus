@@ -39,11 +39,16 @@ public:
         ICommand_Ptr cmdRepeat = std::make_shared<CommandEmpty>();
         idGameAndThread resultId = spaceBattle.CreateNewGame(cmdRepeat, scopeId); // тту можно заменить команду на инициализацию, например какого то игрока
 
-        std::shared_ptr<InitGameClassCommon> initGame = std::make_shared<InitGameClassCommon>(idObjs, scopeId);
+        InitGameClassCommon initGameCur(idObjs, scopeId);
+        initCommonVect.push_back(initGameCur);
+        std::shared_ptr<InitGameClassCommon> initGame = std::make_shared<InitGameClassCommon>(initCommonVect.back());
+        initGame->Execute();
         size_t iterNumb = 0;
         for (auto iter = idObjs.begin(); iter != idObjs.end(); iter++)
         {
-            std::shared_ptr<InitObjectGame> initObj = std::make_shared<InitObjectGame>(fileNameConfig, idObjsType[iterNumb], idObjs[iterNumb], scopeId);
+            InitObjectGame initGameCur(fileNameConfig, idObjsType[iterNumb], idObjs[iterNumb], scopeId);
+            initObjVect.push_back(std::make_shared<InitObjectGame>(initGameCur));
+            initObjVect.back()->Execute();
             iterNumb++;
         }
 
@@ -56,9 +61,11 @@ public:
 
 
 protected:
-	SpaceBattle										spaceBattle;
-    EndPoint                                        endPoint;
-    std::string                                     fileNameConfig;
+    SpaceBattle                                                       spaceBattle;
+    EndPoint                                                          endPoint;
+    std::string                                                       fileNameConfig;
+    std::vector<InitGameClassCommon>                                  initCommonVect;
+    std::vector<std::shared_ptr<InitObjectGame> >                     initObjVect;
 };
 
 #endif /* _TOURNEY_SERVICE_H_ */
