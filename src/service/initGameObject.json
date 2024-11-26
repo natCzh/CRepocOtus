@@ -1,0 +1,13 @@
+{
+  "typeObject":
+    [
+      {"1": {
+	"GameItems.listPlugins" : ["MoveCommandPlugin", "RotateCommandPlugin", "ShotCommandPlugin"],
+	"Description.Movement" : ["Command.Movement"]
+        }},
+      {"2": {
+	"GameItems.listPlugins" : ["MoveCommandPlugin", "RotateCommandPlugin", "ShotCommandPlugin"],
+	"Description.Movement" : ["Command.Movement"]
+        }}
+    ]
+}
