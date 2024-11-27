@@ -25,7 +25,7 @@ public:
 		mapKey["id.Game"] = 0;
 		mapKey["id.Object"] = 0;
 		mapKey["TypeCommand"] = 0;
-        mapKey["args"] = std::map<std::string, boost::any>();
+        mapKey["args"] = std::map<std::string, boost::any>(); // "velocity, 1;directionAngular, 1"
 
         mapKey["typeObjs"] = 0; // vector<unsigned long long> тип объектов
         mapKey["idObjsNewGame"] = 0; // vector<unsigned long long> ид объектов

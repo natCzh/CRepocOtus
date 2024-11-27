@@ -11,10 +11,9 @@
 #include "../../CommonLib/UObject.h"
 #include "service/StorageIdScope.h"
 #include "service/TourneyService/TourneyService.h"
+#include "service/TourneyService/ICorePluginBattleCommand.h"
 
-
-
-class CorePluginBattleCommand
+class CorePluginBattleCommand: public ICorePluginBattleCommand
 {
 public:
 	CorePluginBattleCommand();
