@@ -1,6 +1,8 @@
 #ifndef _COMMAND_MOVE_LONG_OPERATION_H_
 #define _COMMAND_MOVE_LONG_OPERATION_H_
 
+#include <QDebug>
+
 #include "IoC/IoC.h"
 
 #include "../../Command/ICommand.h"
@@ -29,6 +31,7 @@ public:
 
     void Execute() override
     {
+        qDebug() << QString::fromStdString(GetType());
         macroCmd->Execute();
     }
 

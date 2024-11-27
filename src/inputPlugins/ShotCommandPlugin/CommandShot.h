@@ -1,6 +1,8 @@
 #ifndef _COMMAND_SHOT_H_
 #define _COMMAND_SHOT_H_
 
+#include <QDebug>
+
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/objectAble/IShotable.h"
 
@@ -18,6 +20,8 @@ public:
 		int d = boost::any_cast<int>(obj->getNumberShot());
 		boost::any newValueAny = d-1;
 		obj->setNumberShot(newValueAny);
+
+        qDebug() << QString::fromStdString(GetType());
 	}
 
 	std::string GetType() override

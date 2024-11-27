@@ -2,6 +2,7 @@
 #define _COMMAND_INTERPRET_COMMAND_START_MOVE_H_
 
 #include <memory>
+#include <QDebug>
 
 #include "IoC/IoC.h"
 #include "Common/QueueCommand.h"
@@ -21,6 +22,8 @@ public:
 
 	void Execute() override
 	{
+        qDebug() << QString::fromStdString(GetType());
+
         // так как в Interpret уже выставлен scope для нужной игры, мы просто получаем нужный объект
         std::unordered_map<unsigned long long, UObject_Ptr> curVectObject = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >(
             "GameItems");
@@ -31,10 +34,10 @@ public:
 			curObject,
             messagable)->Execute();
 
-        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Command.MoveLongOperation", messagable->getIdObject(), queue);
+        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Command.MoveLongOperation", (size_t)messagable->getIdObject(), queue);
 		queue->Push(cmd);
 
-        auto cmdBridg = std::dynamic_pointer_cast<IBridgeCommand_Ptr>(cmd);
+        IBridgeCommand_Ptr cmdBridg = std::dynamic_pointer_cast<IBridgeCommand>(cmd);
         curObject->setProperty("Move", cmdBridg);
 	}
 

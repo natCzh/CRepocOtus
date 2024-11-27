@@ -34,9 +34,9 @@ public:
         return std::make_shared<CommandInterpretCommand_PrepareForStopMove>(obj);
     }
 
-    ICommand_Ptr CommandInterpretCommandStopMove(IMessagable_Ptr messagable)
+    ICommand_Ptr CommandInterpretCommandStopMove(IMessagable_Ptr messagable, std::shared_ptr<QueueCommand> queue)
     {
-        return std::make_shared<CommandInterpretCommand_StopMove>(messagable);
+        return std::make_shared<CommandInterpretCommand_StopMove>(messagable, queue);
     }
 
     ICommand_Ptr CommandPrepareForRotate(UObject_Ptr obj, int directionRotate)

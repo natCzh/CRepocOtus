@@ -28,7 +28,7 @@ public:
 
 
 
-        obj->setProperty("velocity", valVel);
+        obj->setProperty("velocity", valVel->second);
 	}
 
 	std::string GetType() override

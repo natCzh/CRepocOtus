@@ -17,10 +17,10 @@ public:
 	{
 		mapKey["position_x"] = 0;
 		mapKey["position_y"] = 0;
-		mapKey["velocity"] = 0; // тут хранится модуль скорости
+        mapKey["velocity"] = 0; // тут хранится модуль скорости // int
 		mapKey["direction"] = 0; // хранится как часть от окружности , чтобы получить угол надо (d*360/n)
 		mapKey["directionNumber"] = 4; // можно двигаться только в 4 стороны , те мы поделили окружность на 4 части
-        mapKey["directionAngular"] = 0; // на сколько поворачиваемся 1 или -1
+        mapKey["directionAngular"] = 0; // на сколько поворачиваемся 1 или -1 // int
 		
 		mapKey["health"] = 0;
 
@@ -64,9 +64,9 @@ public:
 	{
 		auto iter = mapKey.find(nameProperty);
 		if (iter == mapKey.end())
-			throw UobjectException("Uobject parameter of key isn't exist");
-
-		iter->second = newValue;
+            mapKey[nameProperty] = newValue;
+        else
+            iter->second = newValue;
 	}
 
     int getNumberProperty() override

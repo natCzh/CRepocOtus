@@ -2,6 +2,7 @@
 #define _MESSAGE_H_
 
 #include <boost/any.hpp>
+#include <map>
 
 #include "CommonLib/UObject.h"
 #include "CommonLib/UobjectException.h"
@@ -24,7 +25,7 @@ public:
 		mapKey["id.Game"] = 0;
 		mapKey["id.Object"] = 0;
 		mapKey["TypeCommand"] = 0;
-		mapKey["args"] = NULL;
+        mapKey["args"] = std::map<std::string, boost::any>();
 
         mapKey["typeObjs"] = 0; // vector<unsigned long long> тип объектов
         mapKey["idObjsNewGame"] = 0; // vector<unsigned long long> ид объектов

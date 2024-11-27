@@ -19,7 +19,7 @@ public:
 
 	void Execute() override
 	{
-        if (directionRotate != 1 || directionRotate != -1)
+        if (directionRotate != 1 && directionRotate != -1)
             throw InterpretCommandException("UObject set - directionRotate isn't correct");
         boost::any anyDirectionRotate = directionRotate;
         obj->setProperty("directionAngular", anyDirectionRotate);

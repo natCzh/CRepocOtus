@@ -27,17 +27,17 @@ public:
 	{
         // Должен добавить конкретную команду в игру Game Command TODO проверить!!!!!!!
         ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur);
-        unsigned int idObj = massagable->getIdObject();
-        ICommand_Ptr cmd;
-        std::unordered_map<unsigned long long, UObject> objs = ioc->Resolve<std::unordered_map<unsigned long long, UObject> >("GameItems");
-        UObject_Ptr obj = std::make_shared<UObject>(objs.find(idObj).second);
-        if (std::strcmp(massagable->getTypeCommand().c_str(), "Command.MoveLongOperation") == 0) // TODO тут потом проверять имя на LongOperation автоматом
-            cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), size_t(idObj), queue);
-        else
-            cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), obj);
+        //unsigned int idObj = massagable->getIdObject();
+
+        // std::unordered_map<unsigned long long, UObject_Ptr> objs = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >("GameItems");
+        // UObject_Ptr obj = objs.find(idObj)->second;
+        //if (std::strcmp(massagable->getTypeCommand().c_str(), "Command.MoveLongOperation") == 0) // TODO тут потом проверять имя на LongOperation автоматом
+        ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), massagable, queue);
+        // else
+        //     cmd = ioc->Resolve<ICommand_Ptr>(massagable->getTypeCommand(), obj);
 
         queue->Push(cmd);
-	}
+    }
 
 	std::string GetType()
 	{

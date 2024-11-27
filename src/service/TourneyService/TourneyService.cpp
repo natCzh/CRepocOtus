@@ -30,3 +30,8 @@ void TourneyService::AddCommandToGame(idGameAndThread idGame, size_t scopeId, st
     std::shared_ptr<QueueCommand> queue = spaceBattle.GetQueueGame(idGame);
     endPoint.process(m, scopeId, queue);
 }
+
+void TourneyService::StopGame(idGameAndThread idGame)
+{
+    spaceBattle.StopGame(idGame.threadId);
+}

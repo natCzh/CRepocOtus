@@ -1,6 +1,8 @@
 #ifndef _COMMAND_MOVE_H_
 #define _COMMAND_MOVE_H_
 
+#include <QDebug>
+
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/objectAble/IMovable.h"
 
@@ -23,7 +25,7 @@ public:
 
 	std::string GetType() override
 	{
-		return "CommandMove";
+        return "Command.Move";
 	}
 	
 protected:

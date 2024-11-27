@@ -3,11 +3,11 @@
     [
       {"1": {
 	"GameItems.listPlugins" : ["moveCommandPlugin.dll", "rotateCommandPlugin.dll", "shotCommandPlugin.dll"],
-	"Description.Movement" : ["Command.Movement"]
+	"Description.Movement" : ["Command.Move"]
         }},
       {"2": {
 	"GameItems.listPlugins" : ["moveCommandPlugin.dll", "rotateCommandPlugin.dll", "shotCommandPlugin.dll"],
-	"Description.Movement" : ["Command.Movement"]
+	"Description.Movement" : ["Command.Move"]
         }}
     ]
 }

@@ -32,7 +32,6 @@ void SpaceBattle::StartGame(size_t id)
 	if (hashMapGames.find(id) == hashMapGames.end())
 		throw SpaceBattleException("Gameid isn't exist");
 	hashMapGames[id]->startLoop();
-
 }
 
 void SpaceBattle::StopGame(size_t id)

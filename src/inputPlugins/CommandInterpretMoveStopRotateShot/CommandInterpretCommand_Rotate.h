@@ -35,7 +35,7 @@ public:
         if (iter == allProperties.end())
             throw InterpretCommandException("Messagable getProperties - directionAngular isn't exist");
 
-        int directionRotate = boost::any_cast<int>(*iter);
+        int directionRotate = boost::any_cast<int>(iter->second);
         ioc->Resolve<ICommand_Ptr>(
             "CommandInterpret.PrepareForRotate",
             curObject, directionRotate)->Execute();

@@ -12,6 +12,7 @@
 #include "service/Message.h"
 #include "CommonLib/IMessagableStartGame.h"
 #include "service/TourneyService/MessageAdapterStartGame.h"
+#include "inputPlugins/CommandInterpretMoveStopRotateShot/InitCommandInterpretCommand.h"
 
 #include "Command/InitCommonCommand.h"
 
@@ -113,6 +114,7 @@ void CorePluginBattleCommand::LoadPluginForScope(const std::vector<std::string> 
     qDebug() << "Plugin load for scope " << scopeIdCur_;
     ioc->Resolve<void>("Scopes.Current.SetId", scopeIdCur_);
     CorePluginBattleCommand::LoadPlugin(listNamePlugin);
+    InitCommandInterpretCommand cmd; cmd.Execute(); // TODO вынести в плагин
 }
 
 size_t CorePluginBattleCommand::getNewGame(UObject_Ptr message)
@@ -148,5 +150,11 @@ void CorePluginBattleCommand::startNewGame(size_t idGame, size_t idThread)
 {
     idGameAndThread idGameStr{idGame, idThread};
     tourneyService.StartNewGame(idGameStr);
+}
+
+void CorePluginBattleCommand::stopGame(size_t idGame, size_t idThread)
+{
+    idGameAndThread idGameStr{idGame, idThread};
+    tourneyService.StopGame(idGameStr);
 }
 

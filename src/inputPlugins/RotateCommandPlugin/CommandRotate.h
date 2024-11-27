@@ -1,6 +1,8 @@
 #ifndef _COMMAND_ROTATE_H_
 #define _COMMAND_ROTATE_H_
 
+#include <QDebug>
+
 #include "../../Command/ICommand.h"
 #include "../../CommonLib/objectAble/IRotable.h"
 
@@ -23,6 +25,8 @@ public:
 
 		boost::any newValueAny = newD;
 		obj->setDirection(newValueAny);
+
+        qDebug() << QString::fromStdString(GetType()) << " Direct old - " << d << ", direct new - " << newD;
 	}
 
 	std::string GetType() override

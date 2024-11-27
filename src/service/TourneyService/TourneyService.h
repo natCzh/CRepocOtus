@@ -30,6 +30,8 @@ public:
     /// Начать игру
     void StartNewGame(idGameAndThread idGame);
 
+    void StopGame(idGameAndThread idGame);
+
 
 
     // Класс то образом принимает запрос, конвертирует в json -> string -> IMessage -> InterpretCommand

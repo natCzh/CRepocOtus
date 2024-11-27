@@ -23,8 +23,8 @@ public:
 	}
 
 	boost::any getVelocity() override
-	{
-		return ioc->Resolve<std::vector<int> >("IMovable.Velocity", obj);
+    {
+        return ioc->Resolve<std::vector<int> >("IMovable.Velocity", obj);
 	}
 	void setLocation(boost::any &newValue) override
 	{

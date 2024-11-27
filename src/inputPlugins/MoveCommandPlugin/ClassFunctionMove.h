@@ -47,8 +47,8 @@ public:
 
 		std::vector<int> locationCur;
 		int angle = d * 360 / n;
-		locationCur.push_back(vel * std::cos(angle / 180 * M_PI));
-		locationCur.push_back(vel * std::sin(angle / 180 * M_PI));
+        locationCur.push_back(vel * std::cos(angle * M_PI / 180));
+        locationCur.push_back(vel * std::sin(angle * M_PI / 180));
 
 		return locationCur;
 	}

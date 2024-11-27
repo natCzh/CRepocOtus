@@ -30,6 +30,7 @@ public:
     void addCommandForGame(std::shared_ptr<Message> message);
 
     void startNewGame(size_t idGame, size_t idThread);
+    void stopGame(size_t idGame, size_t idThread);
 
 
 protected:

@@ -16,7 +16,7 @@ class CommandInterpretCommand_StopMove: public ICommand
 {
 public:
 
-    CommandInterpretCommand_StopMove(IMessagable_Ptr messagable_)
+    CommandInterpretCommand_StopMove(IMessagable_Ptr messagable_, std::shared_ptr<QueueCommand> queue_)
 		: messagable(messagable_)
 	{}
 
