@@ -114,12 +114,9 @@ TEST(TestCorePluginBattleCommand, test)
     std::this_thread::sleep_for(3s);
     core.addCommandForGame(mes_ptr_Shot);
 
-
-
-
-    core.addCommandForGame(mes_ptr_Shot);
-    core.addCommandForGame(mes_ptr_Shot);
-    core.addCommandForGame(mes_ptr_Shot);
+/////////////////// message addCommandForGame CommandInterpret.StartMove
+/// Добавление команды CommandInterpret.StartMove в игру
+    core.addCommandForGame(mes_ptr);
 /////////////////// stopGame
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(30s);
