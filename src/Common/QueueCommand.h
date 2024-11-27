@@ -3,43 +3,69 @@
 
 #include <queue>
 #include <memory>
+#include <vector>
+#include <mutex>
+
+#include <QDebug>
 
 #include "Command/ICommand.h"
 
-// TODO сделать класс IQueue и от него наследоваться !!!!!!!!!!
-class QueueCommand 
+// TODO СЃРґРµР»Р°С‚СЊ РєР»Р°СЃСЃ IQueue Рё РѕС‚ РЅРµРіРѕ РЅР°СЃР»РµРґРѕРІР°С‚СЊСЃСЏ !!!!!!!!!!
+class QueueCommand
 {
 public:
-	QueueCommand(int maxSize)
-		: flagDel(0)
-		, maxSize(maxSize)
-	{}
+    QueueCommand(int maxSize_)
+        : flagDel(0)
+        , maxSize(maxSize_)
+    {}
 
-	std::shared_ptr<ICommand> GetCurrentCommand()
-	{
-		if (flagDel)
-			queueCommand.pop();
+    virtual ~QueueCommand(){}
 
-		if (!queueCommand.size())
-			return nullptr;
-		else
-		{
-			flagDel = 1;
-			maxSize--;
-			return queueCommand.front();
-		}
-	}
+    std::shared_ptr<ICommand> GetCurrentCommand()
+    {
+        qDebug() << "get queue";
+         // LogQueue();
+        if (flagDel)
+        {
+            queueCommand.erase(queueCommand.begin());
+            flagDel = 0;
+        }
 
-	void Push(std::shared_ptr<ICommand> commandCur)
-	{
-		queueCommand.push(commandCur);
-	}
+        if (!queueCommand.size())
+            return nullptr;
+        else
+        {
+            flagDel = 1;
+            maxSize--;
+            return queueCommand.front();
+        }
+    }
+
+    void Push(std::shared_ptr<ICommand> commandCur)
+    {
+        queueCommand.push_back(commandCur);
+        qDebug() << "push queue";
+        //LogQueue();
+    }
+
+protected:
+    void LogQueue()
+    {
+        unsigned int iterNumb = 0;
+        for (auto iter = queueCommand.begin(); iter != queueCommand.end(); iter++)
+        {
+            qDebug() << "[" << iterNumb << "] - " << QString::fromStdString(iter->get()->GetType());
+            iterNumb++;
+        }
+
+        qDebug() << "";
+    }
 
 private:
-	int												flagDel;
-	unsigned int									maxSize;
+    int												flagDel = 0;
+    unsigned int									maxSize =  50;
 
-	std::queue<std::shared_ptr<ICommand> >			queueCommand;
+    std::vector<std::shared_ptr<ICommand> >			queueCommand;
 };
 
 

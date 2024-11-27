@@ -18,7 +18,7 @@ public:
 	void Execute() override
 	{
         auto numberShotValueAny = obj->getProperty("numberShot");
-        size_t numberShotValue = boost::any_cast<size_t>(numberShotValueAny);
+        size_t numberShotValue = boost::any_cast<int>(numberShotValueAny);
         if(numberShotValue < 0)
             throw InterpretCommandException("UObject - command shot isn't possible");
 	}

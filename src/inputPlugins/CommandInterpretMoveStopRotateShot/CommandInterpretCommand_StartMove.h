@@ -35,7 +35,7 @@ public:
             messagable)->Execute();
 
         ICommand_Ptr cmd = ioc->Resolve<ICommand_Ptr>("Command.MoveLongOperation", (size_t)messagable->getIdObject(), queue);
-		queue->Push(cmd);
+        queue->Push(cmd);
 
         IBridgeCommand_Ptr cmdBridg = std::dynamic_pointer_cast<IBridgeCommand>(cmd);
         curObject->setProperty("Move", cmdBridg);

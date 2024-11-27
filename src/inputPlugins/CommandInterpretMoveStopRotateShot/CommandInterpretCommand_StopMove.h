@@ -2,6 +2,7 @@
 #define _COMMAND_INTERPRET_COMMAND_STOP_MOVE_H_
 
 #include <memory>
+#include <QDebug>
 #include "boost/any.hpp"
 
 #include "IoC/IoC.h"
@@ -22,14 +23,16 @@ public:
 
 	void Execute() override
 	{
+        qDebug() << QString::fromStdString(GetType());
+
         // так как в Interpret уже выставлен scope для нужной игры, мы просто получаем нужный объект
         std::unordered_map<unsigned long long, UObject_Ptr> curVectObject = ioc->Resolve<std::unordered_map<unsigned long long, UObject_Ptr> >(
             "GameItems");
         UObject_Ptr curObject = curVectObject.find(messagable->getIdObject())->second;
 
-        ioc->Resolve<ICommand_Ptr>(
-            "CommandInterpret.PrepareForStopMove",
-            curObject)->Execute();
+        // ioc->Resolve<ICommand_Ptr>(
+        //     "CommandInterpret.PrepareForStopMove",
+        //     curObject)->Execute();
 
         boost::any property = curObject->getProperty("Move");
         IBridgeCommand_Ptr cmd = boost::any_cast<IBridgeCommand_Ptr>(property);

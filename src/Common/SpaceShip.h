@@ -25,9 +25,9 @@ public:
 		mapKey["health"] = 0;
 
 		// выстрел
-		mapKey["shotRange"] = 0;
-		mapKey["shotAct"] = 0; // был выстрел или нет у объекта
-		mapKey["numberShot"] = 0; // кол-во выстрелов, патронов
+		mapKey["shotRange"] = 0; // int
+		mapKey["shotAct"] = 0; // был выстрел или нет у объекта //int
+		mapKey["numberShot"] = 1000; // кол-во выстрелов, патронов // int
 
         // длительные операции
         // mapKey["Move"] = IBridgeCommand_Ptr; - длительная операция движения

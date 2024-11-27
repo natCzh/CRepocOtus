@@ -21,7 +21,7 @@ public:
 		boost::any newValueAny = d-1;
 		obj->setNumberShot(newValueAny);
 
-        qDebug() << QString::fromStdString(GetType());
+        qDebug() << QString::fromStdString(GetType()) << "numberShot - " << boost::any_cast<int>(newValueAny);
 	}
 
 	std::string GetType() override
