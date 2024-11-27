@@ -27,9 +27,7 @@ TEST(TestCorePluginBattleCommand, test)
 
     std::map<std::string, boost::any> argsMap;
     int velPr = 1;
-    int dirAng = 1;
     argsMap["velocity"] = boost::any(velPr);
-    argsMap["directionAngular"] = boost::any(dirAng);
 
     boost::any idGameAny = idGame;
     std::string cmd = "CommandInterpret.StartMove";
@@ -56,12 +54,30 @@ TEST(TestCorePluginBattleCommand, test)
     mes_ptr_Rot->setProperty("id.Object", idGameAny);
     mes_ptr_Rot->setProperty("id.Sender", idGameAny);
 
-    core.addCommandForGame(mes_ptr);
+    std::map<std::string, boost::any> argsMapRot;
+    int dirAng = 1;
+    argsMapRot["directionAngular"] = boost::any(dirAng);
+    mes_ptr_Rot->setProperty("args", argsMapRot);
 
-/////////////////// message addCommandForGame CommandInterpret.Rotate
+    core.addCommandForGame(mes_ptr_Rot);
 
+/////////////////// message addCommandForGame CommandInterpret.Rotate через 10 сек
     using namespace std::chrono_literals;
-    std::this_thread::sleep_for(10s);
+    std::this_thread::sleep_for(3s);
+
+    std::shared_ptr<Message> mes_ptr_Rot2 = std::make_shared<Message>();
+    mes_ptr_Rot2->setProperty("TypeCommand", cmdAny2);
+    mes_ptr_Rot2->setProperty("id.Game", idGameAny);
+    mes_ptr_Rot2->setProperty("id.Object", idGameAny);
+    mes_ptr_Rot2->setProperty("id.Sender", idGameAny);
+
+    std::map<std::string, boost::any> argsMapRot2;
+    dirAng = -1;
+    argsMapRot2["directionAngular"] = boost::any(dirAng);
+    mes_ptr_Rot2->setProperty("args", argsMapRot2);
+
+    core.addCommandForGame(mes_ptr_Rot2);
+
 
 /////////////////// stopGame
     using namespace std::chrono_literals;
