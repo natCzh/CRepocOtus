@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     ////////////
     /////////////// connect Router client
     RouterServer rSrv(&asrv, &servSpaceGame);
-    std::string server_address_rsv("127.0.0.1:35453");
+    std::string server_address_rsv("127.0.0.1:35454");
     grpc::EnableDefaultHealthCheckService(true);
     ServerBuilder builderSrv;
     builderSrv.AddListeningPort(server_address_rsv, grpc::InsecureServerCredentials());
