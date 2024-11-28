@@ -1,14 +1,14 @@
 ﻿#include <iostream>
 
-#include "RouterSpaceGameClient.h"
+#include "RouterAuthorizationClient.h"
 
-void RouterSpaceGameClient::connectToServer(const std::string &serverAddress)
+void RouterAuthorizationClient::connectToServer(const std::string &serverAddress)
 {
     m_serverAdderess = serverAddress;
     processingFunction();
 }
 
-void RouterSpaceGameClient::processingFunction()
+void RouterAuthorizationClient::processingFunction()
 {
     std::cout << "Processing RouterSpaceGameClass starting" << std::endl;
 
@@ -20,7 +20,7 @@ void RouterSpaceGameClient::processingFunction()
     stub = authorization::Authorization::NewStub(ch);
 }
 
-bool RouterSpaceGameClient::CheckAuthorizationObj(unsigned long long idObj, unsigned long long &typeObj)
+bool RouterAuthorizationClient::CheckAuthorizationObj(unsigned long long idObj, unsigned long long &typeObj)
 {
     authorization::CheckAuthRequest request;
     request.set_idobj(idObj);
@@ -38,7 +38,7 @@ bool RouterSpaceGameClient::CheckAuthorizationObj(unsigned long long idObj, unsi
     return response.resultcheck();
 }
 
-unsigned long long RouterSpaceGameClient::AuthorizationObj(unsigned long long typeRegister)
+unsigned long long RouterAuthorizationClient::AuthorizationObj(unsigned long long typeRegister)
 {
     authorization::AuthObjRequest request;
     request.set_typeregister(typeRegister);

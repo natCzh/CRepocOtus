@@ -24,7 +24,8 @@ grpc::Status MainServerCorePluginBattleCommand::StartNewGame(grpc::ServerContext
     uobj_ptr->setProperty("id.Object", request->idobj());
     // тут это будет читаться с json TODO переделать !!!!!
     std::vector<unsigned long long> typeObjsVect{1};
-    uobj_ptr->setProperty("typeObjs", request->idobj());
+    boost::any typeObjsAny = typeObjsVect;
+    uobj_ptr->setProperty("typeObjs", typeObjsAny);
     std::vector<unsigned long long> idObjsVect{0}; // тут это будет читаться с json TODO переделать !!!!!
     boost::any idObjsAny = idObjsVect;
     uobj_ptr->setProperty("idObjsNewGame", idObjsAny);
@@ -41,7 +42,7 @@ grpc::Status MainServerCorePluginBattleCommand::StartNewGame(grpc::ServerContext
 grpc::Status MainServerCorePluginBattleCommand::AddCommandGame(grpc::ServerContext* context, const AddCommandGameRequest* request, AddCommandGameReply* response)
 {
     std::shared_ptr<Message> mes_ptr = std::make_shared<Message>();
-    boost::any idGameAny = request->idgame();
+    boost::any idGameAny = static_cast<unsigned int>(request->idgame());
     mes_ptr->setProperty("id.Game", idGameAny);
     boost::any idObjAny = request->idobj();
     mes_ptr->setProperty("id.Object", idGameAny);
@@ -52,6 +53,7 @@ grpc::Status MainServerCorePluginBattleCommand::AddCommandGame(grpc::ServerConte
 
     std::map<std::string, boost::any> argsMap;
     getMapFromStr(request->args(), argsMap);
+    mes_ptr->setProperty("args", argsMap);
     /*int velPr = 1;
     argsMap["velocity"] = boost::any(velPr);
     mes_ptr->setProperty("args", argsMap);*/
@@ -62,6 +64,8 @@ grpc::Status MainServerCorePluginBattleCommand::AddCommandGame(grpc::ServerConte
 
 grpc::Status MainServerCorePluginBattleCommand::StopGame(grpc::ServerContext* context, const StopGameRequest* request, StopGameReply* response)
 {
+    qDebug() << "Stop Game id " << (size_t)request->idgame();
+
     size_t idGame = (size_t)request->idgame();
     core->stopGame(idGame, 0);
 
@@ -77,14 +81,18 @@ void MainServerCorePluginBattleCommand::getMapFromStr(std::string str, std::map<
 
     const char* const delimeters2 = ", ";
     char* strCur2;
-    std::string str1 = strCur;
-    std::vector<std::string> words;
-    strCur2 = std::strtok(str1.data(), delimeters2);
-    while (strCur2 != nullptr)
+    if (strCur)
     {
-        words.push_back(strCur2);
-        strCur2 = std::strtok(nullptr, delimeters2);
-    }
+        std::string str1 = strCur;
 
-    mapCur[words[0]] = std::stoi(words[1]);
+        std::vector<std::string> words;
+        strCur2 = std::strtok(str1.data(), delimeters2);
+        while (strCur2 != nullptr)
+        {
+            words.push_back(strCur2);
+            strCur2 = std::strtok(nullptr, delimeters2);
+        }
+
+        mapCur[words[0]] = std::stoi(words[1]);
+    }
 }

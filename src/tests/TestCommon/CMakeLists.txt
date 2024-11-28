@@ -10,7 +10,7 @@ set(CMAKE_AUTOMOC ON)
 
 set(TESTS_${PROJECT_NAME}                  TestCollectionCommanrMultithread.cpp
 TestIoCCommand.cpp  TestMain.cpp   TestSpaceBattle.cpp   TestInitObjectGame.cpp
-TestCorePluginBattleCommand.cpp
+TestCorePluginBattleCommand.cpp TestMainServerCorePluginBattleCommand.cpp
 #TestIoCScopes.cpp 
 						  utest.cpp)
 

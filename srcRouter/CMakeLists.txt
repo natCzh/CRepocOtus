@@ -18,11 +18,12 @@ find_package(gRPC CONFIG REQUIRED)
 message(STATUS "Using gRPC version ${gRPC_VERSION}")
 find_package(Qt5 REQUIRED COMPONENTS Core)
 
-set(HEADERS RouterSpaceGameClass.h RouterSpaceGameClient.h)
+set(HEADERS RouterAuthorizationClient.h RouterSpaceGameServerClient.h)
 
-set(SOURCES main.cpp RouterSpaceGameClass.cpp RouterSpaceGameClient.cpp)
+set(SOURCES main.cpp authorization/RouterAuthorizationClient.cpp serverGame/RouterSpaceGameServerClient.cpp)
 
-set(PROTOC authorization.grpc.pb.h authorization.pb.h authorization.grpc.pb.cc authorization.pb.cc)
+set(PROTOC authorization/authorization.grpc.pb.h authorization/authorization.pb.h authorization/authorization.grpc.pb.cc authorization/authorization.pb.cc 
+            serverGame/router_serverGame.grpc.pb.cc serverGame/router_serverGame.pb.cc serverGame/router_serverGame.grpc.pb.h serverGame/router_serverGame.pb.h)
 
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Header Files" FILES ${HEADERS})

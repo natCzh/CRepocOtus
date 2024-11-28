@@ -4,6 +4,7 @@ project(natSpaceBattle)
 
 OPTION (TESTINCLUDE "Including utest " ON)
 OPTION (TEST_MoveCommandPlugin "Including test moveCommandPlugin" OFF)
+OPTION (APP_Start " " ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/)
 add_definitions(-D_USE_MATH_DEFINES)
@@ -22,7 +23,7 @@ FILE(GLOB_RECURSE HEADERS mainServer/MainServerCorePluginBattleCommand.h Command
                           RegisterCommand/*.h Scopes/*.h service/*.h service/TourneyService/*.h 
                           inputPlugins/CommandInterpretMoveStopRotateShot/*.h)
 
-FILE(GLOB_RECURSE SOURCES mainServer/MainServerCorePluginBattleCommand.cpp Scopes/*.cpp service/*.cpp service/TourneyService/*.cpp Command/*.cpp Common/*.cpp inputPlugins/CommandInterpretMoveStopRotateShot/*.cpp)
+FILE(GLOB_RECURSE SOURCES main.cpp mainServer/MainServerCorePluginBattleCommand.cpp Scopes/*.cpp service/*.cpp service/TourneyService/*.cpp Command/*.cpp Common/*.cpp inputPlugins/CommandInterpretMoveStopRotateShot/*.cpp)
 
 set(PROTOC mainServer/router_serverGame.grpc.pb.h mainServer/router_serverGame.pb.h mainServer/router_serverGame.grpc.pb.cc mainServer/router_serverGame.pb.cc)
 
@@ -54,6 +55,7 @@ find_package(Boost)
 SET(Boost_USE_STATIC_LIBS ON)
 SET(Boost_USE_MULTITHREAD ON)
 
+#add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${PROTOC})
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS} ${PROTOC})
 target_link_libraries(${PROJECT_NAME} PRIVATE IoC CommonLib)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
@@ -70,14 +72,22 @@ if(TESTINCLUDE)
         target_link_libraries(${PROJECT_NAME}_STATIC PRIVATE Qt5::Gui Qt5::Core Qt5::Widgets protobuf::libprotobuf gRPC::grpc++)
 endif()
 
-message(STATUS "root prefix path = ${CMAKE_INSTALL_PREFIX}")
-install(TARGETS ${PROJECT_NAME} DESTINATION .)
-
 if(TESTINCLUDE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/tests/TestCommon)
 endif()
 
+if(APP_Start)
+    add_executable(${PROJECT_NAME}_APP ${SOURCES} ${HEADERS} ${PROTOC})
+    #add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS} ${PROTOC})
+    target_link_libraries(${PROJECT_NAME}_APP PRIVATE IoC CommonLib)
+    set_target_properties(${PROJECT_NAME}_APP PROPERTIES CXX_STANDARD 17
+                                          CXX_STANDARD_REQUIRED ON)
+    target_include_directories(${PROJECT_NAME}_APP PRIVATE ${Boost_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME}_APP PRIVATE Qt5::Gui Qt5::Core Qt5::Widgets protobuf::libprotobuf gRPC::grpc++)
+endif()
 
-
+message(STATUS "root prefix path = ${CMAKE_INSTALL_PREFIX}")
+install(TARGETS ${PROJECT_NAME} DESTINATION .)
+install(TARGETS ${PROJECT_NAME}_APP DESTINATION .)
  
       

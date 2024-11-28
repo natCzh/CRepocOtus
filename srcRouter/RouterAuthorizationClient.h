@@ -1,5 +1,5 @@
-﻿#ifndef _ROUTER_SPACE_GAME_CLIENT_H_
-#define _ROUTER_SPACE_GAME_CLIENT_H_s
+﻿#ifndef _ROUTER_AUTHORIZATION_CLIENT_H_
+#define _ROUTER_AUTHORIZATION_CLIENT_H_
 
 #include <string>
 #include <memory>
@@ -9,18 +9,18 @@
 #include <grpcpp/client_context.h>
 #include <grpcpp/create_channel.h>
 
-#include "authorization.grpc.pb.h"
+#include "authorization/authorization.grpc.pb.h"
 
 using grpc::ClientAsyncReaderWriter;
 using grpc::Channel;
 
-class RouterSpaceGameClient
+class RouterAuthorizationClient
 {
 public:
 
-    RouterSpaceGameClient(){}
+    RouterAuthorizationClient(){}
 
-    virtual ~RouterSpaceGameClient(){}
+    virtual ~RouterAuthorizationClient(){}
 
     void connectToServer(const std::string &serverAddress);
 
@@ -39,4 +39,4 @@ private:
 
 };
 
-#endif /* _ROUTER_SPACE_GAME_CLIENT_H_ */
+#endif /* _ROUTER_AUTHORIZATION_CLIENT_H_ */
