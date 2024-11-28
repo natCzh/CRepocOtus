@@ -36,7 +36,6 @@ private:
 
     std::string                                                      m_serverAdderess;
     std::unique_ptr<authorization::Authorization::Stub>              stub;
-
 };
 
 #endif /* _ROUTER_AUTHORIZATION_CLIENT_H_ */

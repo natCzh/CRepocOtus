@@ -4,8 +4,9 @@
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
 
-#include "RouterAuthorizationClient.h"
-#include "RouterSpaceGameServerClient.h"
+#include "authorization/RouterAuthorizationClient.h"
+#include "serverGame/RouterSpaceGameServerClient.h"
+#include "routerMain/RouterServer.h"
 
 #include <thread>
 #include <chrono>
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
     grpc::EnableDefaultHealthCheckService(true);
     servSpaceGame.connectToServer(server_address_spaceGame);
     //////////// проверка для SpaceGame server
-    unsigned long long idObj = 0;
+    /*unsigned long long idObj = 0;
     int typeRegister = 1;
     std::string idOtherObj = "";
     std::string otherArgs = "";
@@ -88,7 +89,17 @@ int main(int argc, char *argv[])
     if (!flagResult)
         qDebug() << "ERROR stop GAME";
 
-    servSpaceGame.AddCommandGame(idObj, idGame, idObj, TypeCommandShot, argsShot);
+    servSpaceGame.AddCommandGame(idObj, idGame, idObj, TypeCommandShot, argsShot);*/
+    ////////////
+    /////////////// connect Router client
+    RouterServer rSrv(&asrv, &servSpaceGame);
+    std::string server_address_rsv("127.0.0.1:35453");
+    grpc::EnableDefaultHealthCheckService(true);
+    ServerBuilder builderSrv;
+    builderSrv.AddListeningPort(server_address_rsv, grpc::InsecureServerCredentials());
+    builderSrv.RegisterService(&rSrv);
+    std::unique_ptr<Server> serverSRSrv(builderSrv.BuildAndStart());
+    serverSRSrv->Wait();
 
 
     return a.exec();
