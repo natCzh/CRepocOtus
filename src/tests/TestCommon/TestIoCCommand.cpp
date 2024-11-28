@@ -51,6 +51,18 @@ TEST(TestIoCCommand, commonIoC_Register_value_int)
     ioc.Resolve<ICommand_Ptr, std::string, int>("IoC.Register", "A", x)->Execute();
 
     int xExp = ioc.Resolve<int>("A");
+
+    /////////////
+    std::unordered_map<int, int> xVect;
+    xVect.insert(std::make_pair(1, 1));
+    ioc.Resolve<ICommand_Ptr, std::string, std::unordered_map<int, int> >("IoC.Register", "AVect", xVect)->Execute();
+
+    std::unordered_map<int, int> xVectEx = ioc.Resolve<std::unordered_map<int, int> >("AVect");
+    xVectEx.insert(std::make_pair(2, 2));
+    ioc.Resolve<ICommand_Ptr, std::string, std::unordered_map<int, int> >("IoC.Register", "AVect", xVectEx)->Execute();
+
+    std::unordered_map<int, int> xVectEx2 = ioc.Resolve<std::unordered_map<int, int> >("AVect");
+    int sdfs = 0;
 }
 
 TEST(TestIoCCommand, commonIoC_Register_ICommand_Ptr_void)
