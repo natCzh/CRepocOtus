@@ -97,12 +97,21 @@ bool GuiClient::StopGame(unsigned long long idSender, unsigned long long idGame)
     return response.resultcheck();
 }
 
+void GuiClient::GetInfGame(unsigned long long idGame, std::string &infGame)
+{
+    client_router::GetInfGameRRequest request;
+    request.set_idgame(idGame);
+    client_router::GetInfGameRReply response;
+    grpc::ClientContext context;
 
+    grpc::Status status = stub->GetInfGameR(&context, request, &response);
 
+    if(!status.ok())
+    {
+        std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+        return;
+    }
 
+    infGame = response.infgame();
+}
 
-
-
-
-/*
-grpc::Status GetInfGameR(grpc::ServerContext* context, const GetInfGameRRequest* request, GetInfGameRReply* response) override;*/

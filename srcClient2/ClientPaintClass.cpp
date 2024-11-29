@@ -4,6 +4,10 @@
 #include <QPushButton>
 #include <QLineEdit>
 
+#include <string>
+#include <map>
+#include <vector>
+
 ClientPaintClass::ClientPaintClass(GuiClient *guiClient_, Logger *lg_, QWidget *parent)
     : QWidget(parent)
     , guiClient(guiClient_)
@@ -85,6 +89,7 @@ void ClientPaintClass::StartMove()
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
     lg->setLastLogMessage("Движение запущено");
+    LogGame();
 }
 
 void ClientPaintClass::RotableLeft()
@@ -98,6 +103,7 @@ void ClientPaintClass::RotableLeft()
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
     lg->setLastLogMessage("Поврот влево на 90 градусов");
+    LogGame();
 }
 
 void ClientPaintClass::RotableRight()
@@ -111,6 +117,7 @@ void ClientPaintClass::RotableRight()
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
     lg->setLastLogMessage("Поврот вправо на 90 градусов");
+    LogGame();
 }
 
 void ClientPaintClass::StopMove()
@@ -124,6 +131,7 @@ void ClientPaintClass::StopMove()
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
     lg->setLastLogMessage("Оставнока движения");
+    LogGame();
 }
 
 void ClientPaintClass::Shot()
@@ -137,6 +145,7 @@ void ClientPaintClass::Shot()
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
     lg->setLastLogMessage("Выстрел");
+    LogGame();
 }
 
 void ClientPaintClass::StopGame()
@@ -146,4 +155,55 @@ void ClientPaintClass::StopGame()
     bool result = guiClient->StopGame(idSender, idGameCur);
 
     lg->setLastLogMessage("Остановка движения");
+    LogGame();
+}
+
+void ClientPaintClass::LogGame()
+{
+    unsigned long long idGameCur = idGame;
+    std::string infGame;
+    guiClient->GetInfGame(idGameCur, infGame);
+
+    std::vector<std::map<std::string, int> > mapLog = ParseLogData(infGame);
+
+    QString value;
+    lg->setLastLogMessage("Космический корабль с ид -" + QString::number(mapLog[0]["id"]));
+    lg->setLastLogMessage("Текущие координаты -" + QString::number(mapLog[0]["x"]) + QString::number(mapLog[0]["y"]));
+    lg->setLastLogMessage("Количество заряда -" + QString::number(mapLog[0]["numberShot"]));
+}
+
+// пока для одного игрока
+std::vector<std::map<std::string, int> > ClientPaintClass::ParseLogData(const std::string &logData)
+{
+    std::map<std::string, int> oneObj;
+
+    //     std::string dsfsd = "velocity, 1;directionAngular, 1";
+    const char* const delimeters = ";";
+
+    std::string logDataStr = logData;
+    char* strCur = std::strtok(logDataStr.data(), delimeters);
+
+    const char* const delimeters2 = ",";
+    char* strCur2;
+    if (strCur)
+    {
+        std::string str1 = strCur;
+
+        std::vector<std::string> words;
+        strCur2 = std::strtok(str1.data(), delimeters2);
+        while (strCur2 != nullptr)
+        {
+            words.push_back(strCur2);
+            strCur2 = std::strtok(nullptr, delimeters2);
+        }
+
+        oneObj["id"] = std::stoi(words[0]);
+        oneObj["x"] = std::stoi(words[1]);
+        oneObj["y"] = std::stoi(words[2]);
+        oneObj["numberShot"] = std::stoi(words[3]);
+    }
+
+    std::vector<std::map<std::string, int> > result;
+    result.push_back(oneObj);
+    return result;
 }

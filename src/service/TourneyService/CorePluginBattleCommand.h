@@ -31,6 +31,8 @@ public:
     void startNewGame(size_t idGame, size_t idThread);
     void stopGame(size_t idGame, size_t idThread);
 
+    std::string getLogGame(size_t idGame);
+
 
 protected:
     void initPossiblePlugin();

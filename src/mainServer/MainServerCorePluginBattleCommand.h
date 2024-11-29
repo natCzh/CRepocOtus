@@ -25,6 +25,7 @@ public:
     grpc::Status StartNewGame(grpc::ServerContext* context, const StartNewGameRequest* request, StartNewGameReply* response) override;
     grpc::Status AddCommandGame(grpc::ServerContext* context, const AddCommandGameRequest* request, AddCommandGameReply* response) override;
     grpc::Status StopGame(grpc::ServerContext* context, const StopGameRequest* request, StopGameReply* response) override;
+    grpc::Status LogGame(grpc::ServerContext* context, const LogGameRequest* request, LogGameReply* response) override;
 
 protected:
     // читает только один параметр

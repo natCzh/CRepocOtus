@@ -32,12 +32,7 @@ int main(int argc, char *argv[])
 
     ClientPaintClass *mainWindInputdata = new ClientPaintClass(&srv, &lg, mainWidget.get());
 
-
-
-
     mainWidget->addWidget(mainWindInputdata);
-
-
 
     logWidget->setWindowTitle("Log");
     mainWidget->addWidget(logWidget);

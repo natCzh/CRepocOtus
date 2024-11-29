@@ -22,6 +22,7 @@ public:
 
     virtual void startNewGame(size_t idGame, size_t idThread) = 0;
     virtual void stopGame(size_t idGame, size_t idThread) = 0;
+    virtual std::string getLogGame(size_t idGame) = 0;
 };
 
 #endif /* _I_CORE_PLUGIN_BATTLE_COMMAND_H_ */

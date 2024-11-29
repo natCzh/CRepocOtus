@@ -30,6 +30,8 @@ public:
                         const std::string &TypeCommand, const std::string &args);
     bool StopGame(unsigned long long idGame);
 
+    std::string GetLogGame(size_t idGame);
+
     /// [out] зарегестрирован пользователь или нет
    //bool CheckAuthorizationObj(unsigned long long idObj, unsigned long long &typeObj);
 

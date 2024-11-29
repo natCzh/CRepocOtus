@@ -10,6 +10,8 @@ service ServerGame
   rpc AddCommandGame (AddCommandGameRequest) returns (AddCommandGameReply) {}
 
   rpc StopGame (StopGameRequest) returns (StopGameReply) {}
+
+  rpc LogGame (LogGameRequest) returns (LogGameReply) {}
 }
 
 message StartNewGameRequest 
@@ -49,5 +51,17 @@ message StopGameReply
 {
   bool resultCheck = 1;	
 }
+
+message LogGameRequest
+{
+  uint64 idGame = 1;	
+}
+
+message LogGameReply
+{
+  string logs = 1;	
+}
+
+
 
 

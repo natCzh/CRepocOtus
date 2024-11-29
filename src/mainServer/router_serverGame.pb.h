@@ -56,6 +56,12 @@ extern AddCommandGameReplyDefaultTypeInternal _AddCommandGameReply_default_insta
 class AddCommandGameRequest;
 struct AddCommandGameRequestDefaultTypeInternal;
 extern AddCommandGameRequestDefaultTypeInternal _AddCommandGameRequest_default_instance_;
+class LogGameReply;
+struct LogGameReplyDefaultTypeInternal;
+extern LogGameReplyDefaultTypeInternal _LogGameReply_default_instance_;
+class LogGameRequest;
+struct LogGameRequestDefaultTypeInternal;
+extern LogGameRequestDefaultTypeInternal _LogGameRequest_default_instance_;
 class StartNewGameReply;
 struct StartNewGameReplyDefaultTypeInternal;
 extern StartNewGameReplyDefaultTypeInternal _StartNewGameReply_default_instance_;
@@ -817,6 +823,354 @@ class StartNewGameReply final : public ::google::protobuf::Message
                           const StartNewGameReply& from_msg);
     ::uint64_t idgame_;
     bool resultcheck_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_router_5fserverGame_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LogGameRequest final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:router_serverGame.LogGameRequest) */ {
+ public:
+  inline LogGameRequest() : LogGameRequest(nullptr) {}
+  ~LogGameRequest() override;
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR LogGameRequest(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline LogGameRequest(const LogGameRequest& from) : LogGameRequest(nullptr, from) {}
+  inline LogGameRequest(LogGameRequest&& from) noexcept
+      : LogGameRequest(nullptr, std::move(from)) {}
+  inline LogGameRequest& operator=(const LogGameRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LogGameRequest& operator=(LogGameRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const LogGameRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LogGameRequest* internal_default_instance() {
+    return reinterpret_cast<const LogGameRequest*>(
+        &_LogGameRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 6;
+  friend void swap(LogGameRequest& a, LogGameRequest& b) { a.Swap(&b); }
+  inline void Swap(LogGameRequest* other) {
+    if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr && GetArena() == other->GetArena()) {
+#else   // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LogGameRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LogGameRequest* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return ::google::protobuf::Message::DefaultConstruct<LogGameRequest>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const LogGameRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const LogGameRequest& from) { LogGameRequest::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() final;
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(LogGameRequest* other);
+ private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() { return "router_serverGame.LogGameRequest"; }
+
+ protected:
+  explicit LogGameRequest(::google::protobuf::Arena* arena);
+  LogGameRequest(::google::protobuf::Arena* arena, const LogGameRequest& from);
+  LogGameRequest(::google::protobuf::Arena* arena, LogGameRequest&& from) noexcept
+      : LogGameRequest(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::Message::ClassData* GetClassData() const final;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kIdGameFieldNumber = 1,
+  };
+  // uint64 idGame = 1;
+  void clear_idgame() ;
+  ::uint64_t idgame() const;
+  void set_idgame(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_idgame() const;
+  void _internal_set_idgame(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:router_serverGame.LogGameRequest)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      0, 2>
+      _table_;
+
+  static constexpr const void* _raw_default_instance_ =
+      &_LogGameRequest_default_instance_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const LogGameRequest& from_msg);
+    ::uint64_t idgame_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_router_5fserverGame_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LogGameReply final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:router_serverGame.LogGameReply) */ {
+ public:
+  inline LogGameReply() : LogGameReply(nullptr) {}
+  ~LogGameReply() override;
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR LogGameReply(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline LogGameReply(const LogGameReply& from) : LogGameReply(nullptr, from) {}
+  inline LogGameReply(LogGameReply&& from) noexcept
+      : LogGameReply(nullptr, std::move(from)) {}
+  inline LogGameReply& operator=(const LogGameReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LogGameReply& operator=(LogGameReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const LogGameReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LogGameReply* internal_default_instance() {
+    return reinterpret_cast<const LogGameReply*>(
+        &_LogGameReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 7;
+  friend void swap(LogGameReply& a, LogGameReply& b) { a.Swap(&b); }
+  inline void Swap(LogGameReply* other) {
+    if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr && GetArena() == other->GetArena()) {
+#else   // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LogGameReply* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LogGameReply* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return ::google::protobuf::Message::DefaultConstruct<LogGameReply>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const LogGameReply& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const LogGameReply& from) { LogGameReply::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() final;
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(LogGameReply* other);
+ private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() { return "router_serverGame.LogGameReply"; }
+
+ protected:
+  explicit LogGameReply(::google::protobuf::Arena* arena);
+  LogGameReply(::google::protobuf::Arena* arena, const LogGameReply& from);
+  LogGameReply(::google::protobuf::Arena* arena, LogGameReply&& from) noexcept
+      : LogGameReply(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::Message::ClassData* GetClassData() const final;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kLogsFieldNumber = 1,
+  };
+  // string logs = 1;
+  void clear_logs() ;
+  const std::string& logs() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_logs(Arg_&& arg, Args_... args);
+  std::string* mutable_logs();
+  PROTOBUF_NODISCARD std::string* release_logs();
+  void set_allocated_logs(std::string* value);
+
+  private:
+  const std::string& _internal_logs() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_logs(
+      const std::string& value);
+  std::string* _internal_mutable_logs();
+
+  public:
+  // @@protoc_insertion_point(class_scope:router_serverGame.LogGameReply)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      43, 2>
+      _table_;
+
+  static constexpr const void* _raw_default_instance_ =
+      &_LogGameReply_default_instance_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const LogGameReply& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr logs_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1714,6 +2068,86 @@ inline bool StopGameReply::_internal_resultcheck() const {
 inline void StopGameReply::_internal_set_resultcheck(bool value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.resultcheck_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// LogGameRequest
+
+// uint64 idGame = 1;
+inline void LogGameRequest::clear_idgame() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.idgame_ = ::uint64_t{0u};
+}
+inline ::uint64_t LogGameRequest::idgame() const {
+  // @@protoc_insertion_point(field_get:router_serverGame.LogGameRequest.idGame)
+  return _internal_idgame();
+}
+inline void LogGameRequest::set_idgame(::uint64_t value) {
+  _internal_set_idgame(value);
+  // @@protoc_insertion_point(field_set:router_serverGame.LogGameRequest.idGame)
+}
+inline ::uint64_t LogGameRequest::_internal_idgame() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.idgame_;
+}
+inline void LogGameRequest::_internal_set_idgame(::uint64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.idgame_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// LogGameReply
+
+// string logs = 1;
+inline void LogGameReply::clear_logs() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.logs_.ClearToEmpty();
+}
+inline const std::string& LogGameReply::logs() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:router_serverGame.LogGameReply.logs)
+  return _internal_logs();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void LogGameReply::set_logs(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.logs_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:router_serverGame.LogGameReply.logs)
+}
+inline std::string* LogGameReply::mutable_logs() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_logs();
+  // @@protoc_insertion_point(field_mutable:router_serverGame.LogGameReply.logs)
+  return _s;
+}
+inline const std::string& LogGameReply::_internal_logs() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.logs_.Get();
+}
+inline void LogGameReply::_internal_set_logs(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.logs_.Set(value, GetArena());
+}
+inline std::string* LogGameReply::_internal_mutable_logs() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.logs_.Mutable( GetArena());
+}
+inline std::string* LogGameReply::release_logs() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:router_serverGame.LogGameReply.logs)
+  return _impl_.logs_.Release();
+}
+inline void LogGameReply::set_allocated_logs(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.logs_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.logs_.IsDefault()) {
+          _impl_.logs_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:router_serverGame.LogGameReply.logs)
 }
 
 #ifdef __GNUC__

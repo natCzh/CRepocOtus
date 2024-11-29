@@ -109,6 +109,46 @@ struct StartNewGameReplyDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartNewGameReplyDefaultTypeInternal _StartNewGameReply_default_instance_;
 
+inline constexpr LogGameRequest::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : idgame_{::uint64_t{0u}},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR LogGameRequest::LogGameRequest(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct LogGameRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LogGameRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LogGameRequestDefaultTypeInternal() {}
+  union {
+    LogGameRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogGameRequestDefaultTypeInternal _LogGameRequest_default_instance_;
+
+inline constexpr LogGameReply::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : logs_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR LogGameReply::LogGameReply(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct LogGameReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LogGameReplyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LogGameReplyDefaultTypeInternal() {}
+  union {
+    LogGameReply _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogGameReplyDefaultTypeInternal _LogGameReply_default_instance_;
+
 inline constexpr AddCommandGameRequest::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : typecommand_(
@@ -226,6 +266,24 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::router_serverGame::StopGameReply, _impl_.resultcheck_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::router_serverGame::LogGameRequest, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::router_serverGame::LogGameRequest, _impl_.idgame_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::router_serverGame::LogGameReply, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::router_serverGame::LogGameReply, _impl_.logs_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -236,6 +294,8 @@ static const ::_pbi::MigrationSchema
         {35, -1, -1, sizeof(::router_serverGame::AddCommandGameReply)},
         {44, -1, -1, sizeof(::router_serverGame::StopGameRequest)},
         {53, -1, -1, sizeof(::router_serverGame::StopGameReply)},
+        {62, -1, -1, sizeof(::router_serverGame::LogGameRequest)},
+        {71, -1, -1, sizeof(::router_serverGame::LogGameReply)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::router_serverGame::_StartNewGameRequest_default_instance_._instance,
@@ -244,6 +304,8 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::router_serverGame::_AddCommandGameReply_default_instance_._instance,
     &::router_serverGame::_StopGameRequest_default_instance_._instance,
     &::router_serverGame::_StopGameReply_default_instance_._instance,
+    &::router_serverGame::_LogGameRequest_default_instance_._instance,
+    &::router_serverGame::_LogGameReply_default_instance_._instance,
 };
 const char descriptor_table_protodef_router_5fserverGame_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -257,27 +319,30 @@ const char descriptor_table_protodef_router_5fserverGame_2eproto[] ABSL_ATTRIBUT
     "ypeCommand\030\004 \001(\t\022\014\n\004args\030\005 \001(\t\"(\n\023AddCom"
     "mandGameReply\022\021\n\tobjParams\030\001 \001(\t\"!\n\017Stop"
     "GameRequest\022\016\n\006idGame\030\001 \001(\004\"$\n\rStopGameR"
-    "eply\022\023\n\013resultCheck\030\001 \001(\0102\246\002\n\nServerGame"
-    "\022^\n\014StartNewGame\022&.router_serverGame.Sta"
-    "rtNewGameRequest\032$.router_serverGame.Sta"
-    "rtNewGameReply\"\000\022d\n\016AddCommandGame\022(.rou"
-    "ter_serverGame.AddCommandGameRequest\032&.r"
-    "outer_serverGame.AddCommandGameReply\"\000\022R"
-    "\n\010StopGame\022\".router_serverGame.StopGameR"
-    "equest\032 .router_serverGame.StopGameReply"
-    "\"\000b\006proto3"
+    "eply\022\023\n\013resultCheck\030\001 \001(\010\" \n\016LogGameRequ"
+    "est\022\016\n\006idGame\030\001 \001(\004\"\034\n\014LogGameReply\022\014\n\004l"
+    "ogs\030\001 \001(\t2\367\002\n\nServerGame\022^\n\014StartNewGame"
+    "\022&.router_serverGame.StartNewGameRequest"
+    "\032$.router_serverGame.StartNewGameReply\"\000"
+    "\022d\n\016AddCommandGame\022(.router_serverGame.A"
+    "ddCommandGameRequest\032&.router_serverGame"
+    ".AddCommandGameReply\"\000\022R\n\010StopGame\022\".rou"
+    "ter_serverGame.StopGameRequest\032 .router_"
+    "serverGame.StopGameReply\"\000\022O\n\007LogGame\022!."
+    "router_serverGame.LogGameRequest\032\037.route"
+    "r_serverGame.LogGameReply\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_router_5fserverGame_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_router_5fserverGame_2eproto = {
     false,
     false,
-    730,
+    875,
     descriptor_table_protodef_router_5fserverGame_2eproto,
     "router_serverGame.proto",
     &descriptor_table_router_5fserverGame_2eproto_once,
     nullptr,
     0,
-    6,
+    8,
     schemas,
     file_default_instances,
     TableStruct_router_5fserverGame_2eproto::offsets,
@@ -1625,6 +1690,370 @@ void StopGameReply::InternalSwap(StopGameReply* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata StopGameReply::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class LogGameRequest::_Internal {
+ public:
+};
+
+LogGameRequest::LogGameRequest(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:router_serverGame.LogGameRequest)
+}
+LogGameRequest::LogGameRequest(
+    ::google::protobuf::Arena* arena, const LogGameRequest& from)
+    : LogGameRequest(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE LogGameRequest::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void LogGameRequest::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.idgame_ = {};
+}
+LogGameRequest::~LogGameRequest() {
+  // @@protoc_insertion_point(destructor:router_serverGame.LogGameRequest)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void LogGameRequest::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+LogGameRequest::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(LogGameRequest, _impl_._cached_size_),
+              false,
+          },
+          &LogGameRequest::MergeImpl,
+          &LogGameRequest::kDescriptorMethods,
+          &descriptor_table_router_5fserverGame_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> LogGameRequest::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_LogGameRequest_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::router_serverGame::LogGameRequest>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // uint64 idGame = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(LogGameRequest, _impl_.idgame_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(LogGameRequest, _impl_.idgame_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // uint64 idGame = 1;
+    {PROTOBUF_FIELD_OFFSET(LogGameRequest, _impl_.idgame_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void LogGameRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:router_serverGame.LogGameRequest)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.idgame_ = ::uint64_t{0u};
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* LogGameRequest::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:router_serverGame.LogGameRequest)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // uint64 idGame = 1;
+  if (this->_internal_idgame() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_idgame(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:router_serverGame.LogGameRequest)
+  return target;
+}
+
+::size_t LogGameRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:router_serverGame.LogGameRequest)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 idGame = 1;
+  if (this->_internal_idgame() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_idgame());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void LogGameRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<LogGameRequest*>(&to_msg);
+  auto& from = static_cast<const LogGameRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:router_serverGame.LogGameRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_idgame() != 0) {
+    _this->_impl_.idgame_ = from._impl_.idgame_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LogGameRequest::CopyFrom(const LogGameRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:router_serverGame.LogGameRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void LogGameRequest::InternalSwap(LogGameRequest* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+        swap(_impl_.idgame_, other->_impl_.idgame_);
+}
+
+::google::protobuf::Metadata LogGameRequest::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class LogGameReply::_Internal {
+ public:
+};
+
+LogGameReply::LogGameReply(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:router_serverGame.LogGameReply)
+}
+inline PROTOBUF_NDEBUG_INLINE LogGameReply::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::router_serverGame::LogGameReply& from_msg)
+      : logs_(arena, from.logs_),
+        _cached_size_{0} {}
+
+LogGameReply::LogGameReply(
+    ::google::protobuf::Arena* arena,
+    const LogGameReply& from)
+    : ::google::protobuf::Message(arena) {
+  LogGameReply* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:router_serverGame.LogGameReply)
+}
+inline PROTOBUF_NDEBUG_INLINE LogGameReply::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : logs_(arena),
+        _cached_size_{0} {}
+
+inline void LogGameReply::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+LogGameReply::~LogGameReply() {
+  // @@protoc_insertion_point(destructor:router_serverGame.LogGameReply)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void LogGameReply::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.logs_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+LogGameReply::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(LogGameReply, _impl_._cached_size_),
+              false,
+          },
+          &LogGameReply::MergeImpl,
+          &LogGameReply::kDescriptorMethods,
+          &descriptor_table_router_5fserverGame_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 43, 2> LogGameReply::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_LogGameReply_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::router_serverGame::LogGameReply>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string logs = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(LogGameReply, _impl_.logs_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string logs = 1;
+    {PROTOBUF_FIELD_OFFSET(LogGameReply, _impl_.logs_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\36\4\0\0\0\0\0\0"
+    "router_serverGame.LogGameReply"
+    "logs"
+  }},
+};
+
+PROTOBUF_NOINLINE void LogGameReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:router_serverGame.LogGameReply)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.logs_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* LogGameReply::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:router_serverGame.LogGameReply)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string logs = 1;
+  if (!this->_internal_logs().empty()) {
+    const std::string& _s = this->_internal_logs();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "router_serverGame.LogGameReply.logs");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:router_serverGame.LogGameReply)
+  return target;
+}
+
+::size_t LogGameReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:router_serverGame.LogGameReply)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string logs = 1;
+  if (!this->_internal_logs().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_logs());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void LogGameReply::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<LogGameReply*>(&to_msg);
+  auto& from = static_cast<const LogGameReply&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:router_serverGame.LogGameReply)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_logs().empty()) {
+    _this->_internal_set_logs(from._internal_logs());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LogGameReply::CopyFrom(const LogGameReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:router_serverGame.LogGameReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void LogGameReply::InternalSwap(LogGameReply* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.logs_, &other->_impl_.logs_, arena);
+}
+
+::google::protobuf::Metadata LogGameReply::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

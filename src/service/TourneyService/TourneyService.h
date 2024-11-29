@@ -39,6 +39,8 @@ public:
     /// Добавим команду в игру
     void AddCommandToGame(idGameAndThread idGame, size_t scopeId, std::shared_ptr<Message> m);
 
+    void LogGame(idGameAndThread idGame, std::string &logData);
+
 
 protected:
     SpaceBattle                                                       spaceBattle;

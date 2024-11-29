@@ -54,5 +54,5 @@ bool RouterMainClass::StopGame(unsigned long long idSender, unsigned long long i
 
 void RouterMainClass::GetInfGame(unsigned long long idGame, std::string &infGame)
 {
-    // TODO дописать !!!!!!!!!!
+    infGame = spaceGameClient->GetLogGame(idGame);
 }

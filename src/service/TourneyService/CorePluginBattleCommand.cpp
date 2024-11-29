@@ -16,6 +16,9 @@
 
 #include "Command/InitCommonCommand.h"
 
+#include "service/ILogger.h"
+#include "service/LoggerSimple.h"
+
 CorePluginBattleCommand::CorePluginBattleCommand()
 {
     ioc = new IoC();
@@ -157,4 +160,15 @@ void CorePluginBattleCommand::stopGame(size_t idGame, size_t idThread)
     idGameAndThread idGameStr{idGame, idThread};
     tourneyService.StopGame(idGameStr);
 }
+
+std::string CorePluginBattleCommand::getLogGame(size_t idGame)
+{
+    std::pair<size_t,size_t > infScope = storageScope.getIdInfScope(idGame);
+    ioc->Resolve<void>("Scopes.Current.SetId", infScope.first);
+
+    LoggerSimple log;
+    return log.logProcess();
+}
+
+
 

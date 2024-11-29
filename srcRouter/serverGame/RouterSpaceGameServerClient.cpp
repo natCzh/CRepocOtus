@@ -78,5 +78,22 @@ bool RouterSpaceGameServerClient::StopGame(unsigned long long idGame)
     return response.resultcheck();
 }
 
+std::string RouterSpaceGameServerClient::GetLogGame(size_t idGame)
+{
+    router_serverGame::LogGameRequest request;
+    request.set_idgame(idGame);
+    router_serverGame::LogGameReply response;
+    grpc::ClientContext context;
+
+    grpc::Status status = stub->LogGame(&context, request, &response);
+    if(!status.ok())
+    {
+        std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+        return "";
+    }
+
+    return response.logs();
+}
+
 
 

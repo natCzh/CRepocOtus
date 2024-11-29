@@ -29,6 +29,9 @@ protected slots:
     void Shot();
     void StopGame();
 
+    void LogGame();
+    std::vector<std::map<std::string, int> > ParseLogData(const std::string &logData);
+
 private:
     FieldGame                               *fieldGame;
 

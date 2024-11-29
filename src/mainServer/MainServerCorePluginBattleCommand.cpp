@@ -72,6 +72,16 @@ grpc::Status MainServerCorePluginBattleCommand::StopGame(grpc::ServerContext* co
     return Status::OK;
 }
 
+grpc::Status MainServerCorePluginBattleCommand::LogGame(grpc::ServerContext* context, const LogGameRequest* request, LogGameReply* response)
+{
+    qDebug() << "Log Game id " << (size_t)request->idgame();
+
+    std::string logStr = core->getLogGame((size_t)request->idgame());
+    response->set_logs(logStr);
+
+    return Status::OK;
+}
+
 void MainServerCorePluginBattleCommand::getMapFromStr(std::string str, std::map<std::string, boost::any> &mapCur)
 {
 //     std::string dsfsd = "velocity, 1;directionAngular, 1";

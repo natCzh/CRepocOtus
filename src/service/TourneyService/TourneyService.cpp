@@ -35,3 +35,8 @@ void TourneyService::StopGame(idGameAndThread idGame)
 {
     spaceBattle.StopGame(idGame.threadId);
 }
+
+void TourneyService::LogGame(idGameAndThread idGame, std::string &logData)
+{
+    spaceBattle.StopGame(idGame.threadId);
+}

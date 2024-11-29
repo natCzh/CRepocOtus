@@ -25,6 +25,7 @@ static const char* ServerGame_method_names[] = {
   "/router_serverGame.ServerGame/StartNewGame",
   "/router_serverGame.ServerGame/AddCommandGame",
   "/router_serverGame.ServerGame/StopGame",
+  "/router_serverGame.ServerGame/LogGame",
 };
 
 std::unique_ptr< ServerGame::Stub> ServerGame::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -37,6 +38,7 @@ ServerGame::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   : channel_(channel), rpcmethod_StartNewGame_(ServerGame_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_AddCommandGame_(ServerGame_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_StopGame_(ServerGame_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_LogGame_(ServerGame_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ServerGame::Stub::StartNewGame(::grpc::ClientContext* context, const ::router_serverGame::StartNewGameRequest& request, ::router_serverGame::StartNewGameReply* response) {
@@ -108,6 +110,29 @@ void ServerGame::Stub::async::StopGame(::grpc::ClientContext* context, const ::r
   return result;
 }
 
+::grpc::Status ServerGame::Stub::LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::router_serverGame::LogGameReply* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_LogGame_, context, request, response);
+}
+
+void ServerGame::Stub::async::LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LogGame_, context, request, response, std::move(f));
+}
+
+void ServerGame::Stub::async::LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LogGame_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>* ServerGame::Stub::PrepareAsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::router_serverGame::LogGameReply, ::router_serverGame::LogGameRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_LogGame_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>* ServerGame::Stub::AsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncLogGameRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 ServerGame::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ServerGame_method_names[0],
@@ -139,6 +164,16 @@ ServerGame::Service::Service() {
              ::router_serverGame::StopGameReply* resp) {
                return service->StopGame(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ServerGame_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ServerGame::Service, ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ServerGame::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::router_serverGame::LogGameRequest* req,
+             ::router_serverGame::LogGameReply* resp) {
+               return service->LogGame(ctx, req, resp);
+             }, this)));
 }
 
 ServerGame::Service::~Service() {
@@ -159,6 +194,13 @@ ServerGame::Service::~Service() {
 }
 
 ::grpc::Status ServerGame::Service::StopGame(::grpc::ServerContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ServerGame::Service::LogGame(::grpc::ServerContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response) {
   (void) context;
   (void) request;
   (void) response;

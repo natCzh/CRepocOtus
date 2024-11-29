@@ -57,6 +57,13 @@ class ServerGame final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::StopGameReply>> PrepareAsyncStopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::StopGameReply>>(PrepareAsyncStopGameRaw(context, request, cq));
     }
+    virtual ::grpc::Status LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::router_serverGame::LogGameReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>> AsyncLogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>>(AsyncLogGameRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>> PrepareAsyncLogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>>(PrepareAsyncLogGameRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -66,6 +73,8 @@ class ServerGame final {
       virtual void AddCommandGame(::grpc::ClientContext* context, const ::router_serverGame::AddCommandGameRequest* request, ::router_serverGame::AddCommandGameReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void StopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void StopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -77,6 +86,8 @@ class ServerGame final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::AddCommandGameReply>* PrepareAsyncAddCommandGameRaw(::grpc::ClientContext* context, const ::router_serverGame::AddCommandGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::StopGameReply>* AsyncStopGameRaw(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::StopGameReply>* PrepareAsyncStopGameRaw(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>* AsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::router_serverGame::LogGameReply>* PrepareAsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -102,6 +113,13 @@ class ServerGame final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::StopGameReply>> PrepareAsyncStopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::StopGameReply>>(PrepareAsyncStopGameRaw(context, request, cq));
     }
+    ::grpc::Status LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::router_serverGame::LogGameReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>> AsyncLogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>>(AsyncLogGameRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>> PrepareAsyncLogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>>(PrepareAsyncLogGameRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -111,6 +129,8 @@ class ServerGame final {
       void AddCommandGame(::grpc::ClientContext* context, const ::router_serverGame::AddCommandGameRequest* request, ::router_serverGame::AddCommandGameReply* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response, std::function<void(::grpc::Status)>) override;
       void StopGame(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, std::function<void(::grpc::Status)>) override;
+      void LogGame(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -128,9 +148,12 @@ class ServerGame final {
     ::grpc::ClientAsyncResponseReader< ::router_serverGame::AddCommandGameReply>* PrepareAsyncAddCommandGameRaw(::grpc::ClientContext* context, const ::router_serverGame::AddCommandGameRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::router_serverGame::StopGameReply>* AsyncStopGameRaw(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::router_serverGame::StopGameReply>* PrepareAsyncStopGameRaw(::grpc::ClientContext* context, const ::router_serverGame::StopGameRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>* AsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::router_serverGame::LogGameReply>* PrepareAsyncLogGameRaw(::grpc::ClientContext* context, const ::router_serverGame::LogGameRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_StartNewGame_;
     const ::grpc::internal::RpcMethod rpcmethod_AddCommandGame_;
     const ::grpc::internal::RpcMethod rpcmethod_StopGame_;
+    const ::grpc::internal::RpcMethod rpcmethod_LogGame_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -141,6 +164,7 @@ class ServerGame final {
     virtual ::grpc::Status StartNewGame(::grpc::ServerContext* context, const ::router_serverGame::StartNewGameRequest* request, ::router_serverGame::StartNewGameReply* response);
     virtual ::grpc::Status AddCommandGame(::grpc::ServerContext* context, const ::router_serverGame::AddCommandGameRequest* request, ::router_serverGame::AddCommandGameReply* response);
     virtual ::grpc::Status StopGame(::grpc::ServerContext* context, const ::router_serverGame::StopGameRequest* request, ::router_serverGame::StopGameReply* response);
+    virtual ::grpc::Status LogGame(::grpc::ServerContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_StartNewGame : public BaseClass {
@@ -202,7 +226,27 @@ class ServerGame final {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_StartNewGame<WithAsyncMethod_AddCommandGame<WithAsyncMethod_StopGame<Service > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_LogGame() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestLogGame(::grpc::ServerContext* context, ::router_serverGame::LogGameRequest* request, ::grpc::ServerAsyncResponseWriter< ::router_serverGame::LogGameReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_StartNewGame<WithAsyncMethod_AddCommandGame<WithAsyncMethod_StopGame<WithAsyncMethod_LogGame<Service > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_StartNewGame : public BaseClass {
    private:
@@ -284,7 +328,34 @@ class ServerGame final {
     virtual ::grpc::ServerUnaryReactor* StopGame(
       ::grpc::CallbackServerContext* /*context*/, const ::router_serverGame::StopGameRequest* /*request*/, ::router_serverGame::StopGameReply* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_StartNewGame<WithCallbackMethod_AddCommandGame<WithCallbackMethod_StopGame<Service > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_LogGame() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::router_serverGame::LogGameRequest* request, ::router_serverGame::LogGameReply* response) { return this->LogGame(context, request, response); }));}
+    void SetMessageAllocatorFor_LogGame(
+        ::grpc::MessageAllocator< ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LogGame(
+      ::grpc::CallbackServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_StartNewGame<WithCallbackMethod_AddCommandGame<WithCallbackMethod_StopGame<WithCallbackMethod_LogGame<Service > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_StartNewGame : public BaseClass {
@@ -333,6 +404,23 @@ class ServerGame final {
     }
     // disable synchronous version of this method
     ::grpc::Status StopGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::StopGameRequest* /*request*/, ::router_serverGame::StopGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_LogGame() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -395,6 +483,26 @@ class ServerGame final {
     }
     void RequestStopGame(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_LogGame() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestLogGame(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -461,6 +569,28 @@ class ServerGame final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* StopGame(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_LogGame() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LogGame(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LogGame(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -544,9 +674,36 @@ class ServerGame final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedStopGame(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::router_serverGame::StopGameRequest,::router_serverGame::StopGameReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_StartNewGame<WithStreamedUnaryMethod_AddCommandGame<WithStreamedUnaryMethod_StopGame<Service > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_LogGame : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_LogGame() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::router_serverGame::LogGameRequest, ::router_serverGame::LogGameReply>* streamer) {
+                       return this->StreamedLogGame(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_LogGame() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status LogGame(::grpc::ServerContext* /*context*/, const ::router_serverGame::LogGameRequest* /*request*/, ::router_serverGame::LogGameReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedLogGame(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::router_serverGame::LogGameRequest,::router_serverGame::LogGameReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_StartNewGame<WithStreamedUnaryMethod_AddCommandGame<WithStreamedUnaryMethod_StopGame<WithStreamedUnaryMethod_LogGame<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_StartNewGame<WithStreamedUnaryMethod_AddCommandGame<WithStreamedUnaryMethod_StopGame<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_StartNewGame<WithStreamedUnaryMethod_AddCommandGame<WithStreamedUnaryMethod_StopGame<WithStreamedUnaryMethod_LogGame<Service > > > > StreamedService;
 };
 
 }  // namespace router_serverGame
