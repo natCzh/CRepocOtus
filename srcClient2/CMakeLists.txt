@@ -19,9 +19,9 @@ message(STATUS "Using gRPC version ${gRPC_VERSION}")
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 
 #TODO переделать это!!
-set(HEADERS ClientPaintClass.h FieldGame/FieldGame.h GuiClient.h LoggerVisitor.h)
+set(HEADERS ClientPaintClass.h FieldGame/FieldGame.h GuiClient.h LoggerVisitor.h CustomLog/CustomLog.h CustomLog/MessageType.h)
 
-set(SOURCES main.cpp ClientPaintClass.cpp FieldGame/FieldGame.cpp GuiClient.cpp)
+set(SOURCES main.cpp ClientPaintClass.cpp FieldGame/FieldGame.cpp GuiClient.cpp CustomLog/CustomLog.cpp)
 
 set(PROTOC protoFile/client_router.grpc.pb.cc protoFile/client_router.pb.cc protoFile/client_router.grpc.pb.h protoFile/client_router.pb.h)
 

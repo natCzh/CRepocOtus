@@ -8,10 +8,9 @@
 #include <map>
 #include <vector>
 
-ClientPaintClass::ClientPaintClass(GuiClient *guiClient_, Logger *lg_, QWidget *parent)
+ClientPaintClass::ClientPaintClass(GuiClient *guiClient_, QWidget *parent)
     : QWidget(parent)
     , guiClient(guiClient_)
-    , lg(lg_)
 {
     QVBoxLayout *vbxMain = new QVBoxLayout(this);
     QHBoxLayout *hboxButtonUp = new QHBoxLayout();
@@ -66,7 +65,7 @@ void ClientPaintClass::AuthorizationButton()
     size_t typeRegister = 1; // сейчас всегда 1
     idObj = guiClient->AuthorizationObj(typeRegister);
     authorLine->setText(QString::number(idObj));
-    lg->setLastLogMessage("Новый пользователь с ид " + QString::number(idObj));
+    CustomLogger.SetLogData("Новый пользователь с ид " + QString::number(idObj), MessageType::Default);
 }
 
 void ClientPaintClass::StartNewGame()
@@ -75,7 +74,7 @@ void ClientPaintClass::StartNewGame()
     std::string otherArgs = "";
     bool result = guiClient->StartNewGame(idObj, idOtherObj, otherArgs, idGame);
     newGameLine->setText(QString::number(idGame));
-    lg->setLastLogMessage("Новая игра " + QString::number(idGame));
+    CustomLogger.SetLogData("Новая игра " + QString::number(idGame), MessageType::Default);
 }
 
 void ClientPaintClass::StartMove()
@@ -88,7 +87,7 @@ void ClientPaintClass::StartMove()
 
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
-    lg->setLastLogMessage("Движение запущено");
+    CustomLogger.SetLogData("Движение запущено", MessageType::Default);
     LogGame();
 }
 
@@ -102,7 +101,7 @@ void ClientPaintClass::RotableLeft()
 
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
-    lg->setLastLogMessage("Поврот влево на 90 градусов");
+    CustomLogger.SetLogData("Поврот влево на 90 градусов", MessageType::Default);
     LogGame();
 }
 
@@ -116,7 +115,7 @@ void ClientPaintClass::RotableRight()
 
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
-    lg->setLastLogMessage("Поврот вправо на 90 градусов");
+    CustomLogger.SetLogData("Поврот вправо на 90 градусов", MessageType::Default);
     LogGame();
 }
 
@@ -130,7 +129,7 @@ void ClientPaintClass::StopMove()
 
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
-    lg->setLastLogMessage("Оставнока движения");
+    CustomLogger.SetLogData("Оставнока движения", MessageType::Default);
     LogGame();
 }
 
@@ -144,7 +143,7 @@ void ClientPaintClass::Shot()
 
     bool result = guiClient->AddCommandGame(idSender, idGameCur, idObjCur, TypeCommand, args);
 
-    lg->setLastLogMessage("Выстрел");
+    CustomLogger.SetLogData("Выстрел", MessageType::Default);
     LogGame();
 }
 
@@ -154,7 +153,7 @@ void ClientPaintClass::StopGame()
     unsigned long long idGameCur = idGame;
     bool result = guiClient->StopGame(idSender, idGameCur);
 
-    lg->setLastLogMessage("Остановка движения");
+    CustomLogger.SetLogData("Остановка движения", MessageType::Default);
     LogGame();
 }
 
@@ -166,10 +165,8 @@ void ClientPaintClass::LogGame()
 
     std::vector<std::map<std::string, int> > mapLog = ParseLogData(infGame);
 
-    QString value;
-    lg->setLastLogMessage("Космический корабль с ид -" + QString::number(mapLog[0]["id"]));
-    lg->setLastLogMessage("Текущие координаты -" + QString::number(mapLog[0]["x"]) + QString::number(mapLog[0]["y"]));
-    lg->setLastLogMessage("Количество заряда -" + QString::number(mapLog[0]["numberShot"]));
+    CustomLogger.SetLogData("ид -" + QString::number(mapLog[0]["id"]), MessageType::Clear);
+    CustomLogger.SetLogData("Текущие координаты - [" + QString::number(mapLog[0]["x"]) + ", " + QString::number(mapLog[0]["y"]) + "] Количество заряда - " + QString::number(mapLog[0]["numberShot"]), MessageType::Clear);
 }
 
 // пока для одного игрока

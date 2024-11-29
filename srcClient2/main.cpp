@@ -7,6 +7,7 @@
 #include "Logger/logger.h"
 #include "ClientPaintClass.h"
 #include "GuiClient.h"
+#include "CustomLog/CustomLog.h"
 
 
 int main(int argc, char *argv[])
@@ -29,8 +30,8 @@ int main(int argc, char *argv[])
     QObject *logObj = lg.createLogWidget(mainWidget.get());
     QWidget *logWidget = dynamic_cast<QWidget*>(logObj);
 
-
-    ClientPaintClass *mainWindInputdata = new ClientPaintClass(&srv, &lg, mainWidget.get());
+    ClientPaintClass *mainWindInputdata = new ClientPaintClass(&srv, mainWidget.get());
+    mainWindInputdata->CustomLogger.setLogWidget(logWidget);
 
     mainWidget->addWidget(mainWindInputdata);
 
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
 
     mainWidget->show();
 
+    QObject::connect(&mainWindInputdata->CustomLogger, &CustomLog::LogMessage, &lg, &Logger::setLastLogMessage);
 
     return a.exec();
 }

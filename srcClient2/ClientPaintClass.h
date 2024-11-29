@@ -8,6 +8,7 @@
 #include "FieldGame/FieldGame.h"
 #include "GuiClient.h"
 #include "Logger/logger.h"
+#include "CustomLog/CustomLog.h"
 
 class QAction;
 
@@ -16,8 +17,10 @@ class ClientPaintClass : public QWidget
     Q_OBJECT
 public:
 
-    explicit ClientPaintClass(GuiClient *guiClient, Logger *lg, QWidget *parent = 0);
+    explicit ClientPaintClass(GuiClient *guiClient, QWidget *parent = 0);
     ~ClientPaintClass(){}
+
+    CustomLog CustomLogger;
 
 protected slots:
     void AuthorizationButton();
@@ -40,7 +43,6 @@ private:
     GuiClient                               *guiClient;
     unsigned long long                      idObj;
     unsigned long long                      idGame;
-    Logger *lg;
 };
 
 #endif /* _CLIENT_PAINT_CLASS_H */
