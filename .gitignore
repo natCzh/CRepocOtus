@@ -1,2 +1,9 @@
 /out
-
+/build-Debug
+/build-Release
+/build-RelWithDebInfo
+/build-srcRouter-Debug
+/build-srcRouter-Release
+/srcAuthorization/build-Debug
+/srcAuthorization/build-Release
+/srcClient2/build-Debug

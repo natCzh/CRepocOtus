@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package authorization;
+
+// The greeting service definition.
+service Authorization
+{
+  rpc CheckAuthorizationObj (CheckAuthRequest) returns (CheckAuthReply) {}
+
+  rpc AuthorizationObj (AuthObjRequest) returns (AuthObjReply) {}
+}
+
+message CheckAuthRequest
+{
+  uint64 idObj = 1;
+}
+
+message CheckAuthReply
+{
+  bool resultCheck = 1;	
+  uint64 typeObj = 2;
+}
+
+message AuthObjRequest
+{
+  uint64 typeRegister = 1;
+}
+
+message AuthObjReply
+{
+  uint64 idObj = 1;
+}
+
+

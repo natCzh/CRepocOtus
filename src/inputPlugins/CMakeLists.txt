@@ -1,0 +1,5 @@
+add_subdirectory(MoveCommandPlugin)
+add_subdirectory(RotateCommandPlugin)
+add_subdirectory(ShotCommandPlugin)
+
+

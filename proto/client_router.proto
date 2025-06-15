@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package client_router;
+
+// The greeting service definition.
+service Router
+{
+  rpc AuthorizationObjR (AuthObjRRequest) returns (AuthObjRReply) {}
+  rpc StartNewGameR (StartNewGameRRequest) returns (StartNewGameRReply) {}
+  rpc AddCommandGameR (AddCommandGameRRequest) returns (AddCommandGameRReply) {}
+  rpc StopGameR (StopGameRRequest) returns (StopGameRReply) {}
+  rpc GetInfGameR (GetInfGameRRequest) returns (GetInfGameRReply) {}
+}
+
+message AuthObjRRequest
+{
+  int32 typeRegister = 1;
+}
+
+message AuthObjRReply
+{
+  uint64 idObj = 1;
+}
+
+message StartNewGameRRequest
+{
+  uint64 idObj = 1;
+  string idOtherObj = 3;
+  string otherArgs = 4;
+}
+
+message StartNewGameRReply
+{
+  bool resultCheck = 1;	
+  uint64 idGame = 2;
+}
+
+message AddCommandGameRRequest
+{
+  uint64 idSender = 1;
+  uint64 idGame = 2;
+  uint64 idObj = 3;
+  string TypeCommand = 4;
+  string args = 5;
+}
+
+message AddCommandGameRReply
+{
+  string objParams = 1;
+}
+
+message StopGameRRequest
+{
+  uint64 idSender = 1;
+  uint64 idGame = 2;
+}
+
+message StopGameRReply
+{
+  bool resultCheck = 1;
+}
+
+message GetInfGameRRequest
+{
+  uint64 idGame = 1;
+}
+
+message GetInfGameRReply
+{
+  string infGame = 1;
+}
+
+
+
+

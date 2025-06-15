@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package router_serverGame;
+
+// The greeting service definition.
+service ServerGame
+{
+  rpc StartNewGame (StartNewGameRequest) returns (StartNewGameReply) {}
+
+  rpc AddCommandGame (AddCommandGameRequest) returns (AddCommandGameReply) {}
+
+  rpc StopGame (StopGameRequest) returns (StopGameReply) {}
+
+  rpc LogGame (LogGameRequest) returns (LogGameReply) {}
+}
+
+message StartNewGameRequest 
+{
+  uint64 idObj = 1;
+  int32 typeRegister = 2;
+  string idOtherObj = 3;
+  string otherArgs = 4;
+}
+
+message StartNewGameReply
+{
+  bool resultCheck = 1;	
+  uint64 idGame = 2;
+}
+
+message AddCommandGameRequest
+{
+  uint64 idSender = 1;
+  uint64 idGame = 2;
+  uint64 idObj = 3;
+  string TypeCommand = 4;
+  string args = 5; 
+}
+
+message AddCommandGameReply
+{
+  string objParams = 1;
+}
+
+message StopGameRequest
+{
+  uint64 idGame = 1;
+}
+
+message StopGameReply
+{
+  bool resultCheck = 1;	
+}
+
+message LogGameRequest
+{
+  uint64 idGame = 1;	
+}
+
+message LogGameReply
+{
+  string logs = 1;	
+}
+
+
+
+

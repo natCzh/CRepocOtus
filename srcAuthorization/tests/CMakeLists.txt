@@ -1,20 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(natSpaceBattle)
+project(TestAuthorizationGame)
 
-include_directories(/)
+include_directories(${PROJECT_SOURCE_DIR})
 
-set(SOURCES src/main.cpp)
+set(TESTS_${PROJECT_NAME} TestMain.cpp utest.cpp)
 
-#set(HEADERS src/SolutionEq.h)
+source_group ("Test Files" FILES ${TESTS_${PROJECT_NAME}})
 
-set(TESTS_PROJECT_FILES tests/TestMain.cpp
-                            tests/utest.cpp)
-
-source_group ("Source Files" FILES ${SOURCES})
-source_group ("Header Files" FILES ${HEADERS})
-
-add_subdirectory(${PROJECT_SOURCE_DIR}/test/googletest)
+add_subdirectory(test/googletest)
 enable_testing()
 
 if(MSVC)
@@ -54,10 +48,17 @@ if(MSVC)
     endif()
 endif()
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${TESTS_PROJECT_FILES})
+# //////////////// Boost
+find_package(Boost)
+SET(Boost_USE_STATIC_LIBS OFF)
+SET(Boost_USE_MULTITHREAD ON)
+
+add_executable(${PROJECT_NAME} ${TESTS_${PROJECT_NAME}})
 target_link_libraries(${PROJECT_NAME} PRIVATE gmock gtest)
+target_link_libraries(${PROJECT_NAME} PRIVATE authorizationGame_STATIC)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/test/googletest/googletest/include
 								 ${PROJECT_SOURCE_DIR}/test/googletest/googlemock/include
-								 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+                                 ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17
+                                      CXX_STANDARD_REQUIRED ON)
 
- 
